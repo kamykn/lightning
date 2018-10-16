@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Muffin",
+  "short_name": "Muffin",
+  "version": "0.0.1",
+  "description": "タブ、履歴、ブックマークのWebAssemblyによる高速なあいまい検索",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "page_action": {
+    "default_icon": {
+	  "19": "images/icon19.png"
+	},
+	"default_title": "Muffin",
+	"default_popup": "popup.html"
+  },
+  "permissions": [
+    "tabs",
+    "bookmarks",
+	"history"
+  ],
+  "homepage_url": "http://github.com/kamykn/muffin"
+}
