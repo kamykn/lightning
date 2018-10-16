@@ -1,0 +1,22 @@
+{
+  "name": "muffin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamykn/muffin.git"
+  },
+  "author": "kamykn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamykn/muffin/issues"
+  },
+  "homepage": "https://github.com/kamykn/muffin#readme",
+  "dependencies": {
+    "muff": "^0.1.2"
+  }
+}
