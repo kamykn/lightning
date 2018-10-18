@@ -4,6 +4,7 @@
   "short_name": "Muffin",
   "version": "0.0.1",
   "description": "タブ、履歴、ブックマークのWebAssemblyによる高速なあいまい検索",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "icons": {
     "16": "images/icon16.png",
     "48": "images/icon48.png",

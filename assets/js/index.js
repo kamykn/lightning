@@ -1,15 +1,35 @@
 import { muff } from "muff"
+import Vue from "vue/dist/vue.esm.js"
 
-muff.setReturnListLength(20)
-muff.setSearchWordList(['aaa', 'bbb', 'ccc'])
+window.onload = function() {
+	init()
+}
 
-document.getElementById("search").addEventListener("change", () => {
-	let inputStr = this.value
-	muffSearch(inputStr)
-})
+function init() {
+	Vue.component('muffin-search-component', {
+		data() {
+			return {
+				inputValue: ''
+			}
+		},
+		template: `
+			<div>
+				<input v-on:change="search" v-model="inputValue" type="text">
+				{{ inputValue }}
+			</div>
+		`,
+		methods: {
+			search: function() {
+				console.log(5)
+				let r = muff.search(this.inputValue);
+				console.log(r)
+			}
+		}
+	})
 
-function muffSearch(inputStr) {
-	let result = muff.search(inputStr)
-	console.log(result)
+	new Vue({el: '#muffin'})
+
+	muff.setReturnListLength(20)
+	muff.setSearchWordList(['aaa', 'bbb', 'ccc'])
 }
 
