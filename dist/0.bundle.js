@@ -13,36 +13,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue/dist/vue.esm.js */ "./node_modules/vue/dist/vue.esm.js");
 
 
-console.log(1);
 
 window.onload = function () {
-  console.log(2);
   init();
 };
 
 function init() {
-  console.log(3);
   vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"].component('muffin-search-component', {
     data: function data() {
       return {
-        inputValue: ''
+        inputValue: '',
+        resultList: []
       };
     },
-    template: "\n\t\t\t<div>\n\t\t\t\t<input v-on:change=\"search\" v-model=\"inputValue\" type=\"text\">\n\t\t\t\t{{ inputValue }}\n\t\t\t</div>\n\t\t",
+    template: "\n\t\t\t<div>\n\t\t\t\t<input @keyup=\"search\" v-model=\"inputValue\" type=\"text\">\n\t\t\t\t<div>\n\t\t\t\t\t{{ inputValue }}\n\t\t\t\t</div>\n\t\t\t\t<ul>\n\t\t\t\t\t<li v-for=\"item in resultList\">\n\t\t\t\t\t\t{{ item }}\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t",
     methods: {
       search: function search() {
-        console.log(5);
-        var r = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(this.inputValue);
-        console.log(r);
+        console.log(this.inputValue);
+        var result = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(this.inputValue);
+        console.log(result);
+        this.resultList = result.list;
       }
     }
   });
-  console.log(4);
   new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
     el: '#muffin'
   });
+  var query = {
+    text: ''
+  };
+  var historyList = [];
+  chrome.history.search(query, function (results) {
+    // resultsは配列なので、forEach()関数を実行することが出来る
+    results.forEach(function (result) {
+      // resultひとつひとつがHistoryItem形式
+      console.log(result);
+      console.log(result.title);
+      historyList.push(result.url); // historyList.push(result.title) // マルチバイトかなんかダメ説
+    });
+    console.log(historyList);
+    muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(historyList);
+  });
   muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20);
-  muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(['aaa', 'bbb', 'ccc']);
 }
 
 /***/ })
