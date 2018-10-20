@@ -29,7 +29,7 @@ function init() {
 		methods: {
 			search: function() {
 				console.log(this.inputValue)
-				let result = muff.search(this.inputValue);
+				let result = muff.search(this.inputValue)
 				console.log(result)
 				this.resultList = result.list
 			}
@@ -39,19 +39,20 @@ function init() {
 	new Vue({el: '#muffin'})
 
 
-	const query = { text: '' }
+	const query = { text: '', maxResults: 1000 }
 	let historyList = []
 	chrome.history.search(query, function (results) {
 		// resultsは配列なので、forEach()関数を実行することが出来る
 		results.forEach(function (result) {
 			// resultひとつひとつがHistoryItem形式
-			console.log(result)
+			console.log(result.url)
 			console.log(result.title)
-			historyList.push(result.url);
-			// historyList.push(result.title) // マルチバイトかなんかダメ説
+			historyList.push(result.url)
+			historyList.push(result.title)
 		});
 
 		console.log(historyList)
+		console.log(results.length)
 		muff.setSearchWordList(historyList)
 	});
 

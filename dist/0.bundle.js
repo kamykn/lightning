@@ -40,18 +40,21 @@ function init() {
     el: '#muffin'
   });
   var query = {
-    text: ''
+    text: '',
+    maxResults: 1000
   };
   var historyList = [];
   chrome.history.search(query, function (results) {
     // resultsは配列なので、forEach()関数を実行することが出来る
     results.forEach(function (result) {
       // resultひとつひとつがHistoryItem形式
-      console.log(result);
+      console.log(result.url);
       console.log(result.title);
-      historyList.push(result.url); // historyList.push(result.title) // マルチバイトかなんかダメ説
+      historyList.push(result.url);
+      historyList.push(result.title);
     });
     console.log(historyList);
+    console.log(results.length);
     muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(historyList);
   });
   muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20);
