@@ -26,7 +26,7 @@ function init() {
         resultList: []
       };
     },
-    template: "\n\t\t\t<div>\n\t\t\t\t<input @keyup=\"search\" v-model=\"inputValue\" type=\"text\">\n\t\t\t\t<div>\n\t\t\t\t\t{{ inputValue }}\n\t\t\t\t</div>\n\t\t\t\t<ul>\n\t\t\t\t\t<li v-for=\"item in resultList\">\n\t\t\t\t\t\t{{ item }}\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t",
+    template: "\n\t\t\t<div>\n\t\t\t\t<input @keyup=\"search\" v-model=\"inputValue\" type=\"text\">\n\t\t\t\t<div>\n\t\t\t\t\t{{ inputValue }}\n\t\t\t\t</div>\n\t\t\t\t<ul>\n\t\t\t\t\t<li v-for=\"item in resultList\">\n\t\t\t\t\t\t<a v-bind:href=\"item.url\" target=\"_blank\">{{ item.title }}</a>\n\t\t\t\t\t\t<span>{{ item.url }}</span>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t",
     methods: {
       search: function search() {
         console.log(this.inputValue);
@@ -50,8 +50,10 @@ function init() {
       // resultひとつひとつがHistoryItem形式
       console.log(result.url);
       console.log(result.title);
-      historyList.push(result.url);
-      historyList.push(result.title);
+      historyList.push({
+        url: result.url,
+        title: result.title
+      });
     });
     console.log(historyList);
     console.log(results.length);

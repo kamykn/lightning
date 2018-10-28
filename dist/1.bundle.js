@@ -4,20 +4,20 @@
 /*!*********************************************!*\
   !*** ./node_modules/muff-wasm/muff_wasm.js ***!
   \*********************************************/
-/*! exports provided: setSearchWordList, setReturnListLength, wazf, __wbindgen_throw */
+/*! exports provided: setSearchWordList, setReturnListLength, fuzzyMatch, __wbindgen_throw */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSearchWordList", function() { return setSearchWordList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReturnListLength", function() { return setReturnListLength; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wazf", function() { return wazf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fuzzyMatch", function() { return fuzzyMatch; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__wbindgen_throw", function() { return __wbindgen_throw; });
 /* harmony import */ var _muff_wasm_bg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./muff_wasm_bg */ "./node_modules/muff-wasm/muff_wasm_bg.wasm");
 /* tslint:disable */
 
 
-let cachedEncoder = new TextEncoder('utf-8');
+let cachedTextEncoder = new TextEncoder('utf-8');
 
 let cachegetUint8Memory = null;
 function getUint8Memory() {
@@ -29,7 +29,7 @@ function getUint8Memory() {
 
 function passStringToWasm(arg) {
 
-    const buf = cachedEncoder.encode(arg);
+    const buf = cachedTextEncoder.encode(arg);
     const ptr = _muff_wasm_bg__WEBPACK_IMPORTED_MODULE_0__["__wbindgen_malloc"](buf.length);
     getUint8Memory().set(buf, ptr);
     return [ptr, buf.length];
@@ -58,10 +58,10 @@ function setReturnListLength(arg0) {
     return _muff_wasm_bg__WEBPACK_IMPORTED_MODULE_0__["setReturnListLength"](arg0);
 }
 
-let cachedDecoder = new TextDecoder('utf-8');
+let cachedTextDecoder = new TextDecoder('utf-8');
 
 function getStringFromWasm(ptr, len) {
-    return cachedDecoder.decode(getUint8Memory().subarray(ptr, ptr + len));
+    return cachedTextDecoder.decode(getUint8Memory().subarray(ptr, ptr + len));
 }
 
 let cachedGlobalArgumentPtr = null;
@@ -83,11 +83,11 @@ function getUint32Memory() {
 * @param {string} arg0
 * @returns {string}
 */
-function wazf(arg0) {
+function fuzzyMatch(arg0) {
     const [ptr0, len0] = passStringToWasm(arg0);
     const retptr = globalArgumentPtr();
     try {
-        _muff_wasm_bg__WEBPACK_IMPORTED_MODULE_0__["wazf"](retptr, ptr0, len0);
+        _muff_wasm_bg__WEBPACK_IMPORTED_MODULE_0__["fuzzyMatch"](retptr, ptr0, len0);
         const mem = getUint32Memory();
         const rustptr = mem[retptr / 4];
         const rustlen = mem[retptr / 4 + 1];
@@ -116,7 +116,7 @@ function __wbindgen_throw(ptr, len) {
 /*!**************************************************!*\
   !*** ./node_modules/muff-wasm/muff_wasm_bg.wasm ***!
   \**************************************************/
-/*! exports provided: memory, __indirect_function_table, __heap_base, __data_end, __wbindgen_global_argument_ptr, setSearchWordList, setReturnListLength, wazf, __wbindgen_malloc, __wbindgen_free */
+/*! exports provided: memory, __indirect_function_table, __heap_base, __data_end, setSearchWordList, setReturnListLength, fuzzyMatch, __wbindgen_global_argument_ptr, __wbindgen_malloc, __wbindgen_free */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -161,7 +161,7 @@ class Muff {
 	}
 
 	search(inputWord) {
-		return JSON.parse(this.wasm.wazf(inputWord))
+		return JSON.parse(this.wasm.fuzzyMatch(inputWord))
 	}
 }
 

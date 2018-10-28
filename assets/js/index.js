@@ -21,7 +21,8 @@ function init() {
 				</div>
 				<ul>
 					<li v-for="item in resultList">
-						{{ item }}
+						<a v-bind:href="item.url" target="_blank">{{ item.title }}</a>
+						<span>{{ item.url }}</span>
 					</li>
 				</ul>
 			</div>
@@ -47,8 +48,10 @@ function init() {
 			// resultひとつひとつがHistoryItem形式
 			console.log(result.url)
 			console.log(result.title)
-			historyList.push(result.url)
-			historyList.push(result.title)
+			historyList.push({
+				url: result.url,
+				title: result.title
+			})
 		});
 
 		console.log(historyList)
