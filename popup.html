@@ -3,10 +3,17 @@
 		<meta charset="UTF-8">
 	</head>
 	<body>
-		こっち
 		<div id="muffin">
-			<muffin-search-component></muffin-search-component>
+			<input v-model="inputValue" type="text">
+			{{ inputValue }}
+			<ul>
+				<li v-for="result in results">
+					<a v-bind:href="result.url" target="_blank">{{ result.title }}</a>
+					<span>{{ result.url }}</span>
+				</li>
+			</ul>
 		</div>
+
 		<script src="./dist/bundle.js"></script>
 	</body>
 </html>

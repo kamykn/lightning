@@ -11,45 +11,56 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var muff__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! muff */ "./node_modules/muff/index.js");
 /* harmony import */ var vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue/dist/vue.esm.js */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_rx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-rx */ "./node_modules/vue-rx/dist/vue-rx.esm.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 
 
+
+
+
+vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"].use(vue_rx__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 window.onload = function () {
   init();
 };
 
+var vm = null;
+
 function init() {
-  vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"].component('muffin-search-component', {
-    data: function data() {
-      return {
-        inputValue: '',
-        resultList: []
-      };
+  vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
+    el: '#muffin',
+    data: {
+      inputValue: ''
     },
-    template: "\n\t\t\t<div>\n\t\t\t\t<input @keyup=\"search\" v-model=\"inputValue\" type=\"text\">\n\t\t\t\t<div>\n\t\t\t\t\t{{ inputValue }}\n\t\t\t\t</div>\n\t\t\t\t<ul>\n\t\t\t\t\t<li v-for=\"item in resultList\">\n\t\t\t\t\t\t<a v-bind:href=\"item.url\" target=\"_blank\">{{ item.title }}</a>\n\t\t\t\t\t\t<span>{{ item.url }}</span>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t",
     methods: {
-      search: function search() {
-        console.log(this.inputValue);
-        var result = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(this.inputValue);
-        console.log(result);
-        this.resultList = result.list;
+      search: function search(inputValue) {
+        return new Promise(function (resolve) {
+          var results = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(inputValue);
+          resolve(results);
+        });
+      },
+      setData: function setData(results) {
+        return results.list;
       }
+    },
+    subscriptions: function subscriptions() {
+      return {
+        results: this.$watchAsObservable('inputValue').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(this.search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(this.setData))
+      };
     }
   });
-  new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
-    el: '#muffin'
-  });
+  var startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 265;
   var query = {
     text: '',
-    maxResults: 1000
+    startTime: startTime,
+    maxResults: 1000000
   };
   var historyList = [];
   chrome.history.search(query, function (results) {
     // resultsは配列なので、forEach()関数を実行することが出来る
     results.forEach(function (result) {
       // resultひとつひとつがHistoryItem形式
-      console.log(result.url);
-      console.log(result.title);
       historyList.push({
         url: result.url,
         title: result.title
