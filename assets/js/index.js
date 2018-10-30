@@ -1,8 +1,10 @@
-import { muff } from "muff"
-import Vue from "vue/dist/vue.esm.js"
+import { muff } from 'muff'
+import Vue from 'vue/dist/vue.esm.js'
 import VueRx from 'vue-rx'
 import { from } from 'rxjs';
 import { pluck, debounceTime, switchMap, map } from 'rxjs/operators'
+
+import style from '../scss/style.scss'
 
 Vue.use(VueRx)
 

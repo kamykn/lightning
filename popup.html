@@ -4,16 +4,21 @@
 	</head>
 	<body>
 		<div id="muffin">
-			<input v-model="inputValue" type="text">
-			{{ inputValue }}
-			<ul>
-				<li v-for="result in results">
-					<a v-bind:href="result.url" target="_blank">{{ result.title }}</a>
-					<span>{{ result.url }}</span>
-				</li>
-			</ul>
+			<header>
+				なんやかんや
+			</header>
+			<div id="main">
+				<input id="search" v-model="inputValue" type="text">
+				<ul>
+					<li v-for="result in results">
+						<a v-bind:href="result.url" target="_blank">
+							<div class="title">{{ result.title }}</div>
+							<div class="url">{{ result.url }}</div>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-
-		<script src="./dist/bundle.js"></script>
+		<script type="text/javascript" src="./dist/bundle.js"></script>
 	</body>
 </html>
