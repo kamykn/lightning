@@ -5,7 +5,15 @@
 	<body>
 		<div id="muffin">
 			<header>
-				なんやかんや
+				<div id="tabs">
+					<span>History</span>
+					<span>Tabs</span>
+					<span>Bookmarks</span>
+				</div>
+				<div id="selected">
+					{{ selectedTabName }}
+					History
+				</div>
 			</header>
 			<div id="main">
 				<input id="search" v-model="inputValue" type="text">

@@ -49,7 +49,7 @@ function init() {
     },
     subscriptions: function subscriptions() {
       return {
-        results: this.$watchAsObservable('inputValue').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(100), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(this.search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(this.setData))
+        results: this.$watchAsObservable('inputValue').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(this.search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(this.setData))
       };
     }
   });
@@ -62,7 +62,8 @@ function init() {
   var historyList = [];
   chrome.history.search(query, function (results) {
     // resultsは配列なので、forEach()関数を実行することが出来る
-    results.forEach(function (result) {
+    var reverseResult = results.reverse();
+    reverseResult.forEach(function (result) {
       // resultひとつひとつがHistoryItem形式
       historyList.push({
         url: result.url,

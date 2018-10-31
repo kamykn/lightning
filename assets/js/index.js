@@ -36,7 +36,7 @@ function init() {
 			return {
 				results: this.$watchAsObservable('inputValue').pipe(
 					pluck('newValue'),
-					debounceTime(100),
+					debounceTime(500),
 					switchMap(this.search),
 					map(this.setData)
 				)
@@ -53,7 +53,8 @@ function init() {
 	let historyList = []
 	chrome.history.search(query, function (results) {
 		// resultsは配列なので、forEach()関数を実行することが出来る
-		results.forEach(function (result) {
+		const reverseResult = results.reverse()
+		reverseResult.forEach(function (result) {
 			// resultひとつひとつがHistoryItem形式
 			historyList.push({
 				url: result.url,
