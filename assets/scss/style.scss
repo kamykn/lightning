@@ -12,9 +12,39 @@ header {
 	width: 100%;
 	height: 70px;
 
-	#tabs {
+	$dotHeight: 10px;
+	$dotsAreaHeight: 30px;
+	#dots {
 		width: 100%;
-		height: 40px;
+		height: $dotHeight;
+		padding-top: ($dotsAreaHeight - $dotHeight) / 2;
+		padding-bottom: ($dotsAreaHeight - $dotHeight) / 2;
+		padding-right: 0;
+		padding-left: 0;
+		text-align: center;
+	}
+
+	@mixin dot() {
+		height: $dotHeight;
+		width: $dotHeight;
+		border-radius: 50%;
+		margin: 0 5px;
+		display: inline-block;
+	}
+
+	#history {
+		background: #F18900;
+		@include dot();
+	}
+
+	#tabs {
+		background: #F18900;
+		@include dot();
+	}
+
+	#bookmarks {
+		background: #F18900;
+		@include dot();
 	}
 
 	#selected {
