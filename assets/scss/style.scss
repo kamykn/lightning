@@ -1,8 +1,14 @@
 @charset "UTF-8";
 
+
+/**
+ * MEMO
+ * https://color.adobe.com/ja/Copy-of-Ventana-Azul-color-theme-11432380/edit/?copy=true&base=2&rule=Custom&selected=3&name=%E3%82%B3%E3%83%94%E3%83%BC%20Copy%20of%20Ventana%20Azul&mode=rgb&rgbvalues=0.94902,0.235294,0.313726,1,0.796078,0.0196078,0.913725,0.945098,0.87451,0.290196,0.85098,0.85098,0.211765,0.694118,0.74902&swatchOrder=0,1,2,3,4
+*/
+
 body {
 	background: #F7F7F7;
-	color: #2c2d30;
+	color: #262626;
 	margin: 0px;
 	width: 500px;
 }
@@ -33,17 +39,17 @@ header {
 	}
 
 	#history {
-		background: #F18900;
+		background: #F23C50;
 		@include dot();
 	}
 
 	#tabs {
-		background: #F18900;
+		background: #FFCB05;
 		@include dot();
 	}
 
 	#bookmarks {
-		background: #F18900;
+		background: #4AD9D9;
 		@include dot();
 	}
 
@@ -67,7 +73,7 @@ header {
 		border-radius: 2px;
 		height: 35px;
 		border: 1px solid #ddd;
-		margin: 10px 0;
+		margin-bottom: 10px;
 		padding: 5px;
 		font-size: 14px;
 	}
@@ -78,20 +84,30 @@ header {
 		max-height: 300px;
 		overflow: scroll;
 		overflow-x: hidden;
+		border-radius: 10px;
+		border: 1px solid #eee;
+		border-radius: 10px;
+		border: 1px solid #ddd;
 
 		li {
 			list-style: none;
-			padding: 15px 0;
+			padding: 12px 0;
 			border-top: 1px solid #EEE;
+			background: #FFF;
+
+			&:first-child {
+				border-top: none;
+			}
 
 			a {
 				text-decoration: none;
 
 				.title {
-					color: #F18900;
-					font-size: 14px;
+					color: #2ec1d1;
+					font-weight: bold;
+					font-size: 12px;
 					padding: 0 10px;
-					margin-bottom: 5px;
+					margin-bottom: 3px;
 				}
 
 				.url {
