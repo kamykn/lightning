@@ -12,11 +12,70 @@ window.onload = function() {
 	init()
 }
 
-let vm = null;
-
 function init() {
+	// setHistoryTab();
+	setBookmarksTab();
+	muff.setReturnListLength(20)
 
-	vm = new Vue({
+	vueInit();
+}
+
+function setBookmarksTab() {
+	chrome.bookmarks.getTree((bookmarksTree) => {
+		let searchWordList = []
+		searchWordList = pushBookmarkListRecursive(bookmarksTree, searchWordList)
+		console.log(searchWordList)
+		muff.setSearchWordList(searchWordList)
+	});
+}
+
+function pushBookmarkListRecursive(bookmarksTree, searchWordList) {
+	for (let i =0; i < bookmarksTree.length; i++) {
+		let bookmark = bookmarksTree[i];
+
+		if (bookmark.url) {
+			searchWordList.push({
+				// path: bookmark.index,
+				title: bookmark.title,
+				url: bookmark.url
+			})
+		}
+
+		if (bookmark.children) {
+			searchWordList = pushBookmarkListRecursive(bookmark.children, searchWordList);
+		}
+	}
+
+	return searchWordList
+}
+
+function setHistoryTab() {
+	// 1年分
+	const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 265)
+	const query = {
+		text: '',
+		startTime: startTime,
+		maxResults: 50000
+	}
+
+	let historyList = []
+	chrome.history.search(query, function (results) {
+		// resultsは配列なので、forEach()関数を実行することが出来る
+		const reverseResult = results.reverse()
+		reverseResult.forEach(function (result) {
+			// resultひとつひとつがHistoryItem形式
+			historyList.push({
+				url: result.url,
+				title: result.title
+			})
+		});
+
+		muff.setSearchWordList(historyList)
+	})
+}
+
+function vueInit() {
+	new Vue({
 		el: '#muffin',
 		data: {
 			inputValue: ''
@@ -43,30 +102,4 @@ function init() {
 			}
 		}
 	})
-
-	const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 265)
-	const query = {
-		text: '',
-		startTime: startTime,
-		maxResults: 1000000
-	}
-	let historyList = []
-	chrome.history.search(query, function (results) {
-		// resultsは配列なので、forEach()関数を実行することが出来る
-		const reverseResult = results.reverse()
-		reverseResult.forEach(function (result) {
-			// resultひとつひとつがHistoryItem形式
-			historyList.push({
-				url: result.url,
-				title: result.title
-			})
-		});
-
-		console.log(historyList)
-		console.log(results.length)
-		muff.setSearchWordList(historyList)
-	});
-
-	muff.setReturnListLength(20)
 }
-

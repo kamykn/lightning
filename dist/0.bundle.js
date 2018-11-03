@@ -28,10 +28,67 @@ window.onload = function () {
   init();
 };
 
-var vm = null;
-
 function init() {
-  vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  // setHistoryTab();
+  setBookmarksTab();
+  muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20);
+  vueInit();
+}
+
+function setBookmarksTab() {
+  chrome.bookmarks.getTree(function (bookmarksTree) {
+    var searchWordList = [];
+    searchWordList = pushBookmarkListRecursive(bookmarksTree, searchWordList);
+    console.log(searchWordList);
+    muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
+  });
+}
+
+function pushBookmarkListRecursive(bookmarksTree, searchWordList) {
+  for (var i = 0; i < bookmarksTree.length; i++) {
+    var bookmark = bookmarksTree[i];
+
+    if (bookmark.url) {
+      searchWordList.push({
+        // path: bookmark.index,
+        title: bookmark.title,
+        url: bookmark.url
+      });
+    }
+
+    if (bookmark.children) {
+      searchWordList = pushBookmarkListRecursive(bookmark.children, searchWordList);
+    }
+  }
+
+  return searchWordList;
+}
+
+function setHistoryTab() {
+  // 1年分
+  var startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 265;
+  var query = {
+    text: '',
+    startTime: startTime,
+    maxResults: 50000
+  };
+  var historyList = [];
+  chrome.history.search(query, function (results) {
+    // resultsは配列なので、forEach()関数を実行することが出来る
+    var reverseResult = results.reverse();
+    reverseResult.forEach(function (result) {
+      // resultひとつひとつがHistoryItem形式
+      historyList.push({
+        url: result.url,
+        title: result.title
+      });
+    });
+    muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(historyList);
+  });
+}
+
+function vueInit() {
+  new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
     el: '#muffin',
     data: {
       inputValue: ''
@@ -53,28 +110,6 @@ function init() {
       };
     }
   });
-  var startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 265;
-  var query = {
-    text: '',
-    startTime: startTime,
-    maxResults: 1000000
-  };
-  var historyList = [];
-  chrome.history.search(query, function (results) {
-    // resultsは配列なので、forEach()関数を実行することが出来る
-    var reverseResult = results.reverse();
-    reverseResult.forEach(function (result) {
-      // resultひとつひとつがHistoryItem形式
-      historyList.push({
-        url: result.url,
-        title: result.title
-      });
-    });
-    console.log(historyList);
-    console.log(results.length);
-    muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(historyList);
-  });
-  muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20);
 }
 
 /***/ }),
