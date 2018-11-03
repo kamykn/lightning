@@ -29,10 +29,27 @@ window.onload = function () {
 };
 
 function init() {
-  // setHistoryTab();
-  setBookmarksTab();
+  // setHistoryTab()
+  // setBookmarksTab()
+  setTabsTab();
   muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20);
   vueInit();
+}
+
+function setTabsTab() {
+  chrome.tabs.query({
+    currentWindow: true
+  }, function (tabs) {
+    var searchWordList = [];
+    tabs.forEach(function (tab) {
+      searchWordList.push({
+        // path: bookmark.index,
+        title: tab.title,
+        url: tab.url
+      });
+    });
+    muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
+  });
 }
 
 function setBookmarksTab() {

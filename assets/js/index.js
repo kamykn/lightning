@@ -13,11 +13,33 @@ window.onload = function() {
 }
 
 function init() {
-	// setHistoryTab();
-	setBookmarksTab();
+	// setHistoryTab()
+	// setBookmarksTab()
+	setTabsTab()
 	muff.setReturnListLength(20)
 
 	vueInit();
+}
+
+function setTabsTab() {
+	chrome.tabs.query({currentWindow: true}, function(tabs) {
+		let searchWordList = []
+
+		tabs.forEach(function(tab) {
+			searchWordList.push({
+				// path: bookmark.index,
+				title: tab.title,
+				url: tab.url
+			})
+		});
+
+		muff.setSearchWordList(searchWordList)
+	});
+
+	// メモ
+	// すでにあるタブを開くには
+	// chrome.tabs.update(tabs[i].id, {active: true});
+	// https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
 }
 
 function setBookmarksTab() {
