@@ -19,10 +19,25 @@
 				<input id="search" v-model="inputValue" type="text">
 				<ul>
 					<li v-for="result in results">
-						<a v-bind:href="result.url" target="_blank">
-							<div class="title">{{ result.title }}</div>
-							<div class="url">{{ result.url }}</div>
-						</a>
+						<div v-if="currentSearchType == searchTypes.history">
+							<a v-bind:href="result.url" target="_blank">
+								<div class="title">{{ result.title }}</div>
+								<div class="url">{{ result.url }}</div>
+							</a>
+						</div>
+						<div v-else-if="currentSearchType == searchTypes.bookmarks">
+							<a v-bind:href="result.url" target="_blank">
+								<div class="url">{{ result.parentPath }}</div>
+								<div class="title">{{ result.title }}</div>
+								<div class="url">{{ result.url }}</div>
+							</a>
+						</div>
+						<div v-else-if="currentSearchType == searchTypes.tabs">
+							<a v-bind:href="result.url" target="_blank">
+								<div class="title">{{ result.index + ': ' + result.title }}</div>
+								<div class="url">{{ result.url }}</div>
+							</a>
+						</div>
 					</li>
 				</ul>
 			</div>
