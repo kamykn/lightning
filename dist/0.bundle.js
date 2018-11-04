@@ -16,6 +16,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../scss/style.scss */ "./assets/scss/style.scss");
 /* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_5__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 
 
 
@@ -38,7 +46,8 @@ function vueInit() {
     el: '#muffin',
     data: {
       inputValue: '',
-      currentSearchType: null,
+      currentSearchType: 0,
+      currentSearchTypeName: '',
       searchTypes: {
         history: 1,
         bookmarks: 2,
@@ -47,9 +56,41 @@ function vueInit() {
     },
     methods: {
       init: function init() {
-        this.currentSearchType = this.searchTypes.history; // this.setHistoryTab()
+        this.changeToHistorySearch();
+      },
+      setSearchType: function setSearchType(searchType) {
+        var _this = this;
 
-        this.setBookmarksTab(); // this.setTabsTab()
+        this.currentSearchType = searchType;
+        Object.keys(this.searchTypes).forEach(function (typeName) {
+          if (_this.searchTypes[typeName] == _this.currentSearchType) {
+            _this.currentSearchTypeName = typeName;
+            return;
+          }
+        });
+      },
+      changeSearchType: function changeSearchType() {
+        var _this2 = this;
+
+        if (event) {
+          event.preventDefault();
+        }
+
+        var nextSearchType = this.currentSearchType + 1;
+        var searchTypeList = Object.values(this.searchTypes);
+
+        if (Math.max.apply(Math, _toConsumableArray(searchTypeList)) < nextSearchType) {
+          nextSearchType = Math.min.apply(Math, _toConsumableArray(searchTypeList));
+        }
+
+        Object.keys(this.searchTypes).forEach(function (typeName) {
+          if (_this2.searchTypes[typeName] == nextSearchType) {
+            var upperCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+            var method = _this2['changeTo' + upperCaseTypeName + 'Search'];
+            method.call(_this2);
+            return;
+          }
+        });
       },
       search: function search(inputValue) {
         return new Promise(function (resolve) {
@@ -60,8 +101,8 @@ function vueInit() {
       setSearchResultsToData: function setSearchResultsToData(results) {
         return results.list;
       },
-      setHistoryTab: function setHistoryTab() {
-        this.currentSearchType = this.searchTypes.history; // 1年分
+      changeToHistorySearch: function changeToHistorySearch() {
+        this.setSearchType(this.searchTypes.history); // 1年分
 
         var startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 265;
         var query = {
@@ -82,8 +123,8 @@ function vueInit() {
           muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(historyList);
         });
       },
-      setTabsTab: function setTabsTab() {
-        this.currentSearchType = this.searchTypes.tabs;
+      changeToTabsSearch: function changeToTabsSearch() {
+        this.setSearchType(this.searchTypes.tabs);
         chrome.tabs.query({
           currentWindow: true
         }, function (tabs) {
@@ -96,20 +137,19 @@ function vueInit() {
               url: tab.url
             });
           });
-          console.log(searchWordList);
           muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
         }); // メモ
         // すでにあるタブを開くには
         // chrome.tabs.update(tabs[i].id, {active: true});
         // https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
       },
-      setBookmarksTab: function setBookmarksTab() {
-        var _this = this;
+      changeToBookmarksSearch: function changeToBookmarksSearch() {
+        var _this3 = this;
 
-        this.currentSearchType = this.searchTypes.bookmarks;
+        this.setSearchType(this.searchTypes.bookmarks);
         chrome.bookmarks.getTree(function (bookmarksTree) {
           var searchWordList = [];
-          searchWordList = _this.pushBookmarkListRecursive(bookmarksTree, searchWordList);
+          searchWordList = _this3.pushBookmarkListRecursive(bookmarksTree, searchWordList);
           muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
         });
       },

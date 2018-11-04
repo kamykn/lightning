@@ -22,7 +22,8 @@ function vueInit() {
 		el: '#muffin',
 		data: {
 			inputValue: '',
-			currentSearchType: null,
+			currentSearchType: 0,
+			currentSearchTypeName: '',
 			searchTypes: {
 				history:   1,
 				bookmarks: 2,
@@ -31,10 +32,34 @@ function vueInit() {
 		},
 		methods: {
 			init() {
-				this.currentSearchType = this.searchTypes.history;
-				// this.setHistoryTab()
-				this.setBookmarksTab()
-				// this.setTabsTab()
+				this.changeToHistorySearch()
+			},
+			setSearchType(searchType) {
+				this.currentSearchType = searchType
+				Object.keys(this.searchTypes).forEach((typeName) => {
+					if (this.searchTypes[typeName] == this.currentSearchType) {
+						this.currentSearchTypeName = typeName;
+						return
+					}
+				})
+			},
+			changeSearchType() {
+				if (event) {event.preventDefault()}
+
+				let nextSearchType = this.currentSearchType + 1
+				const searchTypeList = Object.values(this.searchTypes)
+				if (Math.max(...searchTypeList) < nextSearchType) {
+					nextSearchType = Math.min(...searchTypeList)
+				}
+
+				Object.keys(this.searchTypes).forEach((typeName) => {
+					if (this.searchTypes[typeName] == nextSearchType) {
+						const upperCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+						const method = this['changeTo' + upperCaseTypeName + 'Search']
+						method.call(this)
+						return
+					}
+				})
 			},
 			search(inputValue) {
 				return new Promise(resolve => {
@@ -45,8 +70,8 @@ function vueInit() {
 			setSearchResultsToData(results) {
 				return results.list
 			},
-			setHistoryTab() {
-				this.currentSearchType = this.searchTypes.history
+			changeToHistorySearch() {
+				this.setSearchType(this.searchTypes.history)
 
 				// 1年分
 				const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 265)
@@ -70,8 +95,8 @@ function vueInit() {
 					muff.setSearchWordList(historyList)
 				})
 			},
-			setTabsTab() {
-				this.currentSearchType = this.searchTypes.tabs
+			changeToTabsSearch() {
+				this.setSearchType(this.searchTypes.tabs)
 
 				chrome.tabs.query({currentWindow: true}, function(tabs) {
 					console.log(tabs)
@@ -85,7 +110,6 @@ function vueInit() {
 						})
 					});
 
-					console.log(searchWordList)
 					muff.setSearchWordList(searchWordList)
 				});
 
@@ -94,8 +118,8 @@ function vueInit() {
 				// chrome.tabs.update(tabs[i].id, {active: true});
 				// https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
 			},
-			setBookmarksTab() {
-				this.currentSearchType = this.searchTypes.bookmarks
+			changeToBookmarksSearch() {
+				this.setSearchType(this.searchTypes.bookmarks)
 
 				chrome.bookmarks.getTree((bookmarksTree) => {
 					let searchWordList = []
