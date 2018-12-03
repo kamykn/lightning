@@ -18,7 +18,7 @@
 				</div>
 			</header>
 			<div id="main">
-				<ul>
+				<ul v-if="results && results.length >= 1">
 					<li v-for="result in results">
 						<div v-if="currentSearchType == searchTypes.history">
 							<a v-bind:href="result.url" target="_blank">
