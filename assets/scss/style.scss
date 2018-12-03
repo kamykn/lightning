@@ -10,7 +10,7 @@ body {
 	background: #F7F7F7;
 	color: #262626;
 	margin: 0px;
-	width: 500px;
+	width: 300px;
 }
 
 header {
@@ -19,7 +19,7 @@ header {
 	height: 70px;
 
 	$dotHeight: 10px;
-	$dotsAreaHeight: 30px;
+	$dotsAreaHeight: 20px;
 	#dots {
 		width: 100%;
 		height: $dotHeight;
@@ -28,55 +28,60 @@ header {
 		padding-right: 0;
 		padding-left: 0;
 		text-align: center;
+		font-size: 0px; /* inline-blockの隙間削除 */
+
+		@mixin dot() {
+			height: $dotHeight;
+			width: $dotHeight;
+			border-radius: 50%;
+			margin: 0 5px;
+			display: inline-block;
+		}
+
+		#history {
+			background: #F23C50;
+			@include dot();
+		}
+
+		#tabs {
+			background: #FFCB05;
+			@include dot();
+		}
+
+		#bookmarks {
+			background: #4AD9D9;
+			@include dot();
+		}
 	}
 
-	@mixin dot() {
-		height: $dotHeight;
-		width: $dotHeight;
-		border-radius: 50%;
-		margin: 0 5px;
-		display: inline-block;
-	}
-
-	#history {
-		background: #F23C50;
-		@include dot();
-	}
-
-	#tabs {
-		background: #FFCB05;
-		@include dot();
-	}
-
-	#bookmarks {
-		background: #4AD9D9;
-		@include dot();
-	}
-
-	#selected {
-		width: 100%;
-		height: 40px;
+	#form {
+		height: 37px;
 		background: #EBEBEB;
-		color: #B3B4B8;
-		text-align: center;
-		line-height: 40px;
-		font-size: 24px;
-		font-weight: bold;
+
+		#selected {
+			display: inline-block;
+			width: 55px;
+			color: #B3B4B8;
+			text-align: center;
+			line-height: 40px;
+			font-size: 12px;
+			font-weight: bold;
+		}
+
+		#search {
+			width: 235px;
+			border-radius: 2px;
+			height: 27px;
+			border: 1px solid #ddd;
+			margin-bottom: 10px;
+			padding: 5px;
+			font-size: 14px;
+		}
 	}
 }
 
 #main {
 	padding: 10px;
-
-	#search {
-		width: 100%;
-		border-radius: 2px;
-		height: 35px;
-		border: 1px solid #ddd;
-		margin-bottom: 10px;
-		padding: 5px;
-		font-size: 14px;
-	}
 
 	ul {
 		margin: 0;

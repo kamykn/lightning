@@ -10,12 +10,14 @@
 					<span id="tabs"></span>
 					<span id="bookmarks"></span>
 				</div>
-				<div id="selected">
-					{{ currentSearchTypeName }}
+				<div id="form">
+					<span id="selected">
+						{{ currentSearchTypeName }}
+					</span>
+					<input id="search" v-model="inputValue" type="text" @keydown.tab="changeSearchType($event)">
 				</div>
 			</header>
 			<div id="main">
-				<input id="search" v-model="inputValue" type="text" @keydown.tab="changeSearchType($event)">
 				<ul>
 					<li v-for="result in results">
 						<div v-if="currentSearchType == searchTypes.history">

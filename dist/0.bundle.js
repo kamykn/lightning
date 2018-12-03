@@ -91,8 +91,12 @@ function vueInit() {
             return;
           }
         });
+        this.search(this.inputValue).then(function (results) {
+          _this2.setSearchResultsToData(results);
+        });
       },
       search: function search(inputValue) {
+        console.log(inputValue);
         return new Promise(function (resolve) {
           var results = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(inputValue);
           resolve(results);

@@ -28,7 +28,7 @@ function vueInit() {
 				history:   1,
 				bookmarks: 2,
 				tabs:      3
-			}
+			},
 		},
 		methods: {
 			init() {
@@ -60,8 +60,13 @@ function vueInit() {
 						return
 					}
 				})
+
+				this.search(this.inputValue).then((results) => {
+					this.setSearchResultsToData(results)
+				})
 			},
 			search(inputValue) {
+				console.log(inputValue)
 				return new Promise(resolve => {
 					let results = muff.search(inputValue)
 					resolve(results)

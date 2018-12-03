@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * MEMO
  * https://color.adobe.com/ja/Copy-of-Ventana-Azul-color-theme-11432380/edit/?copy=true&base=2&rule=Custom&selected=3&name=%E3%82%B3%E3%83%94%E3%83%BC%20Copy%20of%20Ventana%20Azul&mode=rgb&rgbvalues=0.94902,0.235294,0.313726,1,0.796078,0.0196078,0.913725,0.945098,0.87451,0.290196,0.85098,0.85098,0.211765,0.694118,0.74902&swatchOrder=0,1,2,3,4
@@ -6,7 +7,7 @@ body {
   background: #F7F7F7;
   color: #262626;
   margin: 0px;
-  width: 500px; }
+  width: 300px; }
 
 header {
   color: #FFF;
@@ -15,52 +16,56 @@ header {
   header #dots {
     width: 100%;
     height: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     padding-right: 0;
     padding-left: 0;
-    text-align: center; }
-  header #history {
-    background: #F23C50;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    margin: 0 5px;
-    display: inline-block; }
-  header #tabs {
-    background: #FFCB05;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    margin: 0 5px;
-    display: inline-block; }
-  header #bookmarks {
-    background: #4AD9D9;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    margin: 0 5px;
-    display: inline-block; }
-  header #selected {
-    width: 100%;
-    height: 40px;
-    background: #EBEBEB;
-    color: #B3B4B8;
     text-align: center;
-    line-height: 40px;
-    font-size: 24px;
-    font-weight: bold; }
+    font-size: 0px;
+    /* inline-blockの隙間削除 */ }
+    header #dots #history {
+      background: #F23C50;
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      margin: 0 5px;
+      display: inline-block; }
+    header #dots #tabs {
+      background: #FFCB05;
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      margin: 0 5px;
+      display: inline-block; }
+    header #dots #bookmarks {
+      background: #4AD9D9;
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      margin: 0 5px;
+      display: inline-block; }
+  header #form {
+    height: 37px;
+    background: #EBEBEB; }
+    header #form #selected {
+      display: inline-block;
+      width: 55px;
+      color: #B3B4B8;
+      text-align: center;
+      line-height: 40px;
+      font-size: 12px;
+      font-weight: bold; }
+    header #form #search {
+      width: 235px;
+      border-radius: 2px;
+      height: 27px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 5px;
+      font-size: 14px; }
 
 #main {
   padding: 10px; }
-  #main #search {
-    width: 100%;
-    border-radius: 2px;
-    height: 35px;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    padding: 5px;
-    font-size: 14px; }
   #main ul {
     margin: 0;
     padding: 0;
