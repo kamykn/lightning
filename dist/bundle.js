@@ -59,11 +59,7 @@
 /******/ 	var wasmImportObjects = {
 /******/ 		"./node_modules/muff-wasm/muff_wasm_bg.wasm": function() {
 /******/ 			return {
-/******/ 				"./muff_wasm": {
-/******/ 					"__wbindgen_throw": function(p0i32,p1i32) {
-/******/ 						return installedModules["./node_modules/muff-wasm/muff_wasm.js"].exports["__wbindgen_throw"](p0i32,p1i32);
-/******/ 					}
-/******/ 				}
+/******/
 /******/ 			};
 /******/ 		},
 /******/ 	};
@@ -125,6 +121,8 @@
 /******/ 					var request = event && event.target && event.target.src || fullhref;
 /******/ 					var err = new Error("Loading CSS chunk " + chunkId + " failed.\n(" + request + ")");
 /******/ 					err.request = request;
+/******/ 					delete installedCssChunks[chunkId]
+/******/ 					linkTag.parentNode.removeChild(linkTag)
 /******/ 					reject(err);
 /******/ 				};
 /******/ 				linkTag.href = fullhref;
@@ -199,7 +197,7 @@
 /******/ 				promises.push(installedWasmModuleData);
 /******/ 			else {
 /******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"./node_modules/muff-wasm/muff_wasm_bg.wasm":"135a7e9f61c1b0d4e837"}[wasmModuleId] + ".module.wasm");
+/******/ 				var req = fetch(__webpack_require__.p + "" + {"./node_modules/muff-wasm/muff_wasm_bg.wasm":"f2c4f0917269a3d6ca30"}[wasmModuleId] + ".module.wasm");
 /******/ 				var promise;
 /******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
 /******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {

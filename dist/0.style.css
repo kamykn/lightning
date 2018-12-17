@@ -85,6 +85,8 @@ header {
         background: #F5F5F5; }
       #main ul li:first-child {
         border-top: none; }
+      #main ul li.currentSelected {
+        background: #F5F5F5; }
       #main ul li a {
         text-decoration: none; }
         #main ul li a .title {

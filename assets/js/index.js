@@ -24,6 +24,7 @@ function vueInit() {
 			inputValue: '',
 			currentSearchType: 0,
 			currentSearchTypeName: '',
+			currentSelected: -1,
 			searchTypes: {
 				history:   1,
 				bookmarks: 2,
@@ -73,6 +74,10 @@ function vueInit() {
 				})
 			},
 			setSearchResultsToData(results) {
+				if (Array.isArray(results.list)) {
+					this.currentSelected = Math.min(this.currentSelected, results.list.length - 1)
+				}
+
 				return results.list
 			},
 			changeToHistorySearch() {
@@ -158,6 +163,27 @@ function vueInit() {
 				}
 
 				return searchWordList
+			},
+			moveSelector(type, event) {
+				if (event) event.preventDefault()
+
+				if (type == "down") {
+					if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
+						this.currentSelected++
+					}
+				} else if (type == "up") {
+					if (this.currentSelected > 0) {
+						this.currentSelected--
+					}
+				}
+			},
+			select() {
+				console.log(111)
+				let currentSelected = Math.max(this.currentSelected, 0)
+				if (typeof this.results[currentSelected] != 'undefined') {
+					console.log(this.results[currentSelected])
+					// 別タブで開いたり
+				}
 			}
 		},
 		subscriptions() {

@@ -14,32 +14,43 @@
 					<span id="selected">
 						{{ currentSearchTypeName }}
 					</span>
-					<input id="search" v-model="inputValue" type="text" @keydown.tab="changeSearchType($event)">
+					<input
+						id="search"
+						v-model="inputValue"
+						type="text"
+						@keydown.tab="changeSearchType($event)"
+						@keydown.down="moveSelector('down')"
+						@keydown.up="moveSelector('up')"
+						@keydown.enter="select()"
+					>
 				</div>
 			</header>
 			<div id="main">
+				{{ currentSelected }}
 				<ul v-if="results && results.length >= 1">
-					<li v-for="result in results">
-						<div v-if="currentSearchType == searchTypes.history">
-							<a v-bind:href="result.url" target="_blank">
-								<div class="title">{{ result.title }}</div>
-								<div class="url">{{ result.url }}</div>
-							</a>
-						</div>
-						<div v-else-if="currentSearchType == searchTypes.bookmarks">
-							<a v-bind:href="result.url" target="_blank">
-								<div class="url">{{ result.parentPath }}</div>
-								<div class="title">{{ result.title }}</div>
-								<div class="url">{{ result.url }}</div>
-							</a>
-						</div>
-						<div v-else-if="currentSearchType == searchTypes.tabs">
-							<a v-bind:href="result.url" target="_blank">
-								<div class="title">{{ result.index + ': ' + result.title }}</div>
-								<div class="url">{{ result.url }}</div>
-							</a>
-						</div>
-					</li>
+					<template v-for="(result, index) in results">
+						<li v-bind:class="{currentSelected: index == currentSelected}">
+							<template v-if="currentSearchType == searchTypes.history">
+								<a v-bind:href="result.url" target="_blank">
+									<div class="title">{{ result.title }}</div>
+									<div class="url">{{ result.url }}</div>
+								</a>
+							</template>
+							<template v-else-if="currentSearchType == searchTypes.bookmarks">
+								<a v-bind:href="result.url" target="_blank">
+									<div class="url">{{ result.parentPath }}</div>
+									<div class="title">{{ result.title }}</div>
+									<div class="url">{{ result.url }}</div>
+								</a>
+							</template>
+							<template v-else-if="currentSearchType == searchTypes.tabs">
+								<a v-bind:href="result.url" target="_blank">
+									<div class="title">{{ result.index + ': ' + result.title }}</div>
+									<div class="url">{{ result.url }}</div>
+								</a>
+							</template>
+						</li>
+					</template>
 				</ul>
 			</div>
 		</div>

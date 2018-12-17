@@ -108,6 +108,10 @@ header {
 				border-top: none;
 			}
 
+			&.currentSelected {
+				background: #F5F5F5;
+			}
+
 			a {
 				text-decoration: none;
 
