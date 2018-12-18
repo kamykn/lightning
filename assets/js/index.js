@@ -26,9 +26,9 @@ function vueInit() {
 			currentSearchTypeName: '',
 			currentSelected: -1,
 			searchTypes: {
-				history:   1,
-				bookmarks: 2,
-				tabs:      3
+				HISTORY:   1,
+				BOOKMARKS: 2,
+				TABS:      3
 			},
 		},
 		methods: {
@@ -67,7 +67,6 @@ function vueInit() {
 				})
 			},
 			search(inputValue) {
-				console.log(inputValue)
 				return new Promise(resolve => {
 					let results = muff.search(inputValue)
 					resolve(results)
@@ -81,7 +80,7 @@ function vueInit() {
 				return results.list
 			},
 			changeToHistorySearch() {
-				this.setSearchType(this.searchTypes.history)
+				this.setSearchType(this.searchTypes.HISTORY)
 
 				// 1年分
 				const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 265)
@@ -106,15 +105,15 @@ function vueInit() {
 				})
 			},
 			changeToTabsSearch() {
-				this.setSearchType(this.searchTypes.tabs)
+				this.setSearchType(this.searchTypes.TABS)
 
 				chrome.tabs.query({currentWindow: true}, function(tabs) {
-					console.log(tabs)
 					let searchWordList = []
 
 					tabs.forEach(function(tab, index) {
 						searchWordList.push({
 							index: tab.index.toString(),
+							id: tab.id.toString(),
 							title: tab.title,
 							url: tab.url
 						})
@@ -122,14 +121,9 @@ function vueInit() {
 
 					muff.setSearchWordList(searchWordList)
 				});
-
-				// メモ
-				// すでにあるタブを開くには
-				// chrome.tabs.update(tabs[i].id, {active: true});
-				// https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
 			},
 			changeToBookmarksSearch() {
-				this.setSearchType(this.searchTypes.bookmarks)
+				this.setSearchType(this.searchTypes.BOOKMARKS)
 
 				chrome.bookmarks.getTree((bookmarksTree) => {
 					let searchWordList = []
@@ -138,7 +132,6 @@ function vueInit() {
 				});
 			},
 			pushBookmarkListRecursive(bookmarksTree, searchWordList, parentPath) {
-				console.log(parentPath)
 				if (typeof parentPath == 'undefined') {
 					parentPath = ''
 				}
@@ -178,11 +171,16 @@ function vueInit() {
 				}
 			},
 			select() {
-				console.log(111)
 				let currentSelected = Math.max(this.currentSelected, 0)
 				if (typeof this.results[currentSelected] != 'undefined') {
-					console.log(this.results[currentSelected])
-					// 別タブで開いたり
+					if (this.currentSearchType == this.searchTypes.HISTORY ||
+						this.currentSearchType == this.searchTypes.BOOKMARKS
+					) {
+						window.open(this.results[currentSelected].url)
+					} elseif (this.currentSearchType == this.searchTypes.TABS) {
+						// https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
+						chrome.tabs.update(parseInt(this.results[currentSelected].id), {active: true})
+					}
 				}
 			}
 		},

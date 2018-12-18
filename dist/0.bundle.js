@@ -97,7 +97,6 @@ function vueInit() {
         });
       },
       search: function search(inputValue) {
-        console.log(inputValue);
         return new Promise(function (resolve) {
           var results = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(inputValue);
           resolve(results);
@@ -137,20 +136,17 @@ function vueInit() {
         chrome.tabs.query({
           currentWindow: true
         }, function (tabs) {
-          console.log(tabs);
           var searchWordList = [];
           tabs.forEach(function (tab, index) {
             searchWordList.push({
               index: tab.index.toString(),
+              id: tab.id.toString(),
               title: tab.title,
               url: tab.url
             });
           });
           muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
-        }); // メモ
-        // すでにあるタブを開くには
-        // chrome.tabs.update(tabs[i].id, {active: true});
-        // https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
+        });
       },
       changeToBookmarksSearch: function changeToBookmarksSearch() {
         var _this3 = this;
@@ -163,8 +159,6 @@ function vueInit() {
         });
       },
       pushBookmarkListRecursive: function pushBookmarkListRecursive(bookmarksTree, searchWordList, parentPath) {
-        console.log(parentPath);
-
         if (typeof parentPath == 'undefined') {
           parentPath = '';
         }
@@ -204,11 +198,17 @@ function vueInit() {
         }
       },
       select: function select() {
-        console.log(111);
         var currentSelected = Math.max(this.currentSelected, 0);
 
         if (typeof this.results[currentSelected] != 'undefined') {
-          console.log(this.results[currentSelected]); // 別タブで開いたり
+          if (this.currentSearchType == this.searchTypes.history || this.currentSearchType == this.searchTypes.bookmarks) {
+            window.open(this.results[currentSelected].url);
+          } else {
+            // https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
+            chrome.tabs.update(parseInt(this.results[currentSelected].id), {
+              active: true
+            });
+          }
         }
       }
     },
