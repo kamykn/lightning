@@ -31,6 +31,15 @@ function vueInit() {
 				TABS:      3
 			},
 		},
+		filters: {
+			toUpperFirst : (text) => {
+				text = text.toString()
+				return text.toString().charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+			},
+			toLowerCase : (text) => {
+				return text.toString().toLowerCase()
+			}
+		},
 		methods: {
 			init() {
 				this.changeToHistorySearch()
@@ -149,9 +158,8 @@ function vueInit() {
 					}
 
 					if (bookmark.children) {
-
 						let currentPath = parentPath + bookmark.title + '/'
-						searchWordList = this.pushBookmarkListRecursive(bookmark.children, searchWordList, currentPath);
+						searchWordList = this.pushBookmarkListRecursive(bookmark.children, searchWordList, currentPath)
 					}
 				}
 
@@ -177,7 +185,7 @@ function vueInit() {
 						this.currentSearchType == this.searchTypes.BOOKMARKS
 					) {
 						window.open(this.results[currentSelected].url)
-					} elseif (this.currentSearchType == this.searchTypes.TABS) {
+					} else if (this.currentSearchType == this.searchTypes.TABS) {
 						// https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
 						chrome.tabs.update(parseInt(this.results[currentSelected].id), {active: true})
 					}

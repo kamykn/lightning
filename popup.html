@@ -5,10 +5,10 @@
 	<body>
 		<div id="muffin">
 			<header>
-				<div id="dots">
-					<span id="history"></span>
-					<span id="tabs"></span>
-					<span id="bookmarks"></span>
+				<div id="menuWrap">
+					<template v-for="(val, type) in searchTypes">
+						<span v-bind:id="type | toLowerCase">{{ type | toUpperFirst }}</span>
+					</template>
 				</div>
 				<div id="form">
 					<span id="selected">

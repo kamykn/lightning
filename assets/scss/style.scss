@@ -18,39 +18,32 @@ header {
 	width: 100%;
 	height: 60px;
 
-	$dotHeight: 10px;
-	$dotsAreaHeight: 20px;
-	#dots {
+	#menuWrap {
+		$menuHeight: 30px;
 		width: 100%;
-		height: $dotHeight;
-		padding-top: ($dotsAreaHeight - $dotHeight) / 2;
-		padding-bottom: ($dotsAreaHeight - $dotHeight) / 2;
-		padding-right: 0;
-		padding-left: 0;
+		height: $menuHeight;
+		line-height: $menuHeight;
 		text-align: center;
-		font-size: 0px; /* inline-blockの隙間削除 */
+		font-size: 15px; /* inline-blockの隙間削除 */
+		padding: 0 30px;
+		display: flex;
 
-		@mixin dot() {
-			height: $dotHeight;
-			width: $dotHeight;
-			border-radius: 50%;
-			margin: 0 5px;
-			display: inline-block;
+		@mixin menu() {
+			width: 100px;
+			height: $menuHeight;
+			color: #B3B4BB;
 		}
 
 		#history {
-			background: #F23C50;
-			@include dot();
+			@include menu();
 		}
 
 		#tabs {
-			background: #FFCB05;
-			@include dot();
+			@include menu();
 		}
 
 		#bookmarks {
-			background: #4AD9D9;
-			@include dot();
+			@include menu();
 		}
 	}
 
