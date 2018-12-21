@@ -14,6 +14,7 @@
 						@keydown.down="moveSelector('down')"
 						@keydown.up="moveSelector('up')"
 						@keydown.enter="select()"
+						placeholder="Fuzzy Blue Search."
 					>
 				</div>
 				<div id="menu-wrap">
@@ -28,24 +29,23 @@
 				</div>
 			</header>
 			<div id="main">
-				{{ currentSelected }}
 				<ul v-if="results && results.length >= 1">
 					<template v-for="(result, index) in results">
 						<li v-bind:class="{currentSelected: index == currentSelected}">
-							<template v-if="currentSearchType == searchTypes.history">
+							<template v-if="currentSearchType == searchTypes.HISTORY">
 								<a v-bind:href="result.url" target="_blank">
 									<div class="title">{{ result.title }}</div>
 									<div class="url">{{ result.url }}</div>
 								</a>
 							</template>
-							<template v-else-if="currentSearchType == searchTypes.bookmarks">
+							<template v-else-if="currentSearchType == searchTypes.BOOKMARKS">
 								<a v-bind:href="result.url" target="_blank">
 									<div class="url">{{ result.parentPath }}</div>
 									<div class="title">{{ result.title }}</div>
 									<div class="url">{{ result.url }}</div>
 								</a>
 							</template>
-							<template v-else-if="currentSearchType == searchTypes.tabs">
+							<template v-else-if="currentSearchType == searchTypes.TABS">
 								<a v-bind:href="result.url" target="_blank">
 									<div class="title">{{ result.index + ': ' + result.title }}</div>
 									<div class="url">{{ result.url }}</div>
