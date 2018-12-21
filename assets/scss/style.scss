@@ -9,20 +9,39 @@ body {
 header {
 	color: #FFF;
 	width: 100%;
-	height: 65px;
+
+	#form {
+		height: 40px;
+
+		#search {
+			width: 350px;
+			border-radius: 15px;
+			height: 30px;
+			border: 1px solid #ddd;
+			margin-bottom: 10px;
+			padding: 10px 10px;
+			margin: 5px;
+			font-size: 15px;
+			outline: 0;
+
+			&:focus {
+				border: 1px solid #008eff;
+			}
+		}
+	}
 
 	#menu-wrap {
-		$menuHeight: 30px;
+		$menuHeight: 35px;
 		width: 100%;
 		height: $menuHeight;
 		margin-bottom: 5px;
 		background: #F7F7F7;
 
 		#menu-clickable-wrap {
-			margin: 0 30px;
+			margin:  0 30px;
 			display: flex;
 			position: relative;
-			height: 30px;
+			height: $menuHeight;
 
 			#history,
 			#tabs,
@@ -37,7 +56,6 @@ header {
 				-webkit-transition:0.3s ease-out;
 				-o-transition:0.3s ease-out;
 				-ms-transition:0.3s ease-out;
-
 
 				&.active {
 					color: #008eff;
@@ -60,20 +78,6 @@ header {
 		}
 	}
 
-	#form {
-		height: 37px;
-
-		#search {
-			width: 350px;
-			border-radius: 4px;
-			height: 27px;
-			border: 1px solid #ddd;
-			margin-bottom: 10px;
-			padding: 10px 5px;
-			margin: 5px;
-			font-size: 14px;
-		}
-	}
 }
 
 #main {
@@ -92,16 +96,16 @@ header {
 			border-top: 1px solid #EEE;
 			background: #FFF;
 
-			&:hover {
-				background: #F5F5F5;
-			}
-
 			&:first-child {
 				border-top: none;
 			}
 
-			&.currentSelected {
-				background: #F5F5F5;
+			&:hover a > ,
+			&.currentSelected a {
+				.url,
+				.title {
+					color: #008eff;
+				}
 			}
 
 			&:nth-child(odd) {
@@ -112,7 +116,7 @@ header {
 				text-decoration: none;
 
 				.title {
-					color: #607d8b;
+					color: #455a64;
 					font-weight: bold;
 					font-size: 12px;
 					padding: 0 10px;

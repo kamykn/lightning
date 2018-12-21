@@ -24,7 +24,7 @@ function vueInit() {
 			inputValue: '',
 			currentSearchType: 0,
 			currentSearchTypeName: '',
-			currentSelected: -1,
+			currentSelected: -1, // TODO ul li領域オンマウスでデフォルトに戻したい
 			searchTypes: {
 				HISTORY:   1,
 				BOOKMARKS: 2,
