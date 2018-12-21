@@ -1,8 +1,4 @@
 @charset "UTF-8";
-/**
- * MEMO
- * https://color.adobe.com/ja/Copy-of-Ventana-Azul-color-theme-11432380/edit/?copy=true&base=2&rule=Custom&selected=3&name=%E3%82%B3%E3%83%94%E3%83%BC%20Copy%20of%20Ventana%20Azul&mode=rgb&rgbvalues=0.94902,0.235294,0.313726,1,0.796078,0.0196078,0.913725,0.945098,0.87451,0.290196,0.85098,0.85098,0.211765,0.694118,0.74902&swatchOrder=0,1,2,3,4
-*/
 body {
   background: #F7F7F7;
   color: #262626;
@@ -13,45 +9,48 @@ header {
   color: #FFF;
   width: 100%;
   height: 60px; }
-  header #menuWrap {
+  header #menu-wrap {
     width: 100%;
     height: 30px;
-    line-height: 30px;
-    text-align: center;
-    font-size: 15px;
-    /* inline-blockの隙間削除 */
-    padding: 0 30px;
-    display: flex; }
-    header #menuWrap #history {
-      width: 100px;
-      height: 30px;
-      color: #B3B4BB; }
-    header #menuWrap #tabs {
-      width: 100px;
-      height: 30px;
-      color: #B3B4BB; }
-    header #menuWrap #bookmarks {
-      width: 100px;
-      height: 30px;
-      color: #B3B4BB; }
-  header #form {
-    height: 37px;
+    margin: 5px 0;
     background: #EBEBEB; }
-    header #form #selected {
-      display: inline-block;
-      width: 55px;
-      color: #B3B4B8;
-      text-align: center;
-      line-height: 40px;
-      font-size: 12px;
-      font-weight: bold; }
+    header #menu-wrap #menu-clickable-wrap {
+      margin: 0 30px;
+      display: flex;
+      position: relative; }
+      header #menu-wrap #menu-clickable-wrap #history,
+      header #menu-wrap #menu-clickable-wrap #tabs,
+      header #menu-wrap #menu-clickable-wrap #bookmarks {
+        width: 100px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        font-size: 15px;
+        /* inline-blockの隙間削除 */
+        color: #B3B4BB;
+        transition-duration: 0.2s; }
+        header #menu-wrap #menu-clickable-wrap #history.active,
+        header #menu-wrap #menu-clickable-wrap #tabs.active,
+        header #menu-wrap #menu-clickable-wrap #bookmarks.active {
+          color: #1565C0; }
+      header #menu-wrap #menu-clickable-wrap #select-bar {
+        position: absolute;
+        height: 3px;
+        width: 100px;
+        border-radius: 3px;
+        background: #42a5f5;
+        bottom: 0px;
+        transition-duration: 0.2s; }
+  header #form {
+    height: 37px; }
     header #form #search {
-      width: 295px;
-      border-radius: 2px;
+      width: 350px;
+      border-radius: 4px;
       height: 27px;
       border: 1px solid #ddd;
       margin-bottom: 10px;
       padding: 5px;
+      margin: 5px;
       font-size: 14px; }
 
 #main {

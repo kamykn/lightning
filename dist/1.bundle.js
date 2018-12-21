@@ -79,7 +79,7 @@ function vueInit() {
           }
         });
       },
-      changeSearchType: function changeSearchType() {
+      changeSearchType: function changeSearchType(event) {
         var _this2 = this;
 
         if (event) {
@@ -95,7 +95,7 @@ function vueInit() {
 
         Object.keys(this.searchTypes).forEach(function (typeName) {
           if (_this2.searchTypes[typeName] == nextSearchType) {
-            var upperCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+            var upperCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1).toLowerCase();
             var method = _this2['changeTo' + upperCaseTypeName + 'Search'];
             method.call(_this2);
             return;

@@ -5,15 +5,7 @@
 	<body>
 		<div id="muffin">
 			<header>
-				<div id="menuWrap">
-					<template v-for="(val, type) in searchTypes">
-						<span v-bind:id="type | toLowerCase">{{ type | toUpperFirst }}</span>
-					</template>
-				</div>
 				<div id="form">
-					<span id="selected">
-						{{ currentSearchTypeName }}
-					</span>
 					<input
 						id="search"
 						v-model="inputValue"
@@ -23,6 +15,16 @@
 						@keydown.up="moveSelector('up')"
 						@keydown.enter="select()"
 					>
+				</div>
+				<div id="menu-wrap">
+					<div id="menu-clickable-wrap">
+						<template v-for="(typeInt, typeName) in searchTypes">
+							<span v-bind:id="typeName | toLowerCase" v-bind:class="{ active: typeInt == currentSearchType }">
+								{{ typeName | toUpperFirst }}
+							</span>
+						</template>
+						<div id="select-bar" v-bind:style="{ left: ((currentSearchType - 1) * 100) + 'px'  }"></div>
+					</div>
 				</div>
 			</header>
 			<div id="main">

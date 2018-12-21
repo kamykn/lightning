@@ -53,7 +53,7 @@ function vueInit() {
 					}
 				})
 			},
-			changeSearchType() {
+			changeSearchType(event) {
 				if (event) {event.preventDefault()}
 
 				let nextSearchType = this.currentSearchType + 1
@@ -64,7 +64,7 @@ function vueInit() {
 
 				Object.keys(this.searchTypes).forEach((typeName) => {
 					if (this.searchTypes[typeName] == nextSearchType) {
-						const upperCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+						const upperCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1).toLowerCase();
 						const method = this['changeTo' + upperCaseTypeName + 'Search']
 						method.call(this)
 						return
