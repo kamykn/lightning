@@ -3,6 +3,7 @@ import Vue from 'vue/dist/vue.esm.js'
 import VueRx from 'vue-rx'
 import { from } from 'rxjs';
 import { pluck, debounceTime, switchMap, map } from 'rxjs/operators'
+import '@babel/polyfill'
 
 import style from '../scss/style.scss'
 
@@ -62,18 +63,21 @@ function vueInit() {
 					nextSearchType = Math.min(...searchTypeList)
 				}
 
-				Object.keys(this.searchTypes).forEach((typeName) => {
-					if (this.searchTypes[typeName] == nextSearchType) {
-						const upperCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1).toLowerCase();
-						const method = this['changeTo' + upperCaseTypeName + 'Search']
-						method.call(this)
-						return
+				(async () => {
+					switch (nextSearchType) {
+						case this.searchTypes.HISTORY:
+							await this.changeToHistorySearch()
+							break;
+						case this.searchTypes.BOOKMARKS:
+							await this.changeToBookmarksSearch()
+							break;
+						case this.searchTypes.TABS:
+							await this.changeToTabsSearch()
+							break;
 					}
-				})
-
-				this.search(this.inputValue).then((results) => {
-					this.setSearchResultsToData(results)
-				})
+					const results = await this.search(this.inputValue)
+					this.results = this.setSearchResultsToData(results)
+				})()
 			},
 			search(inputValue) {
 				return new Promise(resolve => {
@@ -82,6 +86,7 @@ function vueInit() {
 				})
 			},
 			setSearchResultsToData(results) {
+				// リストの選択中の位置を調整
 				if (Array.isArray(results.list)) {
 					this.currentSelected = Math.min(this.currentSelected, results.list.length - 1)
 				}
@@ -89,56 +94,65 @@ function vueInit() {
 				return results.list
 			},
 			changeToHistorySearch() {
-				this.setSearchType(this.searchTypes.HISTORY)
+				return new Promise(resolve => {
+					this.setSearchType(this.searchTypes.HISTORY)
 
-				// 1年分
-				const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 265)
-				const query = {
-					text: '',
-					startTime: startTime,
-					maxResults: 50000
-				}
+					// 1年分
+					const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 265)
+					const query = {
+						text: '',
+						startTime: startTime,
+						maxResults: 50000
+					}
 
-				let historyList = []
-				chrome.history.search(query, function (results) {
-					const reverseResult = results.reverse()
-					reverseResult.forEach(function (result) {
-						// resultひとつひとつがHistoryItem形式
-						historyList.push({
-							url: result.url,
-							title: result.title
-						})
-					});
+					let historyList = []
+					chrome.history.search(query, (results) => {
+						const reverseResult = results.reverse()
+						reverseResult.forEach((result) => {
+							// resultひとつひとつがHistoryItem形式
+							historyList.push({
+								url: result.url,
+								title: result.title
+							})
+						});
 
-					muff.setSearchWordList(historyList)
+						muff.setSearchWordList(historyList)
+						resolve()
+					})
 				})
 			},
 			changeToTabsSearch() {
-				this.setSearchType(this.searchTypes.TABS)
+				return new Promise(resolve => {
+					this.setSearchType(this.searchTypes.TABS)
 
-				chrome.tabs.query({currentWindow: true}, function(tabs) {
-					let searchWordList = []
+					chrome.tabs.query({currentWindow: true}, (tabs) => {
+						let searchWordList = []
 
-					tabs.forEach(function(tab, index) {
-						searchWordList.push({
-							index: tab.index.toString(),
-							id: tab.id.toString(),
-							title: tab.title,
-							url: tab.url
+						tabs.forEach((tab, index) => {
+							searchWordList.push({
+								index: tab.index.toString(),
+								id: tab.id.toString(),
+								title: tab.title,
+								url: tab.url
+							})
 						})
-					});
 
-					muff.setSearchWordList(searchWordList)
-				});
+						muff.setSearchWordList(searchWordList)
+						resolve()
+					})
+				})
 			},
 			changeToBookmarksSearch() {
-				this.setSearchType(this.searchTypes.BOOKMARKS)
+				return new Promise(resolve => {
+					this.setSearchType(this.searchTypes.BOOKMARKS)
 
-				chrome.bookmarks.getTree((bookmarksTree) => {
-					let searchWordList = []
-					searchWordList = this.pushBookmarkListRecursive(bookmarksTree, searchWordList)
-					muff.setSearchWordList(searchWordList)
-				});
+					chrome.bookmarks.getTree((bookmarksTree) => {
+						let searchWordList = []
+						searchWordList = this.pushBookmarkListRecursive(bookmarksTree, searchWordList)
+						muff.setSearchWordList(searchWordList)
+						resolve()
+					})
+				})
 			},
 			pushBookmarkListRecursive(bookmarksTree, searchWordList, parentPath) {
 				if (typeof parentPath == 'undefined') {

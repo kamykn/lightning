@@ -30,28 +30,50 @@
 			</header>
 			<div id="main">
 				<ul v-if="results && results.length >= 1">
-					<template v-for="(result, index) in results">
-						<li v-bind:class="{currentSelected: index == currentSelected}">
-							<template v-if="currentSearchType == searchTypes.HISTORY">
+					<template v-if="currentSearchType == searchTypes.HISTORY">
+						<template v-for="(result, index) in results">
+							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.url" target="_blank">
-									<div class="title">{{ result.title }}</div>
+									<div class="title">
+										<template v-if="result.title">
+											{{ result.title }}
+										</template>
+										<template v-else>
+											No title.
+										</template>
+									</div>
 									<div class="url">{{ result.url }}</div>
 								</a>
-							</template>
-							<template v-else-if="currentSearchType == searchTypes.BOOKMARKS">
+							</li>
+						</template>
+					</template>
+					<template v-else-if="currentSearchType == searchTypes.BOOKMARKS">
+						<template v-for="(result, index) in results">
+							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.url" target="_blank">
-									<div class="url">{{ result.parentPath }}</div>
-									<div class="title">{{ result.title }}</div>
+									<div class="title">
+										<template v-if="result.title">
+											{{ result.title }}
+										</template>
+										<template v-else>
+											No title.
+										</template>
+									</div>
+									<div class="path">{{ result.parentPath }}</div>
 									<div class="url">{{ result.url }}</div>
 								</a>
-							</template>
-							<template v-else-if="currentSearchType == searchTypes.TABS">
+							</li>
+						</template>
+					</template>
+					<template v-else-if="currentSearchType == searchTypes.TABS">
+						<template v-for="(result, index) in results">
+							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.url" target="_blank">
 									<div class="title">{{ result.index + ': ' + result.title }}</div>
 									<div class="url">{{ result.url }}</div>
 								</a>
-							</template>
-						</li>
+							</li>
+						</template>
 					</template>
 				</ul>
 			</div>

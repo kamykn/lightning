@@ -1,107 +1,105 @@
 @charset "UTF-8";
-/**
- * MEMO
- * https://color.adobe.com/ja/Copy-of-Ventana-Azul-color-theme-11432380/edit/?copy=true&base=2&rule=Custom&selected=3&name=%E3%82%B3%E3%83%94%E3%83%BC%20Copy%20of%20Ventana%20Azul&mode=rgb&rgbvalues=0.94902,0.235294,0.313726,1,0.796078,0.0196078,0.913725,0.945098,0.87451,0.290196,0.85098,0.85098,0.211765,0.694118,0.74902&swatchOrder=0,1,2,3,4
-*/
 body {
-  background: #F7F7F7;
   color: #262626;
   margin: 0px;
   width: 360px; }
 
 header {
   color: #FFF;
-  width: 100%;
-  height: 60px; }
-  header #dots {
-    width: 100%;
-    height: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 0;
-    padding-left: 0;
-    text-align: center;
-    font-size: 0px;
-    /* inline-blockの隙間削除 */ }
-    header #dots #history {
-      background: #F23C50;
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
-      margin: 0 5px;
-      display: inline-block; }
-    header #dots #tabs {
-      background: #FFCB05;
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
-      margin: 0 5px;
-      display: inline-block; }
-    header #dots #bookmarks {
-      background: #4AD9D9;
-      height: 10px;
-      width: 10px;
-      border-radius: 50%;
-      margin: 0 5px;
-      display: inline-block; }
+  width: 100%; }
   header #form {
-    height: 37px;
-    background: #EBEBEB; }
-    header #form #selected {
-      display: inline-block;
-      width: 55px;
-      color: #B3B4B8;
-      text-align: center;
-      line-height: 40px;
-      font-size: 12px;
-      font-weight: bold; }
+    height: 40px; }
     header #form #search {
-      width: 295px;
-      border-radius: 2px;
-      height: 27px;
+      width: 350px;
+      border-radius: 15px;
+      height: 30px;
       border: 1px solid #ddd;
       margin-bottom: 10px;
-      padding: 5px;
-      font-size: 14px; }
+      padding: 10px 10px;
+      margin: 5px;
+      font-size: 15px;
+      outline: 0; }
+      header #form #search:focus {
+        border: 1px solid #008eff; }
+  header #menu-wrap {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 5px;
+    background: #F7F7F7; }
+    header #menu-wrap #menu-clickable-wrap {
+      margin: 0 30px;
+      display: flex;
+      position: relative;
+      height: 35px; }
+      header #menu-wrap #menu-clickable-wrap #history,
+      header #menu-wrap #menu-clickable-wrap #tabs,
+      header #menu-wrap #menu-clickable-wrap #bookmarks {
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 15px;
+        color: #B3B4BB;
+        -moz-transition: 0.3s ease-out;
+        -webkit-transition: 0.3s ease-out;
+        -o-transition: 0.3s ease-out;
+        -ms-transition: 0.3s ease-out; }
+        header #menu-wrap #menu-clickable-wrap #history.active,
+        header #menu-wrap #menu-clickable-wrap #tabs.active,
+        header #menu-wrap #menu-clickable-wrap #bookmarks.active {
+          color: #008eff; }
+      header #menu-wrap #menu-clickable-wrap #select-bar {
+        position: absolute;
+        height: 3px;
+        width: 100px;
+        border-radius: 3px;
+        background: #008eff;
+        bottom: 0px;
+        -moz-transition: 0.3s ease-out;
+        -webkit-transition: 0.3s ease-out;
+        -o-transition: 0.3s ease-out;
+        -ms-transition: 0.3s ease-out; }
 
-#main {
-  padding: 8px; }
-  #main ul {
-    margin: 0;
-    padding: 0;
-    max-height: 420px;
-    overflow: scroll;
-    overflow-x: hidden;
-    border-radius: 10px;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    border: 1px solid #ddd; }
-    #main ul li {
-      list-style: none;
-      padding: 4px 0;
-      border-top: 1px solid #EEE;
-      background: #FFF; }
-      #main ul li:hover {
-        background: #F5F5F5; }
-      #main ul li:first-child {
-        border-top: none; }
-      #main ul li.currentSelected {
-        background: #F5F5F5; }
-      #main ul li a {
-        text-decoration: none; }
-        #main ul li a .title {
-          color: #2ec1d1;
-          font-weight: bold;
-          font-size: 12px;
-          padding: 0 10px;
-          margin-bottom: 3px; }
-        #main ul li a .url {
-          color: #888;
-          font-size: 10px;
-          padding: 0 10px;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis; }
+#main ul {
+  margin: 10px 5px;
+  padding: 0;
+  max-height: 420px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border-radius: 5px;
+  border: 1px solid #ddd; }
+  #main ul li {
+    list-style: none;
+    padding: 4px 0;
+    border-top: 1px solid #EEE;
+    background: #FFF; }
+    #main ul li:first-child {
+      border-top: none; }
+    #main ul li:hover a > .url,
+    #main ul li:hover a > .path,
+    #main ul li:hover a > .title,
+    #main ul li.currentSelected a .url,
+    #main ul li.currentSelected a .path,
+    #main ul li.currentSelected a .title {
+      color: #008eff; }
+    #main ul li:nth-child(odd) {
+      background: #F5F5F5; }
+    #main ul li a {
+      text-decoration: none; }
+      #main ul li a .title {
+        color: #455a64;
+        font-weight: bold;
+        font-size: 12px;
+        padding: 0 10px;
+        margin-bottom: 3px; }
+      #main ul li a .url,
+      #main ul li a .path {
+        color: #888;
+        font-size: 10px;
+        padding: 0 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; }
 
 /*スクロールバー全体*/
 ::-webkit-scrollbar {
