@@ -38,270 +38,254 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"].use(vue_rx__WEBPACK_IMPORTED_MODULE_2__["default"]);
-window.addEventListener('load', function () {
-  init();
-}(), false);
-
-function init() {
-  muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20);
-  vueInit();
-}
-
-function vueInit() {
-  var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
-    el: '#muffin',
-    data: {
-      inputValue: '',
-      currentSearchType: 0,
-      currentSearchTypeName: '',
-      currentSelected: -1,
-      // TODO ul li領域オンマウスでデフォルトに戻したい
-      searchTypes: {
-        HISTORY: 1,
-        BOOKMARKS: 2,
-        TABS: 3
-      }
+var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  data: {
+    inputString: '',
+    currentSelected: -1,
+    // 結果配列のindexなので選択されていない状態は-1とする
+    currentSearchType: 0,
+    searchTypes: {
+      HISTORY: 1,
+      BOOKMARKS: 2,
+      TABS: 3
+    }
+  },
+  filters: {
+    toUpperFirst: function toUpperFirst(text) {
+      text = text.toString();
+      return text.toString().charAt(0).toUpperCase() + text.slice(1).toLowerCase();
     },
-    filters: {
-      toUpperFirst: function toUpperFirst(text) {
-        text = text.toString();
-        return text.toString().charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-      },
-      toLowerCase: function toLowerCase(text) {
-        return text.toString().toLowerCase();
-      }
+    toLowerCase: function toLowerCase(text) {
+      return text.toString().toLowerCase();
+    }
+  },
+  mounted: function mounted() {
+    muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20); // 初期モードはHistory
+
+    this.changeToHistorySearch();
+  },
+  methods: {
+    setSearchType: function setSearchType(searchType) {
+      this.currentSearchType = searchType;
     },
-    methods: {
-      init: function init() {
-        this.changeToHistorySearch();
-      },
-      setSearchType: function setSearchType(searchType) {
-        var _this = this;
+    changeSearchType: function changeSearchType(event) {
+      var _this = this;
 
-        this.currentSearchType = searchType;
-        Object.keys(this.searchTypes).forEach(function (typeName) {
-          if (_this.searchTypes[typeName] == _this.currentSearchType) {
-            _this.currentSearchTypeName = typeName;
-            return;
-          }
-        });
-      },
-      changeSearchType: function changeSearchType(event) {
-        var _this2 = this;
+      if (event) {
+        event.preventDefault();
+      }
 
-        if (event) {
-          event.preventDefault();
-        }
+      var nextSearchType = this.currentSearchType + 1;
+      var searchTypeList = Object.values(this.searchTypes);
 
-        var nextSearchType = this.currentSearchType + 1;
-        var searchTypeList = Object.values(this.searchTypes);
+      if (Math.max.apply(Math, _toConsumableArray(searchTypeList)) < nextSearchType) {
+        nextSearchType = Math.min.apply(Math, _toConsumableArray(searchTypeList));
+      }
 
-        if (Math.max.apply(Math, _toConsumableArray(searchTypeList)) < nextSearchType) {
-          nextSearchType = Math.min.apply(Math, _toConsumableArray(searchTypeList));
-        }
+      _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee() {
+        var results;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.t0 = nextSearchType;
+                _context.next = _context.t0 === _this.searchTypes.HISTORY ? 3 : _context.t0 === _this.searchTypes.BOOKMARKS ? 6 : _context.t0 === _this.searchTypes.TABS ? 9 : 12;
+                break;
 
-        _asyncToGenerator(
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee() {
-          var results;
-          return regeneratorRuntime.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  _context.t0 = nextSearchType;
-                  _context.next = _context.t0 === _this2.searchTypes.HISTORY ? 3 : _context.t0 === _this2.searchTypes.BOOKMARKS ? 6 : _context.t0 === _this2.searchTypes.TABS ? 9 : 12;
-                  break;
+              case 3:
+                _context.next = 5;
+                return _this.changeToHistorySearch();
 
-                case 3:
-                  _context.next = 5;
-                  return _this2.changeToHistorySearch();
+              case 5:
+                return _context.abrupt("break", 12);
 
-                case 5:
-                  return _context.abrupt("break", 12);
+              case 6:
+                _context.next = 8;
+                return _this.changeToBookmarksSearch();
 
-                case 6:
-                  _context.next = 8;
-                  return _this2.changeToBookmarksSearch();
+              case 8:
+                return _context.abrupt("break", 12);
 
-                case 8:
-                  return _context.abrupt("break", 12);
+              case 9:
+                _context.next = 11;
+                return _this.changeToTabsSearch();
 
-                case 9:
-                  _context.next = 11;
-                  return _this2.changeToTabsSearch();
+              case 11:
+                return _context.abrupt("break", 12);
 
-                case 11:
-                  return _context.abrupt("break", 12);
+              case 12:
+                _context.next = 14;
+                return _this.search(_this.inputString);
 
-                case 12:
-                  _context.next = 14;
-                  return _this2.search(_this2.inputValue);
+              case 14:
+                results = _context.sent;
+                _this.results = _this.setSearchResultsToData(results);
 
-                case 14:
-                  results = _context.sent;
-                  _this2.results = _this2.setSearchResultsToData(results);
-
-                case 16:
-                case "end":
-                  return _context.stop();
-              }
+              case 16:
+              case "end":
+                return _context.stop();
             }
-          }, _callee, this);
-        }))();
-      },
-      search: function search(inputValue) {
-        return new Promise(function (resolve) {
-          var results = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(inputValue);
-          resolve(results);
-        });
-      },
-      setSearchResultsToData: function setSearchResultsToData(results) {
-        // リストの選択中の位置を調整
-        if (Array.isArray(results.list)) {
-          this.currentSelected = Math.min(this.currentSelected, results.list.length - 1);
-        }
+          }
+        }, _callee, this);
+      }))();
+    },
+    search: function search(inputString) {
+      return new Promise(function (resolve) {
+        var results = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(inputString);
+        resolve(results);
+      });
+    },
+    setSearchResultsToData: function setSearchResultsToData(results) {
+      // リストの選択中の位置を調整
+      if (Array.isArray(results.list)) {
+        this.currentSelected = Math.min(this.currentSelected, results.list.length - 1);
+      }
 
-        return results.list;
-      },
-      changeToHistorySearch: function changeToHistorySearch() {
-        var _this3 = this;
+      return results.list;
+    },
+    changeToHistorySearch: function changeToHistorySearch() {
+      var _this2 = this;
 
-        return new Promise(function (resolve) {
-          _this3.setSearchType(_this3.searchTypes.HISTORY); // 1年分
+      return new Promise(function (resolve) {
+        _this2.setSearchType(_this2.searchTypes.HISTORY); // 1年分
 
 
-          var startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 265;
-          var query = {
-            text: '',
-            startTime: startTime,
-            maxResults: 50000
-          };
-          var historyList = [];
-          chrome.history.search(query, function (results) {
-            var reverseResult = results.reverse();
-            reverseResult.forEach(function (result) {
-              // resultひとつひとつがHistoryItem形式
-              historyList.push({
-                url: result.url,
-                title: result.title
-              });
+        var startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 265;
+        var query = {
+          text: '',
+          startTime: startTime,
+          maxResults: 50000
+        };
+        var historyList = [];
+        chrome.history.search(query, function (results) {
+          var reverseResult = results.reverse();
+          reverseResult.forEach(function (result) {
+            // resultひとつひとつがHistoryItem形式
+            historyList.push({
+              url: result.url,
+              title: result.title
             });
-            muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(historyList);
-            resolve();
           });
+          muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(historyList);
+          resolve();
         });
-      },
-      changeToTabsSearch: function changeToTabsSearch() {
-        var _this4 = this;
+      });
+    },
+    changeToTabsSearch: function changeToTabsSearch() {
+      var _this3 = this;
 
-        return new Promise(function (resolve) {
-          _this4.setSearchType(_this4.searchTypes.TABS);
+      return new Promise(function (resolve) {
+        _this3.setSearchType(_this3.searchTypes.TABS);
 
-          chrome.tabs.query({
-            currentWindow: true
-          }, function (tabs) {
-            var searchWordList = [];
-            tabs.forEach(function (tab, index) {
-              searchWordList.push({
-                index: tab.index.toString(),
-                id: tab.id.toString(),
-                title: tab.title,
-                url: tab.url
-              });
-            });
-            muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
-            resolve();
-          });
-        });
-      },
-      changeToBookmarksSearch: function changeToBookmarksSearch() {
-        var _this5 = this;
-
-        return new Promise(function (resolve) {
-          _this5.setSearchType(_this5.searchTypes.BOOKMARKS);
-
-          chrome.bookmarks.getTree(function (bookmarksTree) {
-            var searchWordList = [];
-            searchWordList = _this5.pushBookmarkListRecursive(bookmarksTree, searchWordList);
-            muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
-            resolve();
-          });
-        });
-      },
-      pushBookmarkListRecursive: function pushBookmarkListRecursive(bookmarksTree, searchWordList, parentPath) {
-        if (typeof parentPath == 'undefined') {
-          parentPath = '';
-        }
-
-        for (var i = 0; i < bookmarksTree.length; i++) {
-          var bookmark = bookmarksTree[i];
-
-          if (bookmark.url) {
+        chrome.tabs.query({
+          currentWindow: true
+        }, function (tabs) {
+          var searchWordList = [];
+          tabs.forEach(function (tab, index) {
             searchWordList.push({
-              parentPath: parentPath,
-              // TODO: 検索ignoreしたい
-              path: parentPath + bookmark.title,
-              title: bookmark.title,
-              url: bookmark.url
+              index: tab.index.toString(),
+              id: tab.id.toString(),
+              title: tab.title,
+              url: tab.url
             });
-          }
+          });
+          muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
+          resolve();
+        });
+      });
+    },
+    changeToBookmarksSearch: function changeToBookmarksSearch() {
+      var _this4 = this;
 
-          if (bookmark.children) {
-            var currentPath = parentPath + bookmark.title + '/';
-            searchWordList = this.pushBookmarkListRecursive(bookmark.children, searchWordList, currentPath);
-          }
+      return new Promise(function (resolve) {
+        _this4.setSearchType(_this4.searchTypes.BOOKMARKS);
+
+        chrome.bookmarks.getTree(function (bookmarksTree) {
+          var searchWordList = [];
+          searchWordList = _this4.pushBookmarkListRecursive(bookmarksTree, searchWordList);
+          muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
+          resolve();
+        });
+      });
+    },
+    pushBookmarkListRecursive: function pushBookmarkListRecursive(bookmarksTree, searchWordList, parentPath) {
+      if (typeof parentPath == 'undefined') {
+        parentPath = '';
+      }
+
+      for (var i = 0; i < bookmarksTree.length; i++) {
+        var bookmark = bookmarksTree[i];
+
+        if (bookmark.url) {
+          searchWordList.push({
+            parentPath: parentPath,
+            // TODO: 検索ignoreしたい
+            path: parentPath + bookmark.title,
+            title: bookmark.title,
+            url: bookmark.url
+          });
         }
 
-        return searchWordList;
-      },
-      moveUpSelector: function moveUpSelector(type, event) {
-        if (event) event.preventDefault();
-
-        if (this.currentSelected > 0) {
-          this.currentSelected--;
-        }
-      },
-      moveDownSelector: function moveDownSelector(type, event) {
-        if (event) event.preventDefault();
-
-        if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
-          this.currentSelected++;
-        }
-      },
-      resetCurrentSelector: function resetCurrentSelector() {
-        this.currentSelected = -1;
-      },
-      select: function select() {
-        var currentSelected = Math.max(this.currentSelected, 0);
-
-        if (typeof this.results[currentSelected] != 'undefined') {
-          if (this.currentSearchType == this.searchTypes.HISTORY || this.currentSearchType == this.searchTypes.BOOKMARKS) {
-            window.open(this.results[currentSelected].url);
-          } else if (this.currentSearchType == this.searchTypes.TABS) {
-            // https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
-            chrome.tabs.update(parseInt(this.results[currentSelected].id), {
-              active: true
-            });
-          }
+        if (bookmark.children) {
+          var currentPath = parentPath + bookmark.title + '/';
+          searchWordList = this.pushBookmarkListRecursive(bookmark.children, searchWordList, currentPath);
         }
       }
+
+      return searchWordList;
     },
-    subscriptions: function subscriptions() {
-      return {
-        results: this.$watchAsObservable('inputValue').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(this.search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(this.setSearchResultsToData))
-      };
+    moveUpSelector: function moveUpSelector(type, event) {
+      if (event) event.preventDefault();
+
+      if (this.currentSelected > 0) {
+        this.currentSelected--;
+      }
     },
-    directives: {
-      focus: {
-        // ディレクティブ定義
-        inserted: function inserted(el) {
-          el.focus();
+    moveDownSelector: function moveDownSelector(type, event) {
+      if (event) event.preventDefault();
+
+      if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
+        this.currentSelected++;
+      }
+    },
+    resetCurrentSelector: function resetCurrentSelector() {
+      this.currentSelected = -1;
+    },
+    select: function select() {
+      var currentSelected = Math.max(this.currentSelected, 0);
+
+      if (typeof this.results[currentSelected] != 'undefined') {
+        if (this.currentSearchType == this.searchTypes.HISTORY || this.currentSearchType == this.searchTypes.BOOKMARKS) {
+          window.open(this.results[currentSelected].url);
+        } else if (this.currentSearchType == this.searchTypes.TABS) {
+          // https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
+          chrome.tabs.update(parseInt(this.results[currentSelected].id), {
+            active: true
+          });
         }
       }
     }
-  });
-  vm.init();
-}
+  },
+  subscriptions: function subscriptions() {
+    return {
+      results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(this.search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(this.setSearchResultsToData))
+    };
+  },
+  directives: {
+    focus: {
+      // ディレクティブ定義
+      inserted: function inserted(el) {
+        el.focus();
+      }
+    }
+  }
+});
+
+window.onload = function () {
+  vm.$mount('#muffin');
+};
 
 /***/ }),
 
