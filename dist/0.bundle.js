@@ -255,18 +255,22 @@ function vueInit() {
 
         return searchWordList;
       },
-      moveSelector: function moveSelector(type, event) {
+      moveUpSelector: function moveUpSelector(type, event) {
         if (event) event.preventDefault();
 
-        if (type == "down") {
-          if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
-            this.currentSelected++;
-          }
-        } else if (type == "up") {
-          if (this.currentSelected > 0) {
-            this.currentSelected--;
-          }
+        if (this.currentSelected > 0) {
+          this.currentSelected--;
         }
+      },
+      moveDownSelector: function moveDownSelector(type, event) {
+        if (event) event.preventDefault();
+
+        if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
+          this.currentSelected++;
+        }
+      },
+      resetCurrentSelector: function resetCurrentSelector() {
+        this.currentSelected = -1;
       },
       select: function select() {
         var currentSelected = Math.max(this.currentSelected, 0);

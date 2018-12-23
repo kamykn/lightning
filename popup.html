@@ -11,8 +11,8 @@
 						v-model="inputValue"
 						type="text"
 						@keydown.tab="changeSearchType($event)"
-						@keydown.down="moveSelector('down')"
-						@keydown.up="moveSelector('up')"
+						@keydown.down="moveDownSelector()"
+						@keydown.up="moveUpSelector()"
 						@keydown.enter="select()"
 						placeholder="Fuzzy Blue Search."
 					>
@@ -29,7 +29,7 @@
 				</div>
 			</header>
 			<div id="main">
-				<ul v-if="results && results.length >= 1">
+				<ul v-if="results && results.length >= 1" @mouseover="resetCurrentSelector">
 					<template v-if="currentSearchType == searchTypes.HISTORY">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
