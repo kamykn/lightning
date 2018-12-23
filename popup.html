@@ -11,9 +11,11 @@
 						v-model="inputValue"
 						type="text"
 						@keydown.tab="changeSearchType($event)"
-						@keydown.down="moveDownSelector()"
-						@keydown.up="moveUpSelector()"
-						@keydown.enter="select()"
+						@keydown.down="moveDownSelector"
+						@keydown.up="moveUpSelector"
+						@keydown.enter="select"
+						@keydown.ctrl.80="moveUpSelector"
+						@keydown.ctrl.78="moveDownSelector"
 						placeholder="Fuzzy Blue Search."
 					>
 				</div>
