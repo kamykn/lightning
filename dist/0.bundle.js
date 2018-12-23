@@ -38,10 +38,9 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"].use(vue_rx__WEBPACK_IMPORTED_MODULE_2__["default"]);
-
-window.onload = function () {
+window.addEventListener('load', function () {
   init();
-};
+}(), false);
 
 function init() {
   muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20);
@@ -291,6 +290,14 @@ function vueInit() {
       return {
         results: this.$watchAsObservable('inputValue').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(this.search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(this.setSearchResultsToData))
       };
+    },
+    directives: {
+      focus: {
+        // ディレクティブ定義
+        inserted: function inserted(el) {
+          el.focus();
+        }
+      }
     }
   });
   vm.init();

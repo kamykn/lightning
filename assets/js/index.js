@@ -9,9 +9,10 @@ import style from '../scss/style.scss'
 
 Vue.use(VueRx)
 
-window.onload = function() {
+window.addEventListener('load', (function(){
 	init()
-}
+})(),false);
+
 
 function init() {
 	muff.setReturnListLength(20)
@@ -218,6 +219,14 @@ function vueInit() {
 					switchMap(this.search),
 					map(this.setSearchResultsToData)
 				)
+			}
+		},
+		directives: {
+			focus: {
+				// ディレクティブ定義
+				inserted: function (el) {
+					el.focus()
+				}
 			}
 		}
 	})
