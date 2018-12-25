@@ -1,31 +1,21 @@
 @charset "UTF-8";
-body {
+body, html {
   color: #262626;
-  margin: 0px;
-  width: 360px; }
+  margin: 0;
+  padding: 0;
+  width: 360px;
+  background: #F7F7F7; }
 
 header {
   color: #FFF;
   width: 100%; }
-  header #form {
-    height: 40px; }
-    header #form #search {
-      width: 350px;
-      border-radius: 15px;
-      height: 30px;
-      border: 1px solid #ddd;
-      margin-bottom: 10px;
-      padding: 10px 10px;
-      margin: 5px;
-      font-size: 15px;
-      outline: 0; }
-      header #form #search:focus {
-        border: 1px solid #008eff; }
   header #menu-wrap {
+    top: 0px;
     width: 100%;
     height: 35px;
     margin-bottom: 5px;
-    background: #F7F7F7; }
+    background: #FFF;
+    box-shadow: 0 0 5px #aaa; }
     header #menu-wrap #menu-clickable-wrap {
       margin: 0 30px;
       display: flex;
@@ -59,6 +49,20 @@ header {
         -webkit-transition: 0.3s ease-out;
         -o-transition: 0.3s ease-out;
         -ms-transition: 0.3s ease-out; }
+  header #form {
+    height: 40px; }
+    header #form #search {
+      width: 350px;
+      border-radius: 15px;
+      height: 30px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 10px 10px;
+      margin: 5px;
+      font-size: 15px;
+      outline: 0; }
+      header #form #search:focus {
+        border: 1px solid #008eff; }
 
 #main ul {
   margin: 5px;
@@ -75,15 +79,16 @@ header {
     background: #FFF; }
     #main ul li:first-child {
       border-top: none; }
-    #main ul li:hover a > .url,
-    #main ul li:hover a > .path,
-    #main ul li:hover a > .title,
-    #main ul li.currentSelected a .url,
-    #main ul li.currentSelected a .path,
-    #main ul li.currentSelected a .title {
-      color: #008eff; }
+    #main ul li:hover, #main ul li.currentSelected {
+      background: #f1f9ff !important; }
+      #main ul li:hover a .url,
+      #main ul li:hover a .path,
+      #main ul li:hover a .title, #main ul li.currentSelected a .url,
+      #main ul li.currentSelected a .path,
+      #main ul li.currentSelected a .title {
+        color: #008eff; }
     #main ul li:nth-child(odd) {
-      background: #F5F5F5; }
+      background: #F7F7F7; }
     #main ul li a {
       text-decoration: none; }
       #main ul li a .title {
@@ -101,9 +106,18 @@ header {
         white-space: nowrap;
         text-overflow: ellipsis; }
 
+#main #logo {
+  height: 30px;
+  text-align: center; }
+  #main #logo img {
+    height: 30px;
+    padding: 10px;
+    opacity: 0.28; }
+
 /*スクロールバー全体*/
 ::-webkit-scrollbar {
-  width: 7px; }
+  width: 7px;
+  background: #41abff; }
 
 /*スクロールバーの軌道*/
 ::-webkit-scrollbar-track {

@@ -30,6 +30,7 @@ let vm = new Vue({
 		}
 	},
 	mounted() {
+		// 結果の数を設定
 		muff.setReturnListLength(20)
 		// 初期モードはHistory
 		this.changeToHistorySearch()
@@ -59,7 +60,9 @@ let vm = new Vue({
 						await this.changeToTabsSearch()
 						break;
 				}
+				console.log(this.inputString)
 				const results = await this.search(this.inputString)
+				console.log(results)
 				this.results = this.setSearchResultsToData(results)
 			})()
 		},
@@ -133,6 +136,7 @@ let vm = new Vue({
 				chrome.bookmarks.getTree((bookmarksTree) => {
 					let searchWordList = []
 					searchWordList = this.pushBookmarkListRecursive(bookmarksTree, searchWordList)
+					console.log(searchWordList)
 					muff.setSearchWordList(searchWordList)
 					resolve()
 				})

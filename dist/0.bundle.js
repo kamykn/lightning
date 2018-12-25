@@ -60,6 +60,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
     }
   },
   mounted: function mounted() {
+    // 結果の数を設定
     muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20); // 初期モードはHistory
 
     this.changeToHistorySearch();
@@ -116,14 +117,16 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
                 return _context.abrupt("break", 12);
 
               case 12:
-                _context.next = 14;
+                console.log(_this.inputString);
+                _context.next = 15;
                 return _this.search(_this.inputString);
 
-              case 14:
+              case 15:
                 results = _context.sent;
+                console.log(results);
                 _this.results = _this.setSearchResultsToData(results);
 
-              case 16:
+              case 18:
               case "end":
                 return _context.stop();
             }
@@ -205,6 +208,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
         chrome.bookmarks.getTree(function (bookmarksTree) {
           var searchWordList = [];
           searchWordList = _this4.pushBookmarkListRecursive(bookmarksTree, searchWordList);
+          console.log(searchWordList);
           muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
           resolve();
         });

@@ -1,41 +1,25 @@
 @charset "UTF-8";
 
-body {
+body, html {
 	color: #262626;
-	margin: 0px;
+	margin: 0;
+	padding: 0;
 	width: 360px;
+	background: #F7F7F7;
 }
 
 header {
 	color: #FFF;
 	width: 100%;
 
-	#form {
-		height: 40px;
-
-		#search {
-			width: 350px;
-			border-radius: 15px;
-			height: 30px;
-			border: 1px solid #ddd;
-			margin-bottom: 10px;
-			padding: 10px 10px;
-			margin: 5px;
-			font-size: 15px;
-			outline: 0;
-
-			&:focus {
-				border: 1px solid #008eff;
-			}
-		}
-	}
-
 	#menu-wrap {
+		top: 0px;
 		$menuHeight: 35px;
 		width: 100%;
 		height: $menuHeight;
 		margin-bottom: 5px;
-		background: #F7F7F7;
+		background: #FFF;
+		box-shadow: 0 0 5px #aaa;
 
 		#menu-clickable-wrap {
 			margin:  0 30px;
@@ -78,6 +62,27 @@ header {
 		}
 	}
 
+	#form {
+		height: 40px;
+
+		#search {
+			width: 350px;
+			border-radius: 15px;
+			height: 30px;
+			border: 1px solid #ddd;
+			margin-bottom: 10px;
+			padding: 10px 10px;
+			margin: 5px;
+			font-size: 15px;
+			outline: 0;
+
+			&:focus {
+				border: 1px solid #008eff;
+			}
+		}
+	}
+
+
 }
 
 #main {
@@ -100,17 +105,21 @@ header {
 				border-top: none;
 			}
 
-			&:hover a > ,
-			&.currentSelected a {
-				.url,
-				.path,
-				.title {
-					color: #008eff;
+			&:hover ,
+			&.currentSelected {
+				background: #f1f9ff !important;
+
+				a {
+					.url,
+					.path,
+					.title {
+						color: #008eff;
+					}
 				}
 			}
 
 			&:nth-child(odd) {
-				background: #F5F5F5;
+				background: #F7F7F7;
 			}
 
 			a {
@@ -136,11 +145,23 @@ header {
 			}
 		}
 	}
+
+	#logo {
+		height: 30px;
+		text-align: center;
+		img {
+			height: 30px;
+			padding: 10px;
+			opacity: 0.28;
+		}
+	}
+
 }
 
 /*スクロールバー全体*/
 ::-webkit-scrollbar {
     width: 7px;
+	background: #41abff;
 }
 
 /*スクロールバーの軌道*/
