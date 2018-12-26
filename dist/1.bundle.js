@@ -8984,7 +8984,6 @@ class Muff {
 	}
 
 	search(inputWord) {
-		console.log(this.wasm.fuzzyMatch(inputWord))
 		return JSON.parse(this.wasm.fuzzyMatch(inputWord))
 	}
 }
