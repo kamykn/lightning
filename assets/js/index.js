@@ -40,8 +40,6 @@ let vm = new Vue({
 			this.currentSearchType = searchType
 		},
 		nextSearchType(event) {
-			if (event) {event.preventDefault()}
-
 			const searchTypeList = Object.values(this.searchTypes)
 			let nextSearchType = this.currentSearchType + 1
 			if (nextSearchType > Math.max(...searchTypeList)) {
@@ -51,8 +49,6 @@ let vm = new Vue({
 			this.setNewSearchType(nextSearchType)
 		},
 		prevSearchType(event) {
-			if (event) {event.preventDefault()}
-
 			const searchTypeList = Object.values(this.searchTypes)
 			let nextSearchType = this.currentSearchType - 1
 			if (nextSearchType < Math.min(...searchTypeList)) {
@@ -183,22 +179,16 @@ let vm = new Vue({
 			this.currentSelected = -1
 		},
 		moveUpSelector(event) {
-			if (event) event.preventDefault()
-
 			if (this.currentSelected > 0) {
 				this.currentSelected--
+				this.resultRestScroll()
 			}
-
-			this.resultRestScroll()
 		},
 		moveDownSelector(event) {
-			if (event) event.preventDefault()
-
 			if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
 				this.currentSelected++
+				this.resultRestScroll()
 			}
-
-			this.resultRestScroll()
 		},
 		resultRestScroll() {
 			this.$nextTick(() => {

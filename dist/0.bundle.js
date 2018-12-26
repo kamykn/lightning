@@ -70,10 +70,6 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
       this.currentSearchType = searchType;
     },
     nextSearchType: function nextSearchType(event) {
-      if (event) {
-        event.preventDefault();
-      }
-
       var searchTypeList = Object.values(this.searchTypes);
       var nextSearchType = this.currentSearchType + 1;
 
@@ -84,10 +80,6 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
       this.setNewSearchType(nextSearchType);
     },
     prevSearchType: function prevSearchType(event) {
-      if (event) {
-        event.preventDefault();
-      }
-
       var searchTypeList = Object.values(this.searchTypes);
       var nextSearchType = this.currentSearchType - 1;
 
@@ -259,22 +251,16 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
       this.currentSelected = -1;
     },
     moveUpSelector: function moveUpSelector(event) {
-      if (event) event.preventDefault();
-
       if (this.currentSelected > 0) {
         this.currentSelected--;
+        this.resultRestScroll();
       }
-
-      this.resultRestScroll();
     },
     moveDownSelector: function moveDownSelector(event) {
-      if (event) event.preventDefault();
-
       if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
         this.currentSelected++;
+        this.resultRestScroll();
       }
-
-      this.resultRestScroll();
     },
     resultRestScroll: function resultRestScroll() {
       this.$nextTick(function () {
