@@ -20,19 +20,20 @@
 						id="search"
 						v-model="inputString"
 						type="text"
-						@keydown.tab="changeSearchType($event)"
-						@keydown.down="moveDownSelector"
-						@keydown.up="moveUpSelector"
-						@keydown.enter="select"
+						@keydown.tab.exact="nextSearchType($event)"
+						@keydown.shift.tab="prevSearchType($event)"
+						@keypress.down="moveDownSelector"
+						@keypress.up="moveUpSelector"
 						@keydown.ctrl.80="moveUpSelector"
 						@keydown.ctrl.78="moveDownSelector"
+						@keypress.enter="select"
 						placeholder="Fuzzy Search"
 						v-focus
 					>
 				</div>
 			</header>
 			<div id="main">
-				<ul v-if="results && results.length >= 1" @mouseover="resetCurrentSelector">
+				<ul v-if="results && results.length >= 1" @mouseover="resetCurrentSelector" ref="list">
 					<template v-if="currentSearchType == searchTypes.HISTORY">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">

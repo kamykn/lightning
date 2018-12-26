@@ -39,15 +39,29 @@ let vm = new Vue({
 		setSearchType(searchType) {
 			this.currentSearchType = searchType
 		},
-		changeSearchType(event) {
+		nextSearchType(event) {
 			if (event) {event.preventDefault()}
 
-			let nextSearchType = this.currentSearchType + 1
 			const searchTypeList = Object.values(this.searchTypes)
-			if (Math.max(...searchTypeList) < nextSearchType) {
+			let nextSearchType = this.currentSearchType + 1
+			if (nextSearchType > Math.max(...searchTypeList)) {
 				nextSearchType = Math.min(...searchTypeList)
 			}
 
+			this.setNewSearchType(nextSearchType)
+		},
+		prevSearchType(event) {
+			if (event) {event.preventDefault()}
+
+			const searchTypeList = Object.values(this.searchTypes)
+			let nextSearchType = this.currentSearchType - 1
+			if (nextSearchType < Math.min(...searchTypeList)) {
+				nextSearchType = Math.max(...searchTypeList)
+			}
+
+			this.setNewSearchType(nextSearchType)
+		},
+		setNewSearchType (nextSearchType) {
 			(async () => {
 				switch (nextSearchType) {
 					case this.searchTypes.HISTORY:
@@ -60,9 +74,7 @@ let vm = new Vue({
 						await this.changeToTabsSearch()
 						break;
 				}
-				console.log(this.inputString)
 				const results = await this.search(this.inputString)
-				console.log(results)
 				this.results = this.setSearchResultsToData(results)
 			})()
 		},
@@ -167,12 +179,17 @@ let vm = new Vue({
 
 			return searchWordList
 		},
+		resetCurrentSelector() {
+			this.currentSelected = -1
+		},
 		moveUpSelector(type, event) {
 			if (event) event.preventDefault()
 
 			if (this.currentSelected > 0) {
 				this.currentSelected--
 			}
+
+			this.resultRestScroll()
 		},
 		moveDownSelector(type, event) {
 			if (event) event.preventDefault()
@@ -180,9 +197,16 @@ let vm = new Vue({
 			if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
 				this.currentSelected++
 			}
+
+			this.resultRestScroll()
 		},
-		resetCurrentSelector() {
-			this.currentSelected = -1
+		resultRestScroll() {
+			this.$nextTick(() => {
+				const selectedLi = document.getElementsByClassName('currentSelected')[0]
+				if (typeof selectedLi != 'undefined') {
+					selectedLi.scrollIntoView({behavior: "instant", block: "nearest"})
+				}
+			})
 		},
 		select() {
 			let currentSelected = Math.max(this.currentSelected, 0)

@@ -69,19 +69,36 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
     setSearchType: function setSearchType(searchType) {
       this.currentSearchType = searchType;
     },
-    changeSearchType: function changeSearchType(event) {
-      var _this = this;
-
+    nextSearchType: function nextSearchType(event) {
       if (event) {
         event.preventDefault();
       }
 
-      var nextSearchType = this.currentSearchType + 1;
       var searchTypeList = Object.values(this.searchTypes);
+      var nextSearchType = this.currentSearchType + 1;
 
-      if (Math.max.apply(Math, _toConsumableArray(searchTypeList)) < nextSearchType) {
+      if (nextSearchType > Math.max.apply(Math, _toConsumableArray(searchTypeList))) {
         nextSearchType = Math.min.apply(Math, _toConsumableArray(searchTypeList));
       }
+
+      this.setNewSearchType(nextSearchType);
+    },
+    prevSearchType: function prevSearchType(event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      var searchTypeList = Object.values(this.searchTypes);
+      var nextSearchType = this.currentSearchType - 1;
+
+      if (nextSearchType < Math.min.apply(Math, _toConsumableArray(searchTypeList))) {
+        nextSearchType = Math.max.apply(Math, _toConsumableArray(searchTypeList));
+      }
+
+      this.setNewSearchType(nextSearchType);
+    },
+    setNewSearchType: function setNewSearchType(nextSearchType) {
+      var _this = this;
 
       _asyncToGenerator(
       /*#__PURE__*/
@@ -117,16 +134,14 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
                 return _context.abrupt("break", 12);
 
               case 12:
-                console.log(_this.inputString);
-                _context.next = 15;
+                _context.next = 14;
                 return _this.search(_this.inputString);
 
-              case 15:
+              case 14:
                 results = _context.sent;
-                console.log(results);
                 _this.results = _this.setSearchResultsToData(results);
 
-              case 18:
+              case 16:
               case "end":
                 return _context.stop();
             }
@@ -240,12 +255,17 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
       return searchWordList;
     },
+    resetCurrentSelector: function resetCurrentSelector() {
+      this.currentSelected = -1;
+    },
     moveUpSelector: function moveUpSelector(type, event) {
       if (event) event.preventDefault();
 
       if (this.currentSelected > 0) {
         this.currentSelected--;
       }
+
+      this.resultRestScroll();
     },
     moveDownSelector: function moveDownSelector(type, event) {
       if (event) event.preventDefault();
@@ -253,9 +273,20 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
       if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
         this.currentSelected++;
       }
+
+      this.resultRestScroll();
     },
-    resetCurrentSelector: function resetCurrentSelector() {
-      this.currentSelected = -1;
+    resultRestScroll: function resultRestScroll() {
+      this.$nextTick(function () {
+        var selectedLi = document.getElementsByClassName('currentSelected')[0];
+
+        if (typeof selectedLi != 'undefined') {
+          selectedLi.scrollIntoView({
+            behavior: "instant",
+            block: "nearest"
+          });
+        }
+      });
     },
     select: function select() {
       var currentSelected = Math.max(this.currentSelected, 0);
