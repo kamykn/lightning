@@ -258,7 +258,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
     resetCurrentSelector: function resetCurrentSelector() {
       this.currentSelected = -1;
     },
-    moveUpSelector: function moveUpSelector(type, event) {
+    moveUpSelector: function moveUpSelector(event) {
       if (event) event.preventDefault();
 
       if (this.currentSelected > 0) {
@@ -267,7 +267,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
       this.resultRestScroll();
     },
-    moveDownSelector: function moveDownSelector(type, event) {
+    moveDownSelector: function moveDownSelector(event) {
       if (event) event.preventDefault();
 
       if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {

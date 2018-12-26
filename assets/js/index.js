@@ -182,7 +182,7 @@ let vm = new Vue({
 		resetCurrentSelector() {
 			this.currentSelected = -1
 		},
-		moveUpSelector(type, event) {
+		moveUpSelector(event) {
 			if (event) event.preventDefault()
 
 			if (this.currentSelected > 0) {
@@ -191,7 +191,7 @@ let vm = new Vue({
 
 			this.resultRestScroll()
 		},
-		moveDownSelector(type, event) {
+		moveDownSelector(event) {
 			if (event) event.preventDefault()
 
 			if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
