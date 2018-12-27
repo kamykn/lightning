@@ -30,6 +30,7 @@ header {
         text-align: center;
         font-size: 15px;
         color: #B3B4BB;
+        cursor: pointer;
         -moz-transition: 0.3s ease-out;
         -webkit-transition: 0.3s ease-out;
         -o-transition: 0.3s ease-out;
@@ -37,6 +38,10 @@ header {
         header #menu-wrap #menu-clickable-wrap #history.active,
         header #menu-wrap #menu-clickable-wrap #tabs.active,
         header #menu-wrap #menu-clickable-wrap #bookmarks.active {
+          color: #008eff; }
+        header #menu-wrap #menu-clickable-wrap #history:hover,
+        header #menu-wrap #menu-clickable-wrap #tabs:hover,
+        header #menu-wrap #menu-clickable-wrap #bookmarks:hover {
           color: #008eff; }
       header #menu-wrap #menu-clickable-wrap #select-bar {
         position: absolute;

@@ -8,7 +8,10 @@
 				<div id="menu-wrap">
 					<div id="menu-clickable-wrap">
 						<template v-for="(typeInt, typeName) in searchTypes">
-							<span v-bind:id="typeName | toLowerCase" v-bind:class="{ active: typeInt == currentSearchType }">
+							<span
+								v-bind:id="typeName | toLowerCase"
+								v-bind:class="{ active: typeInt == currentSearchType }"
+								@click="setNewSearchType(typeInt)">
 								{{ typeName | toUpperFirst }}
 							</span>
 						</template>
@@ -22,8 +25,8 @@
 						type="text"
 						@keydown.tab.exact.prevent="nextSearchType"
 						@keydown.shift.tab.prevent="prevSearchType"
-						@keydown.down.prevent="moveDownSelector"
 						@keydown.up.prevent="moveUpSelector"
+						@keydown.down.prevent="moveDownSelector"
 						@keydown.ctrl.80.prevent="moveUpSelector"
 						@keydown.ctrl.78.prevent="moveDownSelector"
 						@keypress.enter="select"
@@ -43,7 +46,7 @@
 											{{ result.title }}
 										</template>
 										<template v-else>
-											No title.
+											(No title.)
 										</template>
 									</div>
 									<div class="url">{{ result.url }}</div>
@@ -60,7 +63,7 @@
 											{{ result.title }}
 										</template>
 										<template v-else>
-											No title.
+											(No title.)
 										</template>
 									</div>
 									<div class="path">{{ result.parentPath }}</div>
@@ -73,7 +76,14 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.url" target="_blank">
-									<div class="title">{{ result.index + ': ' + result.title }}</div>
+									<div class="title">
+										<template v-if="result.title">
+											{{ result.index + ': ' + result.title }}
+										</template>
+										<template v-else>
+											{{ result.index + ': (No title.)' }}
+										</template>
+									</div>
 									<div class="url">{{ result.url }}</div>
 								</a>
 							</li>
