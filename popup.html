@@ -40,16 +40,18 @@
 					<template v-if="currentSearchType == searchTypes.HISTORY">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
-								<a v-bind:href="result.url" target="_blank">
+								<a v-bind:href="result.matches.url" target="_blank">
 									<div class="title">
-										<template v-if="result.title">
-											{{ result.title }}
+										<template v-if="result.matches.title">
+											<span v-html="result.highlighteds.title"></span>
 										</template>
 										<template v-else>
 											(No title.)
 										</template>
 									</div>
-									<div class="url">{{ result.url }}</div>
+									<div class="url">
+										<span v-html="result.highlighteds.url"></span>
+									</div>
 								</a>
 							</li>
 						</template>
@@ -57,17 +59,21 @@
 					<template v-else-if="currentSearchType == searchTypes.BOOKMARKS">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
-								<a v-bind:href="result.url" target="_blank">
+								<a v-bind:href="result.matches.url" target="_blank">
 									<div class="title">
-										<template v-if="result.title">
-											{{ result.title }}
+										<template v-if="result.matches.title">
+											<span v-html="result.highlighteds.title"></span>
 										</template>
 										<template v-else>
 											(No title.)
 										</template>
 									</div>
-									<div class="path">{{ result.parentPath }}</div>
-									<div class="url">{{ result.url }}</div>
+									<div class="path">
+										<span v-html="result.highlighteds.parentPath"></span>
+									</div>
+									<div class="url">
+										<span v-html="result.highlighteds.url"></span>
+									</div>
 								</a>
 							</li>
 						</template>
@@ -75,16 +81,19 @@
 					<template v-else-if="currentSearchType == searchTypes.TABS">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
-								<a v-bind:href="result.url" target="_blank">
+								<a v-bind:href="result.matches.url" target="_blank">
 									<div class="title">
-										<template v-if="result.title">
-											{{ result.index + ': ' + result.title }}
+										<span v-html="result.highlighteds.index"></span>
+										<template v-if="result.highlighteds.title">:&nbsp;
+											<span v-html="result.highlighteds.title"></span>
 										</template>
 										<template v-else>
-											{{ result.index + ': (No title.)' }}
+											(No title.)
 										</template>
 									</div>
-									<div class="url">{{ result.url }}</div>
+									<div class="url">
+										<span v-html="result.highlighteds.url"></span>
+									</div>
 								</a>
 							</li>
 						</template>

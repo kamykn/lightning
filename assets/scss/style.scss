@@ -119,6 +119,10 @@ header {
 					.path,
 					.title {
 						color: #008eff;
+
+						b {
+							color: #00BCD4;
+						}
 					}
 				}
 			}
@@ -146,6 +150,14 @@ header {
 					overflow: hidden;
 					white-space: nowrap;
 					text-overflow: ellipsis;
+				}
+
+				.title,
+				.url,
+				.path {
+					b {
+						color: #008eff;
+					}
 				}
 			}
 		}

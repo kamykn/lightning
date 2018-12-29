@@ -149,11 +149,11 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
     },
     setSearchResultsToData: function setSearchResultsToData(results) {
       // リストの選択中の位置を調整
-      if (Array.isArray(results.list)) {
-        this.currentSelected = Math.min(this.currentSelected, results.list.length - 1);
+      if (Array.isArray(results)) {
+        this.currentSelected = Math.min(this.currentSelected, results.length - 1);
       }
 
-      return results.list;
+      return results;
     },
     changeToHistorySearch: function changeToHistorySearch() {
       var _this2 = this;

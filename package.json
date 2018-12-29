@@ -21,7 +21,7 @@
   "homepage": "https://github.com/kamykn/muffin#readme",
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
-    "muff": "~0.2.5",
+    "muff": "~0.2.6",
     "rxjs": "~6.3.3",
     "vue": "^2.5.21",
     "vue-rx": "~6.0.1"

@@ -8980,7 +8980,7 @@ class Muff {
 	}
 
 	setSearchWordList(searchWordList) {
-		this.wasm.setSearchWordList(JSON.stringify({list: searchWordList}))
+		this.wasm.setSearchWordList(JSON.stringify(searchWordList))
 	}
 
 	search(inputWord) {

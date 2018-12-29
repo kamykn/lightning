@@ -92,6 +92,12 @@ header {
       #main ul li.currentSelected a .path,
       #main ul li.currentSelected a .title {
         color: #008eff; }
+        #main ul li:hover a .url b,
+        #main ul li:hover a .path b,
+        #main ul li:hover a .title b, #main ul li.currentSelected a .url b,
+        #main ul li.currentSelected a .path b,
+        #main ul li.currentSelected a .title b {
+          color: #00BCD4; }
     #main ul li:nth-child(odd) {
       background: #F7F7F7; }
     #main ul li a {
@@ -110,6 +116,10 @@ header {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis; }
+      #main ul li a .title b,
+      #main ul li a .url b,
+      #main ul li a .path b {
+        color: #008eff; }
 
 #main #logo {
   height: 30px;

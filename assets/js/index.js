@@ -82,11 +82,11 @@ let vm = new Vue({
 		},
 		setSearchResultsToData(results) {
 			// リストの選択中の位置を調整
-			if (Array.isArray(results.list)) {
-				this.currentSelected = Math.min(this.currentSelected, results.list.length - 1)
+			if (Array.isArray(results)) {
+				this.currentSelected = Math.min(this.currentSelected, results.length - 1)
 			}
 
-			return results.list
+			return results
 		},
 		changeToHistorySearch() {
 			return new Promise(resolve => {
