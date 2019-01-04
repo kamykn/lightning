@@ -8961,12 +8961,11 @@ wasmExports["__webpack_init__"]()
 /*!************************************!*\
   !*** ./node_modules/muff/index.js ***!
   \************************************/
-/*! exports provided: muff */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "muff", function() { return muff; });
 /* harmony import */ var muff_wasm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! muff-wasm */ "./node_modules/muff-wasm/muff_wasm.js");
 
 
@@ -8988,9 +8987,7 @@ class Muff {
 	}
 }
 
-let muff = new Muff(muff_wasm__WEBPACK_IMPORTED_MODULE_0__)
-
-
+/* harmony default export */ __webpack_exports__["default"] = (new Muff(muff_wasm__WEBPACK_IMPORTED_MODULE_0__));
 
 
 /***/ }),

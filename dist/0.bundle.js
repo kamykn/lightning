@@ -61,7 +61,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
   },
   mounted: function mounted() {
     // 結果の数を設定
-    muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setReturnListLength(20); // 初期モードはHistory
+    muff__WEBPACK_IMPORTED_MODULE_0__["default"].setReturnListLength(20); // 初期モードはHistory
 
     this.changeToHistorySearch();
   },
@@ -143,7 +143,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
     },
     search: function search(inputString) {
       return new Promise(function (resolve) {
-        var results = muff__WEBPACK_IMPORTED_MODULE_0__["muff"].search(inputString);
+        var results = muff__WEBPACK_IMPORTED_MODULE_0__["default"].search(inputString);
         resolve(results);
       });
     },
@@ -178,7 +178,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
               title: result.title
             });
           });
-          muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(historyList);
+          muff__WEBPACK_IMPORTED_MODULE_0__["default"].setSearchWordList(historyList);
           resolve();
         });
       });
@@ -201,7 +201,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
               url: tab.url
             });
           });
-          muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
+          muff__WEBPACK_IMPORTED_MODULE_0__["default"].setSearchWordList(searchWordList);
           resolve();
         });
       });
@@ -216,7 +216,7 @@ var vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_1__["default"]({
           var searchWordList = [];
           searchWordList = _this4.pushBookmarkListRecursive(bookmarksTree, searchWordList);
           console.log(searchWordList);
-          muff__WEBPACK_IMPORTED_MODULE_0__["muff"].setSearchWordList(searchWordList);
+          muff__WEBPACK_IMPORTED_MODULE_0__["default"].setSearchWordList(searchWordList);
           resolve();
         });
       });

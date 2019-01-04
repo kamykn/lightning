@@ -1,4 +1,4 @@
-import { muff } from 'muff'
+import muff from 'muff'
 import Vue from 'vue/dist/vue.esm.js'
 import VueRx from 'vue-rx'
 import { from } from 'rxjs';
