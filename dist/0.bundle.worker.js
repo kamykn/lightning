@@ -66,7 +66,7 @@
 /******/
 /******/ 		// Fetch + compile chunk loading for webassembly
 /******/
-/******/ 		var wasmModules = {"3":["./node_modules/muff-wasm/muff_wasm_bg.wasm"]}[chunkId] || [];
+/******/ 		var wasmModules = {"2":["./node_modules/muff-wasm/muff_wasm_bg.wasm"]}[chunkId] || [];
 /******/
 /******/ 		wasmModules.forEach(function(wasmModuleId) {
 /******/ 			var installedWasmModuleData = installedWasmModules[wasmModuleId];

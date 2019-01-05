@@ -11,7 +11,7 @@ self["webpackChunk"]([1],{
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var comlinkjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! comlinkjs */ "./node_modules/comlinkjs/comlink.js");
 
-const Muff = __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! muff */ "./node_modules/muff/index.js"));
+const Muff = __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! muff */ "./node_modules/muff/index.js"));
 const wasm = {
   init: async function () {
     const muff = await Muff;
