@@ -1,11 +1,14 @@
-import muff from 'muff'
 import Vue from 'vue/dist/vue.esm.js'
 import VueRx from 'vue-rx'
 import { from } from 'rxjs';
 import { pluck, debounceTime, switchMap, map } from 'rxjs/operators'
 import '@babel/polyfill'
+import * as Comlink from 'comlinkjs'
 
 import style from '../scss/style.scss'
+
+let worker = new Worker('./worker.js', { type: 'module' })
+let Muff = Comlink.proxy(worker)
 
 Vue.use(VueRx)
 
@@ -31,7 +34,7 @@ let vm = new Vue({
 	},
 	mounted() {
 		// 結果の数を設定
-		muff.setReturnListLength(20)
+		Muff.setReturnListLength(20)
 		// 初期モードはHistory
 		this.changeToHistorySearch()
 	},
@@ -76,7 +79,7 @@ let vm = new Vue({
 		},
 		search(inputString) {
 			return new Promise(resolve => {
-				let results = muff.search(inputString)
+				let results = Muff.search(inputString)
 				resolve(results)
 			})
 		},
@@ -111,7 +114,7 @@ let vm = new Vue({
 						})
 					});
 
-					muff.setSearchWordList(historyList)
+					Muff.setSearchWordList(historyList)
 					resolve()
 				})
 			})
@@ -132,7 +135,7 @@ let vm = new Vue({
 						})
 					})
 
-					muff.setSearchWordList(searchWordList)
+					Muff.setSearchWordList(searchWordList)
 					resolve()
 				})
 			})
@@ -145,7 +148,7 @@ let vm = new Vue({
 					let searchWordList = []
 					searchWordList = this.pushBookmarkListRecursive(bookmarksTree, searchWordList)
 					console.log(searchWordList)
-					muff.setSearchWordList(searchWordList)
+					Muff.setSearchWordList(searchWordList)
 					resolve()
 				})
 			})

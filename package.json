@@ -20,19 +20,23 @@
   },
   "homepage": "https://github.com/kamykn/muffin#readme",
   "dependencies": {
-    "@babel/polyfill": "^7.2.5",
+    "comlinkjs": "^3.1.1",
     "muff": "^0.2.9",
     "rxjs": "~6.3.3",
     "vue": "^2.5.21",
-    "vue-rx": "~6.0.1"
+    "vue-rx": "~6.0.1",
+    "worker-plugin": "github:3846masa-tmp/worker-plugin#3.0.0-patched"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^1.0.0",
     "@babel/core": "^7.2.2",
     "@babel/plugin-syntax-dynamic-import": "~7.0.0",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.2.3",
     "babel-loader": "~8.0.4",
     "css-loader": "~1.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "microbundle": "^0.9.0",
     "mini-css-extract-plugin": "^0.4.5",
     "node-sass": "~4.9.4",
     "sass-loader": "~7.1.0",

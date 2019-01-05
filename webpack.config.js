@@ -1,9 +1,11 @@
 const path = require('path');
+const WorkerPlugin = require('worker-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || "development",
-  entry: "./assets/js/bootstrap.js",
+  entry: "./assets/js/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
 	publicPath: "/dist/",
@@ -35,6 +37,8 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(['./dist']),
+	new WorkerPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.css'
     })
