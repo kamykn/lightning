@@ -32,11 +32,13 @@ let vm = new Vue({
 			return text.toString().toLowerCase()
 		}
 	},
-	mounted() {
+	async mounted() {
 		// 結果の数を設定
-		Muff.setReturnListLength(20)
+		await Muff.init()
+		await Muff.setReturnListLength(20)
+
 		// 初期モードはHistory
-		this.changeToHistorySearch()
+		await this.changeToHistorySearch()
 	},
 	methods: {
 		setSearchType(searchType) {
@@ -77,11 +79,9 @@ let vm = new Vue({
 				this.results = this.setSearchResultsToData(results)
 			})()
 		},
-		search(inputString) {
-			return new Promise(resolve => {
-				let results = Muff.search(inputString)
-				resolve(results)
-			})
+		async search(inputString) {
+			let results = await Muff.search(inputString)
+			return Promise.resolve(results)
 		},
 		setSearchResultsToData(results) {
 			// リストの選択中の位置を調整
@@ -92,7 +92,7 @@ let vm = new Vue({
 			return results
 		},
 		changeToHistorySearch() {
-			return new Promise(resolve => {
+			return new Promise(async (resolve) => {
 				this.setSearchType(this.searchTypes.HISTORY)
 
 				// 1年分
@@ -101,56 +101,72 @@ let vm = new Vue({
 					text: '',
 					startTime: startTime,
 					maxResults: 50000
-				}
+				};
 
 				let historyList = []
-				chrome.history.search(query, (results) => {
-					const reverseResult = results.reverse()
-					reverseResult.forEach((result) => {
-						// resultひとつひとつがHistoryItem形式
-						historyList.push({
-							url: result.url,
-							title: result.title
-						})
-					});
+				await (() => {
+					return new Promise(resolve2 => {
+						chrome.history.search(query, (results) => {
+							const reverseResult = results.reverse()
+							reverseResult.forEach((result) => {
+								// resultひとつひとつがHistoryItem形式
+								historyList.push({
+									url: result.url,
+									title: result.title
+								})
+							});
 
-					Muff.setSearchWordList(historyList)
-					resolve()
-				})
+							resolve2()
+						})
+					})
+				})()
+
+				await Muff.setSearchWordList(historyList)
+				resolve()
 			})
 		},
 		changeToTabsSearch() {
-			return new Promise(resolve => {
+			return new Promise(async (resolve) => {
 				this.setSearchType(this.searchTypes.TABS)
 
-				chrome.tabs.query({currentWindow: true}, (tabs) => {
-					let searchWordList = []
+				let searchWordList = []
+				await (() => {
+					return new Promise(resolve2 => {
+						chrome.tabs.query({currentWindow: true}, (tabs) => {
+							tabs.forEach((tab, index) => {
+								searchWordList.push({
+									index: tab.index.toString(),
+									id: tab.id.toString(),
+									title: tab.title,
+									url: tab.url
+								})
+							})
 
-					tabs.forEach((tab, index) => {
-						searchWordList.push({
-							index: tab.index.toString(),
-							id: tab.id.toString(),
-							title: tab.title,
-							url: tab.url
+							resolve2()
 						})
 					})
+				})()
 
-					Muff.setSearchWordList(searchWordList)
-					resolve()
-				})
+				await Muff.setSearchWordList(searchWordList)
+				resolve()
 			})
 		},
 		changeToBookmarksSearch() {
-			return new Promise(resolve => {
+			return new Promise(async (resolve) => {
 				this.setSearchType(this.searchTypes.BOOKMARKS)
 
-				chrome.bookmarks.getTree((bookmarksTree) => {
-					let searchWordList = []
-					searchWordList = this.pushBookmarkListRecursive(bookmarksTree, searchWordList)
-					console.log(searchWordList)
-					Muff.setSearchWordList(searchWordList)
-					resolve()
-				})
+				let searchWordList = []
+				await (() => {
+					return new Promise(resolve2 => {
+						chrome.bookmarks.getTree((bookmarksTree) => {
+							searchWordList = this.pushBookmarkListRecursive(bookmarksTree, searchWordList)
+							resolve2()
+						})
+					})
+				})()
+
+				await Muff.setSearchWordList(searchWordList)
+				resolve()
 			})
 		},
 		pushBookmarkListRecursive(bookmarksTree, searchWordList, parentPath) {

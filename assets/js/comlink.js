@@ -1,4 +1,11 @@
 import * as Comlink from 'comlinkjs'
-import Muff from 'muff'
+const Muff = import('muff')
 
-Comlink.expose(Muff, self)
+const wasm = {
+	init: async function() {
+		const muff = await Muff
+		Object.assign(wasm, muff.default);
+	}
+}
+
+Comlink.expose(wasm, self)

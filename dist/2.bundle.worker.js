@@ -13,7 +13,7 @@
 /******/ 	// object to store loaded chunks
 /******/ 	// "1" means "already loaded"
 /******/ 	var installedChunks = {
-/******/ 		0: 1
+/******/ 		2: 1
 /******/ 	};
 /******/
 /******/ 	// object to store loaded and loading wasm modules
@@ -180,4 +180,4 @@ __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*!
 /***/ })
 
 /******/ });
-//# sourceMappingURL=0.bundle.worker.js.map
+//# sourceMappingURL=2.bundle.worker.js.map
