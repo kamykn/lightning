@@ -121,7 +121,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
     inputString: '',
     currentSelected: -1,
     // 結果配列のindexなので選択されていない状態は-1とする
-    currentSearchType: 0,
+    currentSearchType: -1,
     searchTypes: {
       HISTORY: 1,
       BOOKMARKS: 2,
@@ -34943,7 +34943,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "0.bundle.worker.js"
+module.exports = __webpack_require__.p + "3.bundle.worker.js"
 
 /***/ })
 

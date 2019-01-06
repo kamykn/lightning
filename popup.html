@@ -16,7 +16,7 @@
 								{{ typeName | toUpperFirst }}
 							</span>
 						</template>
-						<div id="select-bar" v-bind:style="{ left: ((currentSearchType - 1) * 100) + 'px'  }"></div>
+						<div v-cloak id="select-bar" v-bind:style="{ left: ((currentSearchType - 1) * 100) + 'px'  }"></div>
 					</div>
 				</div>
 				<div id="form">
@@ -40,7 +40,7 @@
 				</div>
 			</header>
 			<div id="main">
-				<ul v-if="results && results.length >= 1" @mouseover="resetCurrentSelector" ref="list">
+				<ul v-cloak v-if="results && results.length >= 1" @mouseover="resetCurrentSelector" ref="list">
 					<template v-if="currentSearchType == searchTypes.HISTORY">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
@@ -105,6 +105,9 @@
 				</ul>
 				<div v-else id="logo">
 					<img src="./images/logo.png">
+				</div>
+				<div v-cloak v-if="results" id="info">
+					{{ results.length }} / {{ this.listCache[currentSearchType].length }}
 				</div>
 			</div>
 		</div>

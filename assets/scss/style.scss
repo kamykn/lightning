@@ -27,10 +27,11 @@ header {
 			position: relative;
 			height: $menuHeight;
 
+			$tabWidth: 100px;
 			#history,
 			#tabs,
 			#bookmarks {
-				width: 100px;
+				width: $tabWidth;
 				height: $menuHeight - 5px;
 				line-height: $menuHeight - 5px;
 				text-align: center;
@@ -54,7 +55,7 @@ header {
 			#select-bar {
 				position: absolute;
 				height: 3px;
-				width: 100px;
+				width: $tabWidth;
 				border-radius: 3px;
 				background: #008eff;
 
@@ -173,6 +174,11 @@ header {
 		}
 	}
 
+	#info {
+		color: #BDBDBD;
+		padding: 0 5px 5px;
+		text-align: right;
+	}
 }
 
 /*スクロールバー全体*/
@@ -194,3 +200,6 @@ header {
   box-shadow:0 0 0 1px rgba(255, 255, 255, .2);
 }
 
+[v-cloak] {
+  display: none;
+}

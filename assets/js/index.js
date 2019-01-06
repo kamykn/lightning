@@ -16,7 +16,7 @@ let vm = new Vue({
 	data: {
 		inputString: '',
 		currentSelected: -1, // 結果配列のindexなので選択されていない状態は-1とする
-		currentSearchType: 0,
+		currentSearchType: -1,
 		searchTypes: {
 			HISTORY:   1,
 			BOOKMARKS: 2,

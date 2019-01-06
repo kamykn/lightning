@@ -129,6 +129,11 @@ header {
     padding: 10px;
     opacity: 0.28; }
 
+#main #info {
+  color: #BDBDBD;
+  padding: 0 5px 5px;
+  text-align: right; }
+
 /*スクロールバー全体*/
 ::-webkit-scrollbar {
   width: 7px;
@@ -144,6 +149,9 @@ header {
   background-color: rgba(0, 0, 50, 0.2);
   border-radius: 5px;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2); }
+
+[v-cloak] {
+  display: none; }
 
 
 /*# sourceMappingURL=style.css.map*/
