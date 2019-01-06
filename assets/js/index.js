@@ -22,7 +22,8 @@ let vm = new Vue({
 			BOOKMARKS: 2,
 			TABS:      3
 		},
-		listCache: {}
+		listCache: {},
+		maxSearchWordListLen: 20000,
 	},
 	filters: {
 		toUpperFirst : (text) => {
@@ -35,11 +36,11 @@ let vm = new Vue({
 	},
 	async mounted() {
 		// 結果の数を設定
-		await Muff.init()
+		await Muff.init(this.maxSearchWordListLen)
 		await Muff.setReturnListLength(20)
 
-		// 初期モードはHistory
-		await this.changeToHistorySearch()
+		// 初期モード
+		this.setNewSearchType(this.searchTypes.HISTORY)
 	},
 	methods: {
 		setSearchType(searchType) {
@@ -75,9 +76,13 @@ let vm = new Vue({
 					case this.searchTypes.TABS:
 						await this.changeToTabsSearch()
 						break;
+					default:
+						console.log('Unknown Search Type.')
+						return;
 				}
 				const results = await this.search(this.inputString)
 				this.results = this.setSearchResultsToData(results)
+				this.setSearchType(nextSearchType)
 			})()
 		},
 		async search(inputString) {
@@ -94,8 +99,6 @@ let vm = new Vue({
 		},
 		changeToHistorySearch() {
 			return new Promise(async (resolve) => {
-				this.setSearchType(this.searchTypes.HISTORY)
-
 				// 1年分
 				const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 265)
 				const query = {
@@ -127,14 +130,12 @@ let vm = new Vue({
 					this.listCache[this.searchTypes.HISTORY] = historyList
 				}
 
-				await Muff.setSearchWordList(historyList)
+				await Muff.setSearchWordListWrapper(historyList)
 				resolve()
 			})
 		},
 		changeToTabsSearch() {
 			return new Promise(async (resolve) => {
-				this.setSearchType(this.searchTypes.TABS)
-
 				let searchWordList = []
 				if (typeof this.listCache[this.searchTypes.TABS] != 'undefined') {
 					searchWordList = this.listCache[this.searchTypes.TABS]
@@ -158,14 +159,12 @@ let vm = new Vue({
 					this.listCache[this.searchTypes.TABS] = searchWordList
 				}
 
-				await Muff.setSearchWordList(searchWordList)
+				await Muff.setSearchWordListWrapper(searchWordList)
 				resolve()
 			})
 		},
 		changeToBookmarksSearch() {
 			return new Promise(async (resolve) => {
-				this.setSearchType(this.searchTypes.BOOKMARKS)
-
 				let searchWordList = []
 				if (typeof this.listCache[this.searchTypes.BOOKMARKS] != 'undefined') {
 					searchWordList = this.listCache[this.searchTypes.BOOKMARKS]
@@ -181,7 +180,7 @@ let vm = new Vue({
 					this.listCache[this.searchTypes.BOOKMARKS] = searchWordList
 				}
 
-				await Muff.setSearchWordList(searchWordList)
+				await Muff.setSearchWordListWrapper(searchWordList)
 				resolve()
 			})
 		},

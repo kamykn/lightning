@@ -127,7 +127,8 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       BOOKMARKS: 2,
       TABS: 3
     },
-    listCache: {}
+    listCache: {},
+    maxSearchWordListLen: 20000
   },
   filters: {
     toUpperFirst: text => {
@@ -141,10 +142,10 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
   async mounted() {
     // 結果の数を設定
-    await Muff.init();
-    await Muff.setReturnListLength(20); // 初期モードはHistory
+    await Muff.init(this.maxSearchWordListLen);
+    await Muff.setReturnListLength(20); // 初期モード
 
-    await this.changeToHistorySearch();
+    this.setNewSearchType(this.searchTypes.HISTORY);
   },
 
   methods: {
@@ -188,10 +189,15 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           case this.searchTypes.TABS:
             await this.changeToTabsSearch();
             break;
+
+          default:
+            console.log('Unknown Search Type.');
+            return;
         }
 
         const results = await this.search(this.inputString);
         this.results = this.setSearchResultsToData(results);
+        this.setSearchType(nextSearchType);
       })();
     },
 
@@ -211,8 +217,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
     changeToHistorySearch() {
       return new Promise(async resolve => {
-        this.setSearchType(this.searchTypes.HISTORY); // 1年分
-
+        // 1年分
         const startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 265;
         const query = {
           text: '',
@@ -242,14 +247,13 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           this.listCache[this.searchTypes.HISTORY] = historyList;
         }
 
-        await Muff.setSearchWordList(historyList);
+        await Muff.setSearchWordListWrapper(historyList);
         resolve();
       });
     },
 
     changeToTabsSearch() {
       return new Promise(async resolve => {
-        this.setSearchType(this.searchTypes.TABS);
         let searchWordList = [];
 
         if (typeof this.listCache[this.searchTypes.TABS] != 'undefined') {
@@ -275,14 +279,13 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           this.listCache[this.searchTypes.TABS] = searchWordList;
         }
 
-        await Muff.setSearchWordList(searchWordList);
+        await Muff.setSearchWordListWrapper(searchWordList);
         resolve();
       });
     },
 
     changeToBookmarksSearch() {
       return new Promise(async resolve => {
-        this.setSearchType(this.searchTypes.BOOKMARKS);
         let searchWordList = [];
 
         if (typeof this.listCache[this.searchTypes.BOOKMARKS] != 'undefined') {
@@ -299,7 +302,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           this.listCache[this.searchTypes.BOOKMARKS] = searchWordList;
         }
 
-        await Muff.setSearchWordList(searchWordList);
+        await Muff.setSearchWordListWrapper(searchWordList);
         resolve();
       });
     },
