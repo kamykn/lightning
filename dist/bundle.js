@@ -126,7 +126,8 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       HISTORY: 1,
       BOOKMARKS: 2,
       TABS: 3
-    }
+    },
+    listCache: {}
   },
   filters: {
     toUpperFirst: text => {
@@ -219,21 +220,28 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           maxResults: 50000
         };
         let historyList = [];
-        await (() => {
-          return new Promise(resolve2 => {
-            chrome.history.search(query, results => {
-              const reverseResult = results.reverse();
-              reverseResult.forEach(result => {
-                // resultひとつひとつがHistoryItem形式
-                historyList.push({
-                  url: result.url,
-                  title: result.title
+
+        if (typeof this.listCache[this.searchTypes.HISTORY] != 'undefined') {
+          historyList = this.listCache[this.searchTypes.HISTORY];
+        } else {
+          await (() => {
+            return new Promise(resolve2 => {
+              chrome.history.search(query, results => {
+                const reverseResult = results.reverse();
+                reverseResult.forEach(result => {
+                  // resultひとつひとつがHistoryItem形式
+                  historyList.push({
+                    url: result.url,
+                    title: result.title
+                  });
                 });
+                resolve2();
               });
-              resolve2();
             });
-          });
-        })();
+          })();
+          this.listCache[this.searchTypes.HISTORY] = historyList;
+        }
+
         await Muff.setSearchWordList(historyList);
         resolve();
       });
@@ -243,23 +251,30 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       return new Promise(async resolve => {
         this.setSearchType(this.searchTypes.TABS);
         let searchWordList = [];
-        await (() => {
-          return new Promise(resolve2 => {
-            chrome.tabs.query({
-              currentWindow: true
-            }, tabs => {
-              tabs.forEach((tab, index) => {
-                searchWordList.push({
-                  index: tab.index.toString(),
-                  id: tab.id.toString(),
-                  title: tab.title,
-                  url: tab.url
+
+        if (typeof this.listCache[this.searchTypes.TABS] != 'undefined') {
+          searchWordList = this.listCache[this.searchTypes.TABS];
+        } else {
+          await (() => {
+            return new Promise(resolve2 => {
+              chrome.tabs.query({
+                currentWindow: true
+              }, tabs => {
+                tabs.forEach((tab, index) => {
+                  searchWordList.push({
+                    index: tab.index.toString(),
+                    id: tab.id.toString(),
+                    title: tab.title,
+                    url: tab.url
+                  });
                 });
+                resolve2();
               });
-              resolve2();
             });
-          });
-        })();
+          })();
+          this.listCache[this.searchTypes.TABS] = searchWordList;
+        }
+
         await Muff.setSearchWordList(searchWordList);
         resolve();
       });
@@ -269,14 +284,21 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       return new Promise(async resolve => {
         this.setSearchType(this.searchTypes.BOOKMARKS);
         let searchWordList = [];
-        await (() => {
-          return new Promise(resolve2 => {
-            chrome.bookmarks.getTree(bookmarksTree => {
-              searchWordList = this.pushBookmarkListRecursive(bookmarksTree, searchWordList);
-              resolve2();
+
+        if (typeof this.listCache[this.searchTypes.BOOKMARKS] != 'undefined') {
+          searchWordList = this.listCache[this.searchTypes.BOOKMARKS];
+        } else {
+          await (() => {
+            return new Promise(resolve2 => {
+              chrome.bookmarks.getTree(bookmarksTree => {
+                searchWordList = this.pushBookmarkListRecursive(bookmarksTree, searchWordList);
+                resolve2();
+              });
             });
-          });
-        })();
+          })();
+          this.listCache[this.searchTypes.BOOKMARKS] = searchWordList;
+        }
+
         await Muff.setSearchWordList(searchWordList);
         resolve();
       });
@@ -345,10 +367,10 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
       if (typeof this.results[currentSelected] != 'undefined') {
         if (this.currentSearchType == this.searchTypes.HISTORY || this.currentSearchType == this.searchTypes.BOOKMARKS) {
-          window.open(this.results[currentSelected].url);
+          window.open(this.results[currentSelected].matches.url);
         } else if (this.currentSearchType == this.searchTypes.TABS) {
           // https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
-          chrome.tabs.update(parseInt(this.results[currentSelected].id), {
+          chrome.tabs.update(parseInt(this.results[currentSelected].matches.id), {
             active: true
           });
         }

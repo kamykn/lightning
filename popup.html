@@ -30,6 +30,9 @@
 						@keydown.down.prevent="moveDownSelector"
 						@keydown.ctrl.80.prevent="moveUpSelector"
 						@keydown.ctrl.78.prevent="moveDownSelector"
+						@keydown.ctrl.74.prevent="setNewSearchType(searchTypes.HISTORY)"
+						@keydown.ctrl.75.prevent="setNewSearchType(searchTypes.BOOKMARKS)"
+						@keydown.ctrl.76.prevent="setNewSearchType(searchTypes.TABS)"
 						@keypress.enter="select"
 						placeholder="Fuzzy Search"
 						v-focus

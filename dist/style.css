@@ -97,7 +97,7 @@ header {
         #main ul li:hover a .title b, #main ul li.currentSelected a .url b,
         #main ul li.currentSelected a .path b,
         #main ul li.currentSelected a .title b {
-          color: #00BCD4; }
+          color: #00679c; }
     #main ul li:nth-child(odd) {
       background: #F7F7F7; }
     #main ul li a {
@@ -132,7 +132,7 @@ header {
 /*スクロールバー全体*/
 ::-webkit-scrollbar {
   width: 7px;
-  background: #41abff; }
+  background: #f5f5f5; }
 
 /*スクロールバーの軌道*/
 ::-webkit-scrollbar-track {
