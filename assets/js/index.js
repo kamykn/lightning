@@ -213,16 +213,24 @@ let vm = new Vue({
 			this.currentSelected = -1
 		},
 		moveUpSelector(event) {
-			if (this.currentSelected > 0) {
+			if (this.currentSelected == 0) {
+				// 一番下へ
+				this.currentSelected = this.results.length - 1
+			} else {
 				this.currentSelected--
-				this.resultRestScroll()
 			}
+
+			this.resultRestScroll()
 		},
 		moveDownSelector(event) {
-			if (Array.isArray(this.results) && this.currentSelected < this.results.length - 1) {
+			if (Array.isArray(this.results) && this.currentSelected == this.results.length - 1) {
+				// 一番上へ
+				this.currentSelected = 0
+			} else {
 				this.currentSelected++
-				this.resultRestScroll()
 			}
+
+			this.resultRestScroll()
 		},
 		resultRestScroll() {
 			this.$nextTick(() => {
