@@ -45,16 +45,18 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.matches.url" target="_blank">
-									<div class="title">
-										<template v-if="result.matches.title">
-											<span v-html="result.highlighteds.title"></span>
-										</template>
-										<template v-else>
-											(No title.)
-										</template>
-									</div>
-									<div class="url">
-										<span v-html="result.highlighteds.url"></span>
+									<div class="text">
+										<div class="title">
+											<template v-if="result.matches.title">
+												<span v-html="result.highlighteds.title"></span>
+											</template>
+											<template v-else>
+												(No title.)
+											</template>
+										</div>
+										<div class="url">
+											<span v-html="result.highlighteds.url"></span>
+										</div>
 									</div>
 								</a>
 							</li>
@@ -64,19 +66,21 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.matches.url" target="_blank">
-									<div class="title">
-										<template v-if="result.matches.title">
-											<span v-html="result.highlighteds.title"></span>
-										</template>
-										<template v-else>
-											(No title.)
-										</template>
-									</div>
-									<div class="path">
-										<span v-html="result.highlighteds.parentPath"></span>
-									</div>
-									<div class="url">
-										<span v-html="result.highlighteds.url"></span>
+									<div class="text">
+										<div class="title">
+											<template v-if="result.matches.title">
+												<span v-html="result.highlighteds.title"></span>
+											</template>
+											<template v-else>
+												(No title.)
+											</template>
+										</div>
+										<div class="path">
+											<span v-html="result.highlighteds._parentPath"></span>
+										</div>
+										<div class="url">
+											<span v-html="result.highlighteds.url"></span>
+										</div>
 									</div>
 								</a>
 							</li>
@@ -86,17 +90,22 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.matches.url" target="_blank">
-									<div class="title">
-										<span v-html="result.highlighteds.index"></span>
-										<template v-if="result.highlighteds.title">:&nbsp;
-											<span v-html="result.highlighteds.title"></span>
-										</template>
-										<template v-else>
-											(No title.)
-										</template>
+									<div class="favicon">
+										<img v-bind:src="result.matches._icon">
 									</div>
-									<div class="url">
-										<span v-html="result.highlighteds.url"></span>
+									<div class="text">
+										<div class="title">
+											<span v-html="result.matches._index"></span>
+											<template v-if="result.highlighteds.title">:&nbsp;
+												<span v-html="result.highlighteds.title"></span>
+											</template>
+											<template v-else>
+												(No title.)
+											</template>
+										</div>
+										<div class="url">
+											<span v-html="result.highlighteds.url"></span>
+										</div>
 									</div>
 								</a>
 							</li>

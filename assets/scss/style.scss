@@ -116,13 +116,15 @@ header {
 				background: #f1f9ff !important;
 
 				a {
-					.url,
-					.path,
-					.title {
-						color: #008eff;
+					.text {
+						.url,
+						.path,
+						.title {
+							color: #008eff;
 
-						b {
-							color: #00679c;
+							b {
+								color: #00679c;
+							}
 						}
 					}
 				}
@@ -134,30 +136,44 @@ header {
 
 			a {
 				text-decoration: none;
+				display: flex;
 
-				.title {
-					color: #455a64;
-					font-weight: bold;
-					font-size: 12px;
-					padding: 0 10px;
-					margin-bottom: 3px;
+				.favicon {
+					margin: 5px 0 5px 5px;
+
+					img {
+						height: 22px;
+						width: 22px;
+					}
 				}
 
-				.url,
-				.path {
-					color: #888;
-					font-size: 10px;
-					padding: 0 10px;
-					overflow: hidden;
-					white-space: nowrap;
-					text-overflow: ellipsis;
-				}
+				.text {
+					width: 100%;
 
-				.title,
-				.url,
-				.path {
-					b {
-						color: #008eff;
+					.title {
+						color: #455a64;
+						font-weight: bold;
+						font-size: 12px;
+						padding: 0 10px;
+						margin-bottom: 3px;
+					}
+
+					.url,
+					.path {
+						color: #888;
+						font-size: 10px;
+						padding: 0 10px;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+					}
+
+					.title,
+					.url,
+					.path {
+						b {
+							color: #008eff;
+						}
 					}
 				}
 			}

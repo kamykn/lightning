@@ -266,8 +266,9 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
               }, tabs => {
                 tabs.forEach((tab, index) => {
                   searchWordList.push({
-                    index: tab.index.toString(),
-                    id: tab.id.toString(),
+                    _index: tab.index.toString(),
+                    _id: tab.id.toString(),
+                    _icon: tab.favIconUrl,
                     title: tab.title,
                     url: tab.url
                   });
@@ -317,8 +318,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
         if (bookmark.url) {
           searchWordList.push({
-            parentPath: parentPath,
-            // TODO: 検索ignoreしたい
+            _parentPath: parentPath,
             path: parentPath + bookmark.title,
             title: bookmark.title,
             url: bookmark.url
@@ -381,7 +381,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           window.open(this.results[currentSelected].matches.url);
         } else if (this.currentSearchType == this.searchTypes.TABS) {
           // https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
-          chrome.tabs.update(parseInt(this.results[currentSelected].matches.id), {
+          chrome.tabs.update(parseInt(this.results[currentSelected].matches._id), {
             active: true
           });
         }

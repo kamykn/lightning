@@ -86,40 +86,48 @@ header {
       border-top: none; }
     #main ul li:hover, #main ul li.currentSelected {
       background: #f1f9ff !important; }
-      #main ul li:hover a .url,
-      #main ul li:hover a .path,
-      #main ul li:hover a .title, #main ul li.currentSelected a .url,
-      #main ul li.currentSelected a .path,
-      #main ul li.currentSelected a .title {
+      #main ul li:hover a .text .url,
+      #main ul li:hover a .text .path,
+      #main ul li:hover a .text .title, #main ul li.currentSelected a .text .url,
+      #main ul li.currentSelected a .text .path,
+      #main ul li.currentSelected a .text .title {
         color: #008eff; }
-        #main ul li:hover a .url b,
-        #main ul li:hover a .path b,
-        #main ul li:hover a .title b, #main ul li.currentSelected a .url b,
-        #main ul li.currentSelected a .path b,
-        #main ul li.currentSelected a .title b {
+        #main ul li:hover a .text .url b,
+        #main ul li:hover a .text .path b,
+        #main ul li:hover a .text .title b, #main ul li.currentSelected a .text .url b,
+        #main ul li.currentSelected a .text .path b,
+        #main ul li.currentSelected a .text .title b {
           color: #00679c; }
     #main ul li:nth-child(odd) {
       background: #F7F7F7; }
     #main ul li a {
-      text-decoration: none; }
-      #main ul li a .title {
-        color: #455a64;
-        font-weight: bold;
-        font-size: 12px;
-        padding: 0 10px;
-        margin-bottom: 3px; }
-      #main ul li a .url,
-      #main ul li a .path {
-        color: #888;
-        font-size: 10px;
-        padding: 0 10px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis; }
-      #main ul li a .title b,
-      #main ul li a .url b,
-      #main ul li a .path b {
-        color: #008eff; }
+      text-decoration: none;
+      display: flex; }
+      #main ul li a .favicon {
+        margin: 5px 0 5px 5px; }
+        #main ul li a .favicon img {
+          height: 22px;
+          width: 22px; }
+      #main ul li a .text {
+        width: 100%; }
+        #main ul li a .text .title {
+          color: #455a64;
+          font-weight: bold;
+          font-size: 12px;
+          padding: 0 10px;
+          margin-bottom: 3px; }
+        #main ul li a .text .url,
+        #main ul li a .text .path {
+          color: #888;
+          font-size: 10px;
+          padding: 0 10px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis; }
+        #main ul li a .text .title b,
+        #main ul li a .text .url b,
+        #main ul li a .text .path b {
+          color: #008eff; }
 
 #main #logo {
   height: 30px;
