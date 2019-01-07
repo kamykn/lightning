@@ -136,44 +136,52 @@ header {
 
 			a {
 				text-decoration: none;
-				display: flex;
 
 				.favicon {
-					margin: 5px 0 5px 5px;
+					margin-left: 5px;
+					position: relative;
+					width: 16px;
 
 					img {
-						height: 22px;
-						width: 22px;
+						height: 16px;
+						width: 16px;
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						-webkit-transform: translateY(-50%) translateX(-50%);
+						transform: translateY(-50%) translateX(-50%);
 					}
 				}
 
-				.text {
+				.item-header {
 					width: 100%;
+					display: flex;
 
 					.title {
 						color: #455a64;
 						font-weight: bold;
 						font-size: 12px;
-						padding: 0 10px;
+						padding: 0 7px;
 						margin-bottom: 3px;
+						width: 306px;
 					}
+				}
 
-					.url,
-					.path {
-						color: #888;
-						font-size: 10px;
-						padding: 0 10px;
-						overflow: hidden;
-						white-space: nowrap;
-						text-overflow: ellipsis;
-					}
+				.url,
+				.path {
+					color: #888;
+					font-size: 10px;
+					padding: 0 7px 0 28px;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
 
-					.title,
-					.url,
-					.path {
-						b {
-							color: #008eff;
-						}
+				.title,
+				.url,
+				.path {
+					b {
+						color: #008eff;
 					}
 				}
 			}

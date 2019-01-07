@@ -20,7 +20,8 @@
   "permissions": [
     "tabs",
     "bookmarks",
-	"history"
+	"history",
+	"chrome://favicon/"
   ],
   "homepage_url": "http://github.com/kamykn/muffin"
 }

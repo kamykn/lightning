@@ -45,7 +45,10 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.matches.url" target="_blank">
-									<div class="text">
+									<div class="item-header">
+										<div class="favicon">
+											<img v-bind:src="'chrome://favicon/' + result.matches.url">
+										</div>
 										<div class="title">
 											<template v-if="result.matches.title">
 												<span v-html="result.highlighteds.title"></span>
@@ -54,9 +57,9 @@
 												(No title.)
 											</template>
 										</div>
-										<div class="url">
-											<span v-html="result.highlighteds.url"></span>
-										</div>
+									</div>
+									<div class="url">
+										<span v-html="result.highlighteds.url"></span>
 									</div>
 								</a>
 							</li>
@@ -66,7 +69,10 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.matches.url" target="_blank">
-									<div class="text">
+									<div class="item-header">
+										<div class="favicon">
+											<img v-bind:src="'chrome://favicon/' + result.matches.url">
+										</div>
 										<div class="title">
 											<template v-if="result.matches.title">
 												<span v-html="result.highlighteds.title"></span>
@@ -75,12 +81,12 @@
 												(No title.)
 											</template>
 										</div>
-										<div class="path">
-											<span v-html="result.highlighteds._parentPath"></span>
-										</div>
-										<div class="url">
-											<span v-html="result.highlighteds.url"></span>
-										</div>
+									</div>
+									<div class="path">
+										<span v-html="result.highlighteds._parentPath"></span>
+									</div>
+									<div class="url">
+										<span v-html="result.highlighteds.url"></span>
 									</div>
 								</a>
 							</li>
@@ -90,10 +96,10 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
 								<a v-bind:href="result.matches.url" target="_blank">
-									<div class="favicon">
-										<img v-bind:src="result.matches._icon">
-									</div>
-									<div class="text">
+									<div class="item-header">
+										<div class="favicon">
+											<img v-bind:src="result.matches._icon">
+										</div>
 										<div class="title">
 											<span v-html="result.matches._index"></span>
 											<template v-if="result.highlighteds.title">:&nbsp;
@@ -103,9 +109,9 @@
 												(No title.)
 											</template>
 										</div>
-										<div class="url">
-											<span v-html="result.highlighteds.url"></span>
-										</div>
+									</div>
+									<div class="url">
+										<span v-html="result.highlighteds.url"></span>
 									</div>
 								</a>
 							</li>

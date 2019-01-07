@@ -101,33 +101,41 @@ header {
     #main ul li:nth-child(odd) {
       background: #F7F7F7; }
     #main ul li a {
-      text-decoration: none;
-      display: flex; }
+      text-decoration: none; }
       #main ul li a .favicon {
-        margin: 5px 0 5px 5px; }
+        margin-left: 5px;
+        position: relative;
+        width: 16px; }
         #main ul li a .favicon img {
-          height: 22px;
-          width: 22px; }
-      #main ul li a .text {
-        width: 100%; }
-        #main ul li a .text .title {
+          height: 16px;
+          width: 16px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%); }
+      #main ul li a .item-header {
+        width: 100%;
+        display: flex; }
+        #main ul li a .item-header .title {
           color: #455a64;
           font-weight: bold;
           font-size: 12px;
-          padding: 0 10px;
-          margin-bottom: 3px; }
-        #main ul li a .text .url,
-        #main ul li a .text .path {
-          color: #888;
-          font-size: 10px;
-          padding: 0 10px;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis; }
-        #main ul li a .text .title b,
-        #main ul li a .text .url b,
-        #main ul li a .text .path b {
-          color: #008eff; }
+          padding: 0 7px;
+          margin-bottom: 3px;
+          width: 306px; }
+      #main ul li a .url,
+      #main ul li a .path {
+        color: #888;
+        font-size: 10px;
+        padding: 0 7px 0 28px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; }
+      #main ul li a .title b,
+      #main ul li a .url b,
+      #main ul li a .path b {
+        color: #008eff; }
 
 #main #logo {
   height: 30px;
