@@ -79,24 +79,24 @@ header {
   border: 1px solid #ddd; }
   #main ul li {
     list-style: none;
-    padding: 4px 0;
+    padding: 4px 6px 4px 8px;
     border-top: 1px solid #EEE;
     background: #FFF; }
     #main ul li:first-child {
       border-top: none; }
     #main ul li:hover, #main ul li.currentSelected {
       background: #f1f9ff !important; }
-      #main ul li:hover a .text .url,
-      #main ul li:hover a .text .path,
-      #main ul li:hover a .text .title, #main ul li.currentSelected a .text .url,
-      #main ul li.currentSelected a .text .path,
-      #main ul li.currentSelected a .text .title {
+      #main ul li:hover a .item-text .url,
+      #main ul li:hover a .item-text .path,
+      #main ul li:hover a .item-text .title, #main ul li.currentSelected a .item-text .url,
+      #main ul li.currentSelected a .item-text .path,
+      #main ul li.currentSelected a .item-text .title {
         color: #008eff; }
-        #main ul li:hover a .text .url b,
-        #main ul li:hover a .text .path b,
-        #main ul li:hover a .text .title b, #main ul li.currentSelected a .text .url b,
-        #main ul li.currentSelected a .text .path b,
-        #main ul li.currentSelected a .text .title b {
+        #main ul li:hover a .item-text .url b,
+        #main ul li:hover a .item-text .path b,
+        #main ul li:hover a .item-text .title b, #main ul li.currentSelected a .item-text .url b,
+        #main ul li.currentSelected a .item-text .path b,
+        #main ul li.currentSelected a .item-text .title b {
           color: #00679c; }
     #main ul li:nth-child(odd) {
       background: #F7F7F7; }
@@ -105,9 +105,8 @@ header {
       width: 100%;
       display: flex; }
       #main ul li a .favicon {
-        margin: 10px;
         position: relative;
-        width: 16px; }
+        width: 26px; }
         #main ul li a .favicon img {
           height: 14px;
           width: 14px;
@@ -121,11 +120,13 @@ header {
           border-radius: 3px;
           border: 1px solid #DDD; }
       #main ul li a .item-text {
-        width: 306px; }
+        width: 290px;
+        margin-left: 8px; }
         #main ul li a .item-text .title {
           color: #455a64;
           font-weight: bold;
           font-size: 12px;
+          line-height: 1.5em;
           margin-bottom: 3px; }
         #main ul li a .item-text .url,
         #main ul li a .item-text .path {

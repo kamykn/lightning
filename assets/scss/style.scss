@@ -103,7 +103,7 @@ header {
 
 		li {
 			list-style: none;
-			padding: 4px 0;
+			padding: 4px 6px 4px 8px;
 			border-top: 1px solid #EEE;
 			background: #FFF;
 
@@ -116,7 +116,7 @@ header {
 				background: #f1f9ff !important;
 
 				a {
-					.text {
+					.item-text {
 						.url,
 						.path,
 						.title {
@@ -141,9 +141,8 @@ header {
 
 
 				.favicon {
-					margin: 10px;
 					position: relative;
-					width: 16px;
+					width: 26px;
 
 					img {
 						height: 14px;
@@ -161,11 +160,14 @@ header {
 				}
 
 				.item-text {
-					width: 306px;
+					width: 290px;
+					margin-left: 8px;
+
 					.title {
 						color: #455a64;
 						font-weight: bold;
 						font-size: 12px;
+						line-height: 1.5em;
 						margin-bottom: 3px;
 					}
 
