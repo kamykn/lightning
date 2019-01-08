@@ -36,6 +36,7 @@ header {
 				line-height: $menuHeight - 5px;
 				text-align: center;
 				font-size: 15px;
+				font-weight: 100;
 				color: #B3B4BB;
 				cursor: pointer;
 				-moz-transition:0.3s ease-out;
@@ -169,6 +170,11 @@ header {
 						font-size: 12px;
 						line-height: 1.5em;
 						margin-bottom: 3px;
+						max-height: 3.0em;
+						overflow: hidden;
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 2;
 					}
 
 					.url,
