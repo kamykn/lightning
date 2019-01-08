@@ -101,41 +101,43 @@ header {
     #main ul li:nth-child(odd) {
       background: #F7F7F7; }
     #main ul li a {
-      text-decoration: none; }
+      text-decoration: none;
+      width: 100%;
+      display: flex; }
       #main ul li a .favicon {
-        margin-left: 5px;
+        margin: 10px;
         position: relative;
         width: 16px; }
         #main ul li a .favicon img {
-          height: 16px;
-          width: 16px;
+          height: 14px;
+          width: 14px;
           position: absolute;
           top: 50%;
           left: 50%;
           -webkit-transform: translateY(-50%) translateX(-50%);
-          transform: translateY(-50%) translateX(-50%); }
-      #main ul li a .item-header {
-        width: 100%;
-        display: flex; }
-        #main ul li a .item-header .title {
+          transform: translateY(-50%) translateX(-50%);
+          padding: 5px;
+          background: #FFF;
+          border-radius: 3px;
+          border: 1px solid #DDD; }
+      #main ul li a .item-text {
+        width: 306px; }
+        #main ul li a .item-text .title {
           color: #455a64;
           font-weight: bold;
           font-size: 12px;
-          padding: 0 7px;
-          margin-bottom: 3px;
-          width: 306px; }
-      #main ul li a .url,
-      #main ul li a .path {
-        color: #888;
-        font-size: 10px;
-        padding: 0 7px 0 28px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis; }
-      #main ul li a .title b,
-      #main ul li a .url b,
-      #main ul li a .path b {
-        color: #008eff; }
+          margin-bottom: 3px; }
+        #main ul li a .item-text .url,
+        #main ul li a .item-text .path {
+          color: #888;
+          font-size: 10px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis; }
+        #main ul li a .item-text .title b,
+        #main ul li a .item-text .url b,
+        #main ul li a .item-text .path b {
+          color: #008eff; }
 
 #main #logo {
   height: 30px;
