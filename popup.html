@@ -4,7 +4,19 @@
 		<link rel="stylesheet" href="./dist/style.css">
 	</head>
 	<body>
-		<div id="muffin">
+		<div id="muffin" 
+			@keydown.tab.exact.prevent="moveDownSelector"
+			@keydown.shift.tab.prevent="moveUpSelector"
+			@keydown.down.prevent="moveDownSelector"
+			@keydown.up.prevent="moveUpSelector"
+			@keydown.ctrl.78.prevent="moveDownSelector"
+			@keydown.ctrl.80.prevent="moveUpSelector"
+			@keydown.ctrl.74.prevent="setNewSearchType(searchTypes.HISTORY)"
+			@keydown.ctrl.75.prevent="setNewSearchType(searchTypes.BOOKMARKS)"
+			@keydown.ctrl.76.prevent="setNewSearchType(searchTypes.TABS)"
+			@keypress.enter="select"
+			tabindex="0">
+
 			<header>
 				<div id="menu-wrap">
 					<div id="menu-clickable-wrap">
@@ -24,16 +36,6 @@
 						id="search"
 						v-model="inputString"
 						type="text"
-						@keydown.tab.exact.prevent="moveDownSelector"
-						@keydown.shift.tab.prevent="moveUpSelector"
-						@keydown.down.prevent="moveDownSelector"
-						@keydown.up.prevent="moveUpSelector"
-						@keydown.ctrl.78.prevent="moveDownSelector"
-						@keydown.ctrl.80.prevent="moveUpSelector"
-						@keydown.ctrl.74.prevent="setNewSearchType(searchTypes.HISTORY)"
-						@keydown.ctrl.75.prevent="setNewSearchType(searchTypes.BOOKMARKS)"
-						@keydown.ctrl.76.prevent="setNewSearchType(searchTypes.TABS)"
-						@keypress.enter="select"
 						placeholder="Fuzzy Search"
 						v-focus
 					>

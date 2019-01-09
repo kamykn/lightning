@@ -14,12 +14,12 @@ header {
 
 	#menu-wrap {
 		top: 0px;
-		$menuHeight: 35px;
+		$menuHeight: 38px;
 		width: 100%;
 		height: $menuHeight;
 		margin-bottom: 5px;
 		background: #FFF;
-		box-shadow: 0 0 5px #aaa;
+		box-shadow: 0 0 5px #90a4ae;
 
 		#menu-clickable-wrap {
 			margin:  0 30px;
@@ -37,7 +37,7 @@ header {
 				text-align: center;
 				font-size: 15px;
 				font-weight: 100;
-				color: #B3B4BB;
+				color: #607D8B;
 				cursor: pointer;
 				-moz-transition:0.3s ease-out;
 				-webkit-transition:0.3s ease-out;
@@ -76,7 +76,7 @@ header {
 			width: 350px;
 			border-radius: 15px;
 			height: 30px;
-			border: 1px solid #ddd;
+			border: 1px solid #D9E2E6;
 			margin-bottom: 10px;
 			padding: 10px 10px;
 			margin: 5px;
@@ -100,7 +100,7 @@ header {
 		overflow: scroll;
 		overflow-x: hidden;
 		border-radius: 5px;
-		border: 1px solid #ddd;
+		border: 1px solid #D9E2E6;
 
 		li {
 			list-style: none;
@@ -124,7 +124,7 @@ header {
 							color: #008eff;
 
 							b {
-								color: #00679c;
+								text-decoration: underline;
 							}
 						}
 					}
@@ -156,7 +156,7 @@ header {
 						padding: 5px;
 						background: #FFF;
 						border-radius: 3px;
-						border: 1px solid #DDD;
+						border: 1px solid #D9E2E6;
 					}
 				}
 
@@ -209,7 +209,7 @@ header {
 	}
 
 	#info {
-		color: #BDBDBD;
+		color: #90A4AE;
 		padding: 0 5px 5px;
 		text-align: right;
 	}
