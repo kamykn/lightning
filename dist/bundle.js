@@ -176,6 +176,10 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
     },
 
     setNewSearchType(nextSearchType) {
+      if (this.currentSearchType == nextSearchType) {
+        return;
+      }
+
       (async () => {
         switch (nextSearchType) {
           case this.searchTypes.HISTORY:

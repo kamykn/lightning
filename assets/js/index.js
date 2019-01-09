@@ -65,6 +65,10 @@ let vm = new Vue({
 			this.setNewSearchType(nextSearchType)
 		},
 		setNewSearchType (nextSearchType) {
+			if (this.currentSearchType == nextSearchType) {
+				return
+			}
+
 			(async () => {
 				switch (nextSearchType) {
 					case this.searchTypes.HISTORY:
