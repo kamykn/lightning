@@ -122,7 +122,7 @@ let vm = new Vue({
 								reverseResult.forEach((result) => {
 									// resultひとつひとつがHistoryItem形式
 									historyList.push({
-										url: result.url,
+										url: this.removeProtocol(result.url),
 										title: result.title
 									})
 								});
@@ -153,7 +153,7 @@ let vm = new Vue({
 										_id: tab.id.toString(),
 										_icon: tab.favIconUrl,
 										title: tab.title,
-										url: tab.url,
+										url: this.removeProtocol(tab.url),
 									})
 								})
 
@@ -202,7 +202,7 @@ let vm = new Vue({
 						_parentPath: parentPath,
 						path: parentPath + bookmark.title,
 						title: bookmark.title,
-						url: bookmark.url
+						url: this.removeProtocol(bookmark.url)
 					})
 				}
 
@@ -257,6 +257,9 @@ let vm = new Vue({
 					chrome.tabs.update(parseInt(this.results[currentSelected].matches._id), {active: true})
 				}
 			}
+		},
+		removeProtocol(url) {
+			return url.replace(/^https?:\/\//, '');
 		}
 	},
 	subscriptions() {

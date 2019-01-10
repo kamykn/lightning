@@ -240,7 +240,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
                 reverseResult.forEach(result => {
                   // resultひとつひとつがHistoryItem形式
                   historyList.push({
-                    url: result.url,
+                    url: this.removeProtocol(result.url),
                     title: result.title
                   });
                 });
@@ -274,7 +274,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
                     _id: tab.id.toString(),
                     _icon: tab.favIconUrl,
                     title: tab.title,
-                    url: tab.url
+                    url: this.removeProtocol(tab.url)
                   });
                 });
                 resolve2();
@@ -325,7 +325,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
             _parentPath: parentPath,
             path: parentPath + bookmark.title,
             title: bookmark.title,
-            url: bookmark.url
+            url: this.removeProtocol(bookmark.url)
           });
         }
 
@@ -390,6 +390,10 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           });
         }
       }
+    },
+
+    removeProtocol(url) {
+      return url.replace(/^https?:\/\//, '');
     }
 
   },
@@ -34947,7 +34951,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "0.bundle.worker.js"
+module.exports = __webpack_require__.p + "3.bundle.worker.js"
 
 /***/ })
 
