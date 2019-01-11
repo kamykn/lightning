@@ -122,6 +122,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
     currentSelected: -1,
     // 結果配列のindexなので選択されていない状態は-1とする
     currentSearchType: -1,
+    returnListLength: 30,
     searchTypes: {
       HISTORY: 1,
       BOOKMARKS: 2,
@@ -143,7 +144,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
   async mounted() {
     // 結果の数を設定
     await Muff.init(this.maxSearchWordListLen);
-    await Muff.setReturnListLength(20); // 初期モード
+    await Muff.setReturnListLength(this.returnListLength); // 初期モード
 
     this.setNewSearchType(this.searchTypes.HISTORY);
   },
@@ -271,7 +272,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
                 currentWindow: true
               }, tabs => {
                 tabs.forEach((tab, index) => {
-                  const [url, protocol] = this.separateProtocol(result.url);
+                  const [url, protocol] = this.separateProtocol(tab.url);
                   searchWordList.push({
                     _index: tab.index.toString(),
                     _id: tab.id.toString(),
@@ -325,7 +326,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
         let bookmark = bookmarksTree[i];
 
         if (bookmark.url) {
-          const [url, protocol] = this.separateProtocol(result.url);
+          const [url, protocol] = this.separateProtocol(bookmark.url);
           searchWordList.push({
             _parentPath: parentPath,
             _protocol: protocol,
@@ -34989,7 +34990,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "3.bundle.worker.js"
+module.exports = __webpack_require__.p + "0.bundle.worker.js"
 
 /***/ })
 

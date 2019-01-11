@@ -17,6 +17,7 @@ let vm = new Vue({
 		inputString: '',
 		currentSelected: -1, // 結果配列のindexなので選択されていない状態は-1とする
 		currentSearchType: -1,
+		returnListLength: 30,
 		searchTypes: {
 			HISTORY:   1,
 			BOOKMARKS: 2,
@@ -37,7 +38,7 @@ let vm = new Vue({
 	async mounted() {
 		// 結果の数を設定
 		await Muff.init(this.maxSearchWordListLen)
-		await Muff.setReturnListLength(20)
+		await Muff.setReturnListLength(this.returnListLength)
 
 		// 初期モード
 		this.setNewSearchType(this.searchTypes.HISTORY)
@@ -150,7 +151,7 @@ let vm = new Vue({
 						return new Promise(resolve2 => {
 							chrome.tabs.query({currentWindow: true}, (tabs) => {
 								tabs.forEach((tab, index) => {
-									const [url, protocol] = this.separateProtocol(result.url)
+									const [url, protocol] = this.separateProtocol(tab.url)
 									searchWordList.push({
 										_index: tab.index.toString(),
 										_id: tab.id.toString(),
@@ -198,11 +199,11 @@ let vm = new Vue({
 				parentPath = ''
 			}
 
-			for (let i =0; i < bookmarksTree.length; i++) {
+			for (let i = 0; i < bookmarksTree.length; i++) {
 				let bookmark = bookmarksTree[i];
 
 				if (bookmark.url) {
-					const [url, protocol] = this.separateProtocol(result.url)
+					const [url, protocol] = this.separateProtocol(bookmark.url)
 					searchWordList.push({
 						_parentPath: parentPath,
 						_protocol: protocol,
