@@ -239,9 +239,11 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
                 const reverseResult = results.reverse();
                 reverseResult.forEach(result => {
                   // resultひとつひとつがHistoryItem形式
+                  const [url, protocol] = this.separateProtocol(result.url);
                   historyList.push({
-                    url: this.removeProtocol(result.url),
-                    title: result.title
+                    _protocol: protocol,
+                    url: this.escapeHtml(url),
+                    title: this.escapeHtml(result.title)
                   });
                 });
                 resolve2();
@@ -269,12 +271,14 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
                 currentWindow: true
               }, tabs => {
                 tabs.forEach((tab, index) => {
+                  const [url, protocol] = this.separateProtocol(result.url);
                   searchWordList.push({
                     _index: tab.index.toString(),
                     _id: tab.id.toString(),
                     _icon: tab.favIconUrl,
-                    title: tab.title,
-                    url: this.removeProtocol(tab.url)
+                    _protocol: protocol,
+                    title: this.escapeHtml(tab.title),
+                    url: this.escapeHtml(url)
                   });
                 });
                 resolve2();
@@ -321,11 +325,13 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
         let bookmark = bookmarksTree[i];
 
         if (bookmark.url) {
+          const [url, protocol] = this.separateProtocol(result.url);
           searchWordList.push({
             _parentPath: parentPath,
-            path: parentPath + bookmark.title,
-            title: bookmark.title,
-            url: this.removeProtocol(bookmark.url)
+            _protocol: protocol,
+            path: this.escapeHtml(parentPath + bookmark.title),
+            title: this.escapeHtml(bookmark.title),
+            url: this.escapeHtml(url)
           });
         }
 
@@ -382,7 +388,8 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
       if (typeof this.results[currentSelected] != 'undefined') {
         if (this.currentSearchType == this.searchTypes.HISTORY || this.currentSearchType == this.searchTypes.BOOKMARKS) {
-          window.open(this.results[currentSelected].matches.url);
+          const result = this.results[currentSelected];
+          window.open(result.matches._protocol + result.matches.url);
         } else if (this.currentSearchType == this.searchTypes.TABS) {
           // https://stackoverflow.com/questions/36000099/check-if-window-is-already-open-from-a-non-parent-window-chrome-extension
           chrome.tabs.update(parseInt(this.results[currentSelected].matches._id), {
@@ -392,8 +399,39 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       }
     },
 
-    removeProtocol(url) {
-      return url.replace(/^https?:\/\//, '');
+    separateProtocol(url) {
+      // 検索対象から除外したい物があれば追加
+      let protocol = '';
+      let protocolRemoved = url;
+
+      if (url.indexOf('http://') === 0) {
+        protocol = 'http://';
+      } else if (url.indexOf('https://') === 0) {
+        protocol = 'https://';
+      }
+
+      if (protocol !== '') {
+        protocolRemoved = url.replace(protocol, '');
+      }
+
+      return [protocolRemoved, protocol];
+    },
+
+    escapeHtml(string) {
+      if (typeof string !== 'string') {
+        return string;
+      }
+
+      return string.replace(/[&'`"<>]/g, match => {
+        return {
+          '&': '&amp;',
+          "'": '&#x27;',
+          '`': '&#x60;',
+          '"': '&quot;',
+          '<': '&lt;',
+          '>': '&gt;'
+        }[match];
+      });
     }
 
   },

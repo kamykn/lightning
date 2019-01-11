@@ -46,7 +46,7 @@
 					<template v-if="currentSearchType == searchTypes.HISTORY">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
-								<a v-bind:href="result.matches.url" target="_blank">
+								<a v-bind:href="result.matches._protocol + result.matches.url" target="_blank">
 									<div class="favicon">
 										<img v-bind:src="'chrome://favicon/' + result.matches.url">
 									</div>
@@ -70,7 +70,7 @@
 					<template v-else-if="currentSearchType == searchTypes.BOOKMARKS">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
-								<a v-bind:href="result.matches.url" target="_blank">
+								<a v-bind:href="result.matches._protocol + result.matches.url" target="_blank">
 									<div class="favicon">
 										<img v-bind:src="'chrome://favicon/' + result.matches.url">
 									</div>
@@ -97,7 +97,7 @@
 					<template v-else-if="currentSearchType == searchTypes.TABS">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{currentSelected: index == currentSelected}">
-								<a v-bind:href="result.matches.url" target="_blank">
+								<a v-bind:href="result.matches._protocol + result.matches.url" target="_blank">
 									<div class="favicon">
 										<img v-bind:src="result.matches._icon">
 									</div>
