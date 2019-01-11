@@ -4,7 +4,7 @@ self["webpackChunk"]([2],{
 /*!*********************************************!*\
   !*** ./node_modules/muff-wasm/muff_wasm.js ***!
   \*********************************************/
-/*! exports provided: setSearchWordList, setReturnListLength, fuzzyMatch */
+/*! exports provided: setSearchWordList, setReturnListLength, fuzzyMatch, getHitLength */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12,6 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSearchWordList", function() { return setSearchWordList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setReturnListLength", function() { return setReturnListLength; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fuzzyMatch", function() { return fuzzyMatch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHitLength", function() { return getHitLength; });
 /* harmony import */ var _muff_wasm_bg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./muff_wasm_bg */ "./node_modules/muff-wasm/muff_wasm_bg.wasm");
 /* tslint:disable */
 
@@ -108,6 +109,13 @@ function fuzzyMatch(arg0) {
 
 }
 
+/**
+* @returns {number}
+*/
+function getHitLength() {
+    return _muff_wasm_bg__WEBPACK_IMPORTED_MODULE_0__["getHitLength"]();
+}
+
 
 
 /***/ }),
@@ -116,7 +124,7 @@ function fuzzyMatch(arg0) {
 /*!**************************************************!*\
   !*** ./node_modules/muff-wasm/muff_wasm_bg.wasm ***!
   \**************************************************/
-/*! exports provided: memory, setSearchWordList, setReturnListLength, fuzzyMatch, __wbindgen_global_argument_ptr, __wbindgen_malloc, __wbindgen_free */
+/*! exports provided: memory, setSearchWordList, setReturnListLength, fuzzyMatch, getHitLength, __wbindgen_global_argument_ptr, __wbindgen_malloc, __wbindgen_free */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -153,11 +161,16 @@ var Muff = {
     },
 
     setSearchWordList: function(searchWordList) {
+	console.log(111)
         this.wasm.setSearchWordList(JSON.stringify(searchWordList))
     },
 
     search: function(inputWord) {
         return JSON.parse(this.wasm.fuzzyMatch(inputWord))
+    },
+
+    getHitLength: function() {
+        return this.wasm.getHitLength()
     }
 }
 

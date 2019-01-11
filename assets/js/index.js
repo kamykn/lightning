@@ -18,6 +18,7 @@ let vm = new Vue({
 		currentSelected: -1, // 結果配列のindexなので選択されていない状態は-1とする
 		currentSearchType: -1,
 		returnListLength: 30,
+		hitLength: 0,
 		searchTypes: {
 			HISTORY:   1,
 			BOOKMARKS: 2,
@@ -35,7 +36,7 @@ let vm = new Vue({
 			return text.toString().toLowerCase()
 		}
 	},
-	async mounted() {
+	async created() {
 		// 結果の数を設定
 		await Muff.init(this.maxSearchWordListLen)
 		await Muff.setReturnListLength(this.returnListLength)
@@ -88,10 +89,12 @@ let vm = new Vue({
 				const results = await this.search(this.inputString)
 				this.results = this.setSearchResultsToData(results)
 				this.setSearchType(nextSearchType)
+				this.hitLength = this.listCache[this.currentSearchType].length
 			})()
 		},
 		async search(inputString) {
 			let results = await Muff.search(inputString)
+			this.hitLength = await Muff.getHitLength()
 			return Promise.resolve(results)
 		},
 		setSearchResultsToData(results) {
@@ -317,7 +320,7 @@ let vm = new Vue({
 				el.focus()
 			}
 		}
-	}
+	},
 })
 
 window.onload = () => {
