@@ -10,16 +10,17 @@ self["webpackChunk"]([1],{
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var comlinkjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! comlinkjs */ "./node_modules/comlinkjs/comlink.js");
+/* harmony import */ var muff__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! muff */ "./node_modules/muff/index.js");
 
-const Muff = __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! muff */ "./node_modules/muff/index.js"));
+
 const wasm = {
   // 検索件数上限
   maxSearchWordListLen: 0,
   init: async function (maxSearchWordListLen) {
     this.maxSearchWordListLen = maxSearchWordListLen; // このオブジェクトにWebAssemblyをマージして使う
 
-    const muff = await Muff;
-    Object.assign(wasm, muff.default);
+    await muff__WEBPACK_IMPORTED_MODULE_1__["default"].init();
+    Object.assign(wasm, muff__WEBPACK_IMPORTED_MODULE_1__["default"]);
   },
 
   setSearchWordListWrapper(searchWordList) {
@@ -378,6 +379,48 @@ function makeInvocationResult(obj) {
         }
     };
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/muff/index.js":
+/*!************************************!*\
+  !*** ./node_modules/muff/index.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const wasm = __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./crate/pkg/muff.js */ "./node_modules/muff/crate/pkg/muff.js"))
+
+var Muff = {
+	wasm: null,
+
+	init: async function() {
+		Muff.wasm = await wasm
+		return Promise.resolve()
+	},
+
+	setReturnListLength: function(listCount) {
+		this.wasm.setReturnListLength(listCount)
+	},
+
+	setSearchWordList: function(searchWordList) {
+		this.wasm.setSearchWordList(JSON.stringify(searchWordList))
+	},
+
+	search: function(inputWord) {
+		return JSON.parse(this.wasm.fuzzyMatch(inputWord))
+	},
+
+	getHitLength: function() {
+		return this.wasm.getHitLength()
+	}
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Muff);
+
 
 
 /***/ })

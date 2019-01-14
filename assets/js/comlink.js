@@ -1,5 +1,5 @@
 import * as Comlink from 'comlinkjs'
-const Muff = import('muff')
+import Muff from 'muff'
 
 const wasm = {
 	// 検索件数上限
@@ -9,8 +9,8 @@ const wasm = {
 		this.maxSearchWordListLen = maxSearchWordListLen
 
 		// このオブジェクトにWebAssemblyをマージして使う
-		const muff = await Muff
-		Object.assign(wasm, muff.default);
+		await Muff.init()
+		Object.assign(wasm, Muff);
 	},
 
 	setSearchWordListWrapper(searchWordList) {
