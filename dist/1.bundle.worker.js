@@ -392,7 +392,7 @@ function makeInvocationResult(obj) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const wasm = __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./crate/pkg/muff.js */ "./node_modules/muff/crate/pkg/muff.js"))
+const wasm = __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./crate/pkg/muff.js */ "./node_modules/muff/crate/pkg/muff.js"))
 
 var Muff = {
 	wasm: null,
