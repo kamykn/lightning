@@ -45,7 +45,7 @@
 				<ul v-cloak v-if="results && results.length >= 1" @mouseover="resetCurrentSelector" ref="list">
 					<template v-if="currentSearchType == searchTypes.HISTORY">
 						<template v-for="(result, index) in results">
-							<li v-bind:class="{currentSelected: index == currentSelected}">
+							<li v-bind:class="{'current-selected': index == currentSelected}">
 								<a v-bind:href="result.matches._protocol + result.matches.url" target="_blank">
 									<div class="favicon">
 										<img v-bind:src="'chrome://favicon/' + result.matches._protocol + result.matches.url">
@@ -63,13 +63,16 @@
 											<span v-html="result.highlighteds.url"></span>
 										</div>
 									</div>
+									<div class="current-select-marker">
+										<div class="marker"></div>
+									</div>
 								</a>
 							</li>
 						</template>
 					</template>
 					<template v-else-if="currentSearchType == searchTypes.BOOKMARKS">
 						<template v-for="(result, index) in results">
-							<li v-bind:class="{currentSelected: index == currentSelected}">
+							<li v-bind:class="{'current-selected': index == currentSelected}">
 								<a v-bind:href="result.matches._protocol + result.matches.url" target="_blank">
 									<div class="favicon">
 										<img v-bind:src="'chrome://favicon/' + result.matches._protocol + result.matches.url">
@@ -90,13 +93,16 @@
 											<span v-html="result.highlighteds.url"></span>
 										</div>
 									</div>
+									<div class="current-select-marker">
+										<div class="marker"></div>
+									</div>
 								</a>
 							</li>
 						</template>
 					</template>
 					<template v-else-if="currentSearchType == searchTypes.TABS">
 						<template v-for="(result, index) in results">
-							<li v-bind:class="{currentSelected: index == currentSelected}">
+							<li v-bind:class="{'current-selected': index == currentSelected}">
 								<a v-bind:href="result.matches._protocol + result.matches._protocol + result.matches.url" target="_blank">
 									<div class="favicon">
 										<img v-bind:src="result.matches._icon">
@@ -114,6 +120,9 @@
 										<div class="url">
 											<span v-html="result.highlighteds.url"></span>
 										</div>
+									</div>
+									<div class="current-select-marker">
+										<div class="marker"></div>
 									</div>
 								</a>
 							</li>
