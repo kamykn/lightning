@@ -6,55 +6,61 @@ body, html {
   width: 360px;
   background: #F7F7F7; }
 
+#muffin {
+  outline: none; }
+
 header {
   color: #FFF;
   width: 100%; }
   header #menu-wrap {
     top: 0px;
     width: 100%;
-    height: 38px;
-    margin-bottom: 5px;
-    background: #FFF;
-    box-shadow: 0 0 5px #90a4ae; }
+    height: 35px;
+    margin-bottom: 14px;
+    background: #29a4de;
+    filter: drop-shadow(0px 5px 0px rgba(176, 190, 197, 0.4)); }
     header #menu-wrap #menu-clickable-wrap {
       margin: 0 30px;
       display: flex;
       position: relative;
-      height: 38px; }
+      height: 35px; }
       header #menu-wrap #menu-clickable-wrap #history,
       header #menu-wrap #menu-clickable-wrap #tabs,
       header #menu-wrap #menu-clickable-wrap #bookmarks {
         width: 100px;
-        height: 33px;
-        line-height: 33px;
+        height: 30px;
+        line-height: 30px;
         text-align: center;
         font-size: 15px;
         font-weight: 100;
-        color: #607D8B;
+        letter-spacing: 1.4px;
+        color: #cde9ff;
         cursor: pointer;
-        -moz-transition: 0.3s ease-out;
-        -webkit-transition: 0.3s ease-out;
-        -o-transition: 0.3s ease-out;
-        -ms-transition: 0.3s ease-out; }
+        -moz-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        -webkit-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        -o-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        -ms-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
         header #menu-wrap #menu-clickable-wrap #history.active,
         header #menu-wrap #menu-clickable-wrap #tabs.active,
         header #menu-wrap #menu-clickable-wrap #bookmarks.active {
-          color: #008eff; }
+          color: #FFF; }
         header #menu-wrap #menu-clickable-wrap #history:hover,
         header #menu-wrap #menu-clickable-wrap #tabs:hover,
         header #menu-wrap #menu-clickable-wrap #bookmarks:hover {
-          color: #008eff; }
+          color: #FFF; }
       header #menu-wrap #menu-clickable-wrap #select-bar {
         position: absolute;
-        height: 3px;
-        width: 100px;
-        border-radius: 3px;
-        background: #008eff;
-        bottom: 0px;
-        -moz-transition: 0.3s ease-out;
-        -webkit-transition: 0.3s ease-out;
-        -o-transition: 0.3s ease-out;
-        -ms-transition: 0.3s ease-out; }
+        height: 0px;
+        width: 0px;
+        bottom: -10px;
+        margin: 0 40px;
+        -moz-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        -webkit-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        -o-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        -ms-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        border-top: 10px solid #f7f7f7;
+        border-left: 10px solid rgba(255, 255, 255, 0);
+        border-right: 10px solid rgba(255, 255, 255, 0); }
   header #form {
     height: 40px; }
     header #form #search {
@@ -68,7 +74,7 @@ header {
       font-size: 15px;
       outline: 0; }
       header #form #search:focus {
-        border: 1px solid #008eff; }
+        border: 1px solid #2993de; }
 
 #main ul {
   margin: 5px;
@@ -76,17 +82,17 @@ header {
   max-height: 420px;
   overflow: scroll;
   overflow-x: hidden;
-  border-radius: 5px;
-  border: 1px solid #D9E2E6; }
+  border-bottom: 1px solid #D9E2E6;
+  border-top: 1px solid #D9E2E6; }
   #main ul li {
     list-style: none;
-    padding: 4px 6px 4px 8px;
+    padding: 6px 6px 6px 8px;
     border-top: 1px solid #EEE;
     background: #FFF; }
     #main ul li:first-child {
       border-top: none; }
     #main ul li:hover, #main ul li.currentSelected {
-      background: #f1f9ff !important; }
+      background: #F7F7F7 !important; }
       #main ul li:hover a .item-text .url,
       #main ul li:hover a .item-text .path,
       #main ul li:hover a .item-text .title, #main ul li.currentSelected a .item-text .url,
@@ -99,8 +105,6 @@ header {
         #main ul li.currentSelected a .item-text .path b,
         #main ul li.currentSelected a .item-text .title b {
           text-decoration: underline; }
-    #main ul li:nth-child(odd) {
-      background: #F7F7F7; }
     #main ul li a {
       text-decoration: none;
       width: 100%;
@@ -118,8 +122,7 @@ header {
           transform: translateY(-50%) translateX(-50%);
           padding: 5px;
           background: #FFF;
-          border-radius: 3px;
-          border: 1px solid #D9E2E6; }
+          box-shadow: 0px 1px 3px #CFD8DC; }
       #main ul li a .item-text {
         width: 290px;
         margin-left: 8px; }
