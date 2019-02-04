@@ -130,6 +130,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       TABS: 3
     },
     listCache: {},
+    searchCache: {},
     isShortcutVisible: false,
     maxSearchWordListLen: 20000
   },
@@ -202,7 +203,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
             return;
         }
 
-        const results = await this.search(this.inputString);
+        const results = await this.search(this.inputString, nextSearchType);
         this.results = this.setSearchResultsToData(results);
         this.setSearchType(nextSearchType);
         this.hitLength = this.listCache[this.currentSearchType].length;
@@ -210,10 +211,24 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       })();
     },
 
-    async search(inputString) {
+    async search(inputString, nextSearchType) {
+      // キャッシュが残っていれば返却
+      if (typeof this.searchCache[inputString] != 'undefined' && typeof this.searchCache[inputString][nextSearchType] != 'undefined') {
+        return Promise.resolve(this.searchCache[inputString][nextSearchType]);
+      } // 検索
+
+
       let results = await Muff.search(inputString);
       this.hitLength = await Muff.getHitLength();
-      this.isShortcutVisible = false;
+
+      if (typeof this.searchCache[inputString] == 'undefined') {
+        // キャッシュはsearchTypeにつき1つのみ生成される
+        this.searchCache[inputString] = {}; // 新たに入力した場合は結果表示優先する
+
+        this.isShortcutVisible = false;
+      }
+
+      this.searchCache[inputString][nextSearchType] = results;
       return Promise.resolve(results);
     },
 
