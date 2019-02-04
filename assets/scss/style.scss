@@ -10,6 +10,7 @@ body, html {
 
 #muffin {
 	outline: none;
+	margin-bottom: 24px;
 }
 
 header {
@@ -241,10 +242,31 @@ header {
 		}
 	}
 
-	#info {
+	#info-bar {
+		position: absolute;
+		bottom: 5px;
 		color: #90A4AE;
-		padding: 0 5px 5px;
-		text-align: right;
+		padding: 0 5px;
+		float: left;
+		width: 100%;
+		box-sizing: border-box;
+
+		#shortcuts {
+			cursor: pointer;
+			display: inline-block;
+			float: left;
+		}
+
+		#result-count {
+			display: inline-block;
+			float: right;
+		}
+	}
+
+	#shortcut-list {
+		text-align: center;
+		line-height: 1.6em;
+		color: #607d8b;
 	}
 }
 

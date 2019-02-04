@@ -25,6 +25,7 @@ let vm = new Vue({
 			TABS:      3
 		},
 		listCache: {},
+		isShortcutVisible: false,
 		maxSearchWordListLen: 20000,
 	},
 	filters: {
@@ -90,11 +91,13 @@ let vm = new Vue({
 				this.results = this.setSearchResultsToData(results)
 				this.setSearchType(nextSearchType)
 				this.hitLength = this.listCache[this.currentSearchType].length
+				this.scrollIntoView()
 			})()
 		},
 		async search(inputString) {
 			let results = await Muff.search(inputString)
 			this.hitLength = await Muff.getHitLength()
+			this.isShortcutVisible = false
 			return Promise.resolve(results)
 		},
 		setSearchResultsToData(results) {
@@ -235,7 +238,7 @@ let vm = new Vue({
 				this.currentSelected--
 			}
 
-			this.resultRestScroll()
+			this.scrollIntoView()
 		},
 		moveDownSelector(event) {
 			if (Array.isArray(this.results) && this.currentSelected == this.results.length - 1) {
@@ -245,11 +248,11 @@ let vm = new Vue({
 				this.currentSelected++
 			}
 
-			this.resultRestScroll()
+			this.scrollIntoView()
 		},
-		resultRestScroll() {
+		scrollIntoView() {
 			this.$nextTick(() => {
-				const selectedLi = document.getElementsByClassName('currentSelected')[0]
+				const selectedLi = document.getElementsByClassName('current-selected')[0]
 				if (typeof selectedLi != 'undefined') {
 					selectedLi.scrollIntoView({behavior: "instant", block: "nearest"})
 				}
@@ -301,6 +304,9 @@ let vm = new Vue({
 					'>': '&gt;',
 				}[match]
 			});
+		},
+		toggleShortcutVisible() {
+			this.isShortcutVisible = !this.isShortcutVisible
 		}
 	},
 	subscriptions() {

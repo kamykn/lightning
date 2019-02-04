@@ -4,11 +4,13 @@
 		<link rel="stylesheet" href="./dist/style.css">
 	</head>
 	<body>
-		<div id="muffin" 
+		<div id="muffin"
+			@keydown.down="moveDownSelector"
+			@keydown.up="moveUpSelector"
+			@keydown.right="nextSearchType"
+			@keydown.left="prevSearchType"
 			@keydown.tab.exact.prevent="moveDownSelector"
 			@keydown.shift.tab.prevent="moveUpSelector"
-			@keydown.down.prevent="moveDownSelector"
-			@keydown.up.prevent="moveUpSelector"
 			@keydown.ctrl.78.prevent="moveDownSelector"
 			@keydown.ctrl.80.prevent="moveUpSelector"
 			@keydown.ctrl.74.prevent="setNewSearchType(searchTypes.HISTORY)"
@@ -42,7 +44,17 @@
 				</div>
 			</header>
 			<div id="main">
-				<ul v-cloak v-if="results && results.length >= 1" @mouseover="resetCurrentSelector" ref="list">
+				<div v-cloak v-if="isShortcutVisible" id="shortcut-list">
+					<p>
+						Select tab: ←, → or<br />
+						History: Ctrl-j<br />
+						Bookmark: Ctrl-k<br />
+						Tab: Ctrl-l<br />
+						Select next item: ↓, tab, Ctrl-n<br />
+						Select prev item: ↑, Shift-tab, Ctrl-p
+					</p>
+				</div>
+				<ul v-cloak v-else-if="results && results.length >= 1" @mouseover="resetCurrentSelector" ref="list">
 					<template v-if="currentSearchType == searchTypes.HISTORY">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{'current-selected': index == currentSelected}">
@@ -132,8 +144,13 @@
 				<div v-else id="logo">
 					<img src="./images/logo.png">
 				</div>
-				<div v-cloak v-if="results" id="info">
-					{{ results.length }} / {{ hitLength }}
+				<div id="info-bar">
+					<div id="shortcuts" @click="toggleShortcutVisible">
+						Shortcuts
+					</div>
+					<div v-cloak v-if="results" id="result-count">
+						{{ results.length }} / {{ hitLength }}
+					</div>
 				</div>
 			</div>
 		</div>

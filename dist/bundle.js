@@ -130,6 +130,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       TABS: 3
     },
     listCache: {},
+    isShortcutVisible: false,
     maxSearchWordListLen: 20000
   },
   filters: {
@@ -205,12 +206,14 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
         this.results = this.setSearchResultsToData(results);
         this.setSearchType(nextSearchType);
         this.hitLength = this.listCache[this.currentSearchType].length;
+        this.scrollIntoView();
       })();
     },
 
     async search(inputString) {
       let results = await Muff.search(inputString);
       this.hitLength = await Muff.getHitLength();
+      this.isShortcutVisible = false;
       return Promise.resolve(results);
     },
 
@@ -360,7 +363,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
         this.currentSelected--;
       }
 
-      this.resultRestScroll();
+      this.scrollIntoView();
     },
 
     moveDownSelector(event) {
@@ -371,12 +374,12 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
         this.currentSelected++;
       }
 
-      this.resultRestScroll();
+      this.scrollIntoView();
     },
 
-    resultRestScroll() {
+    scrollIntoView() {
       this.$nextTick(() => {
-        const selectedLi = document.getElementsByClassName('currentSelected')[0];
+        const selectedLi = document.getElementsByClassName('current-selected')[0];
 
         if (typeof selectedLi != 'undefined') {
           selectedLi.scrollIntoView({
@@ -436,6 +439,10 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           '>': '&gt;'
         }[match];
       });
+    },
+
+    toggleShortcutVisible() {
+      this.isShortcutVisible = !this.isShortcutVisible;
     }
 
   },

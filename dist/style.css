@@ -7,7 +7,8 @@ body, html {
   background: #F7F7F7; }
 
 #muffin {
-  outline: none; }
+  outline: none;
+  margin-bottom: 24px; }
 
 header {
   color: #FFF;
@@ -185,10 +186,26 @@ header {
     padding: 10px;
     opacity: 0.28; }
 
-#main #info {
+#main #info-bar {
+  position: absolute;
+  bottom: 5px;
   color: #90A4AE;
-  padding: 0 5px 5px;
-  text-align: right; }
+  padding: 0 5px;
+  float: left;
+  width: 100%;
+  box-sizing: border-box; }
+  #main #info-bar #shortcuts {
+    cursor: pointer;
+    display: inline-block;
+    float: left; }
+  #main #info-bar #result-count {
+    display: inline-block;
+    float: right; }
+
+#main #shortcut-list {
+  text-align: center;
+  line-height: 1.6em;
+  color: #607d8b; }
 
 /*スクロールバー全体*/
 ::-webkit-scrollbar {
