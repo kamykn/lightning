@@ -69,7 +69,7 @@ header {
         -ms-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
         background: #f7f7f7;
         border-radius: 50%;
-        border: 3px solid #ddd; }
+        border: 3px solid #b0bec5; }
   header #form {
     height: 40px; }
     header #form #search {
@@ -95,7 +95,7 @@ header {
   border-top: 1px solid #D9E2E6; }
   #main ul li {
     list-style: none;
-    border-top: 1px dashed #EEE;
+    border-top: 1px dashed #e0e0e0;
     background: #FFF;
     position: relative; }
     #main ul li:first-child {
@@ -105,7 +105,7 @@ header {
       height: 100%;
       background: #d6dde0;
       position: absolute;
-      right: 8px; }
+      left: 8px; }
     #main ul li:hover, #main ul li.current-selected {
       background: #F7F7F7 !important; }
       #main ul li:hover a .item-text .url,
@@ -124,7 +124,7 @@ header {
         border-radius: 50%;
         width: 9px;
         height: 9px;
-        border: 3px solid #ddd;
+        border: 3px solid #b0bec5;
         background: #f7f7f7;
         position: absolute;
         right: -5px;
@@ -138,7 +138,7 @@ header {
       #main ul li a .favicon {
         position: relative;
         width: 26px;
-        margin-left: 8px; }
+        margin-left: 23px; }
         #main ul li a .favicon img {
           height: 14px;
           width: 14px;

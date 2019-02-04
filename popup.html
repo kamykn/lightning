@@ -47,6 +47,9 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{'current-selected': index == currentSelected}">
 								<a v-bind:href="result.matches._protocol + result.matches.url" target="_blank">
+									<div class="current-select-marker">
+										<div class="marker"></div>
+									</div>
 									<div class="favicon">
 										<img v-bind:src="'chrome://favicon/' + result.matches._protocol + result.matches.url">
 									</div>
@@ -63,9 +66,6 @@
 											<span v-html="result.highlighteds.url"></span>
 										</div>
 									</div>
-									<div class="current-select-marker">
-										<div class="marker"></div>
-									</div>
 								</a>
 							</li>
 						</template>
@@ -74,6 +74,9 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{'current-selected': index == currentSelected}">
 								<a v-bind:href="result.matches._protocol + result.matches.url" target="_blank">
+									<div class="current-select-marker">
+										<div class="marker"></div>
+									</div>
 									<div class="favicon">
 										<img v-bind:src="'chrome://favicon/' + result.matches._protocol + result.matches.url">
 									</div>
@@ -93,9 +96,6 @@
 											<span v-html="result.highlighteds.url"></span>
 										</div>
 									</div>
-									<div class="current-select-marker">
-										<div class="marker"></div>
-									</div>
 								</a>
 							</li>
 						</template>
@@ -104,6 +104,9 @@
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{'current-selected': index == currentSelected}">
 								<a v-bind:href="result.matches._protocol + result.matches._protocol + result.matches.url" target="_blank">
+									<div class="current-select-marker">
+										<div class="marker"></div>
+									</div>
 									<div class="favicon">
 										<img v-bind:src="result.matches._icon">
 									</div>
@@ -120,9 +123,6 @@
 										<div class="url">
 											<span v-html="result.highlighteds.url"></span>
 										</div>
-									</div>
-									<div class="current-select-marker">
-										<div class="marker"></div>
 									</div>
 								</a>
 							</li>
