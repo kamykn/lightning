@@ -214,6 +214,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
     async search(inputString, nextSearchType) {
       // キャッシュが残っていれば返却
       if (typeof this.searchCache[inputString] != 'undefined' && typeof this.searchCache[inputString][nextSearchType] != 'undefined') {
+        console.log(this.searchCache[inputString][nextSearchType]);
         return Promise.resolve(this.searchCache[inputString][nextSearchType]);
       } // 検索
 
@@ -244,11 +245,11 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
     changeToHistorySearch() {
       return new Promise(async resolve => {
         // 1年分
-        const startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 265;
+        const startTime = new Date().getTime() - 1000 * 60 * 60 * 24 * 365;
         const query = {
           text: '',
           startTime: startTime,
-          maxResults: 50000
+          maxResults: this.maxSearchWordListLen
         };
         let historyList = [];
 

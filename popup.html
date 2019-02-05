@@ -5,10 +5,6 @@
 	</head>
 	<body>
 		<div id="muffin"
-			@keydown.down="moveDownSelector"
-			@keydown.up="moveUpSelector"
-			@keydown.right="nextSearchType"
-			@keydown.left="prevSearchType"
 			@keydown.tab.exact.prevent="moveDownSelector"
 			@keydown.shift.tab.prevent="moveUpSelector"
 			@keydown.ctrl.78.prevent="moveDownSelector"
@@ -46,12 +42,16 @@
 			<div id="main">
 				<div v-cloak v-if="isShortcutVisible" id="shortcut-list">
 					<p>
-						Select tab: ←, → or<br />
+						[Select tab]<br />
 						History: Ctrl-j<br />
 						Bookmark: Ctrl-k<br />
 						Tab: Ctrl-l<br />
-						Select next item: ↓, tab, Ctrl-n<br />
-						Select prev item: ↑, Shift-tab, Ctrl-p
+						<br />
+						[Select next item]<br />
+						Tab, Ctrl-n<br />
+						<br />
+						[Select prev item]<br />
+						Shift-tab, Ctrl-p
 					</p>
 				</div>
 				<ul v-cloak v-else-if="results && results.length >= 1" @mouseover="resetCurrentSelector" ref="list">

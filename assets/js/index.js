@@ -128,11 +128,11 @@ let vm = new Vue({
 		changeToHistorySearch() {
 			return new Promise(async (resolve) => {
 				// 1年分
-				const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 265)
+				const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 365)
 				const query = {
 					text: '',
 					startTime: startTime,
-					maxResults: 50000
+					maxResults: this.maxSearchWordListLen
 				};
 
 				let historyList = []
