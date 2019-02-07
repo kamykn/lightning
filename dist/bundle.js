@@ -214,7 +214,6 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
     async search(inputString, nextSearchType) {
       // キャッシュが残っていれば返却
       if (typeof this.searchCache[inputString] != 'undefined' && typeof this.searchCache[inputString][nextSearchType] != 'undefined') {
-        console.log(this.searchCache[inputString][nextSearchType]);
         return Promise.resolve(this.searchCache[inputString][nextSearchType]);
       } // 検索
 
