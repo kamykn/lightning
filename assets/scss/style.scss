@@ -24,14 +24,14 @@ header {
 		width: 100%;
 		height: $menuHeight;
 		margin-bottom: 5px;
-		background: #29a4de;
+		border-bottom: 4px solid #d6dde0;
+
 		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2192f3+0,29a4de+100 */
 		// background: #2192f3; /* Old browsers */
 		background: #29a4de; /* Old browsers */
 		background: -moz-linear-gradient(-45deg, #2192f3 0%, #29a4de 100%); /* FF3.6-15 */
 		background: -webkit-linear-gradient(-45deg, #2192f3 0%,#29a4de 100%); /* Chrome10-25,Safari5.1-6 */
 		background: linear-gradient(135deg, #2192f3 0%,#29a4de 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		border-bottom: 4px solid #d6dde0;
 
 		#menu-clickable-wrap {
 			margin:  0 30px;
@@ -264,9 +264,82 @@ header {
 	}
 
 	#shortcut-list {
-		text-align: center;
-		line-height: 1.6em;
 		color: #607d8b;
+
+		h2 {
+			display: inline-block;
+			color: #607D8B;
+			font-size: 14px;
+			font-weight: 100;
+			letter-spacing: 1.4px;
+			margin: 0px 20px;
+			background: #f7f7f7;
+			padding: 0 8px;
+			text-align: left;
+		}
+
+		.shortcut-group {
+			border: 1px solid #cfd8dc;
+			border-radius: 10px;
+			width: 315px;
+			margin: -7px auto 10px;
+			padding: 12px 10px 10px;
+			box-shadow: 0 0 5px #ddd;
+
+			table {
+				width: 250px;
+				margin: auto;
+
+				td {
+					text-align: center;
+				}
+			}
+		}
+
+		.shortcut-key-ctrl,
+		.shortcut-key-shift,
+		.shortcut-key-tab,
+		.shortcut-key-enter,
+		.shortcut-key-other {
+			height: 16px;
+			width: 32px;
+			padding: 8px;
+			display: inline-block;
+			line-height: 16px;
+			font-size: 12px;
+			font-weight: bold;
+			text-align: center;
+			color: #FFF;
+		}
+
+		.shortcut-key-ctrl {
+			background: #2196f3;
+		}
+
+		.shortcut-key-shift {
+			background: #9c27b0;
+		}
+
+		.shortcut-key-tab {
+			background: #62c34a;
+		}
+
+		.shortcut-key-enter {
+			background: #e91e63;
+		}
+
+		.shortcut-key-other {
+			background: #607D8B;
+		}
+
+		.shortcut-key-description {
+			width: 85px;
+			text-align: left !important;
+			padding-left: 15px;
+			color: #607D8B;
+			font-weight: 100;
+			letter-spacing: 1.4;
+		}
 	}
 }
 

@@ -41,19 +41,67 @@
 			</header>
 			<div id="main">
 				<div v-cloak v-if="isShortcutVisible" id="shortcut-list">
-					<p>
-						[Select tab]<br />
-						History: Ctrl-j<br />
-						Bookmark: Ctrl-k<br />
-						Tab: Ctrl-l<br />
-						<br />
-						[Select next item]<br />
-						Tab, Ctrl-n<br />
-						<br />
-						[Select prev item]<br />
-						Shift-tab, Ctrl-p
-					</p>
+					<h2>Select mode</h2>
+					<div class="shortcut-group">
+						<table>
+							<tr>
+								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-other">j</span></td>
+								<td class="shortcut-key-description">History</td>
+							</tr>
+							<tr>
+								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-other">k</span></td>
+								<td class="shortcut-key-description">Bookmark</td>
+							</tr>
+							<tr>
+								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-other">l</span></td>
+								<td class="shortcut-key-description">Tab</td>
+							</tr>
+						</table>
+					</div>
+
+					<h2>Select list item</h2>
+					<div class="shortcut-group">
+						<table>
+							<tr>
+								<td></td>
+								<td></td>
+								<td><span class="shortcut-key-tab">Tab</span></td>
+								<td class="shortcut-key-description">Down</td>
+							</tr>
+							<tr>
+								<td><span class="shortcut-key-shift">Shift</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-tab">Tab</span></td>
+								<td class="shortcut-key-description">Up</td>
+							</tr>
+							<tr>
+								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-other">n</span></td>
+								<td class="shortcut-key-description">Down</td>
+							</tr>
+							<tr>
+								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-other">p</span></td>
+								<td class="shortcut-key-description">Up</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td><span class="shortcut-key-enter">Enter</span></td>
+								<td class="shortcut-key-description">Open</td>
+							</tr>
+						</table>
+					</div>
 				</div>
+
 				<ul v-cloak v-else-if="results && results.length >= 1" @mouseover="resetCurrentSelector" ref="list">
 					<template v-if="currentSearchType == searchTypes.HISTORY">
 						<template v-for="(result, index) in results">
@@ -82,6 +130,7 @@
 							</li>
 						</template>
 					</template>
+
 					<template v-else-if="currentSearchType == searchTypes.BOOKMARKS">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{'current-selected': index == currentSelected}">
@@ -112,6 +161,7 @@
 							</li>
 						</template>
 					</template>
+
 					<template v-else-if="currentSearchType == searchTypes.TABS">
 						<template v-for="(result, index) in results">
 							<li v-bind:class="{'current-selected': index == currentSelected}">
@@ -141,9 +191,11 @@
 						</template>
 					</template>
 				</ul>
+
 				<div v-else id="logo">
 					<img src="./images/logo.png">
 				</div>
+
 				<div id="info-bar">
 					<div id="shortcuts" @click="toggleShortcutVisible">
 						Shortcuts
