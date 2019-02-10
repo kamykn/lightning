@@ -29,30 +29,32 @@ header {
     background: linear-gradient(135deg, #2192f3 0%, #29a4de 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ }
     header #menu-wrap #menu-clickable-wrap {
-      margin: 0 30px;
+      margin: 0 10px;
       display: flex;
       position: relative;
       height: 35px; }
       header #menu-wrap #menu-clickable-wrap #history,
       header #menu-wrap #menu-clickable-wrap #tabs,
       header #menu-wrap #menu-clickable-wrap #bookmarks {
-        width: 100px;
-        height: 30px;
-        line-height: 30px;
+        width: 105px;
+        height: 35px;
+        margin: 0 5px;
+        line-height: 35px;
         text-align: center;
         font-size: 15px;
         font-weight: 100;
         letter-spacing: 1.4px;
         color: #cde9ff;
         cursor: pointer;
-        -moz-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-        -webkit-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-        -o-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-        -ms-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
+        -moz-transition: 0.3s ease-in-out;
+        -webkit-transition: 0.3s ease-in-out;
+        -o-transition: 0.3s ease-in-out;
+        -ms-transition: 0.3s ease-in-out; }
         header #menu-wrap #menu-clickable-wrap #history.active,
         header #menu-wrap #menu-clickable-wrap #tabs.active,
         header #menu-wrap #menu-clickable-wrap #bookmarks.active {
-          color: #FFF; }
+          color: #FFF;
+          background: #1E88E5; }
         header #menu-wrap #menu-clickable-wrap #history:hover,
         header #menu-wrap #menu-clickable-wrap #tabs:hover,
         header #menu-wrap #menu-clickable-wrap #bookmarks:hover {
@@ -62,7 +64,7 @@ header {
         height: 10px;
         width: 10px;
         bottom: -10px;
-        margin: 0 40px;
+        margin: 0 50px;
         -moz-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
         -webkit-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
         -o-transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
