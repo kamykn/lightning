@@ -178,12 +178,10 @@ header {
           color: #008eff; }
 
 #main #logo {
-  height: 30px;
   text-align: center; }
   #main #logo img {
-    height: 30px;
-    padding: 10px;
-    opacity: 0.28; }
+    height: 40px;
+    padding: 20px 10px; }
 
 #main #info-bar {
   position: absolute;
@@ -196,7 +194,18 @@ header {
   #main #info-bar #shortcuts {
     cursor: pointer;
     display: inline-block;
-    float: left; }
+    float: left;
+    display: inline-flex; }
+    #main #info-bar #shortcuts:hover {
+      cursor: pointer;
+      text-decoration: underline; }
+    #main #info-bar #shortcuts .icon {
+      height: 15px;
+      width: 15px;
+      padding: 1px 5px 0 0; }
+    #main #info-bar #shortcuts .text {
+      font-weight: 100;
+      letter-spacing: 1.4; }
   #main #info-bar #result-count {
     display: inline-block;
     float: right; }

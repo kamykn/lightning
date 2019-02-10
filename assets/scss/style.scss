@@ -233,12 +233,11 @@ header {
 	}
 
 	#logo {
-		height: 30px;
 		text-align: center;
+
 		img {
-			height: 30px;
-			padding: 10px;
-			opacity: 0.28;
+			height: 40px;
+			padding: 20px 10px;
 		}
 	}
 
@@ -255,6 +254,23 @@ header {
 			cursor: pointer;
 			display: inline-block;
 			float: left;
+			display: inline-flex;
+
+			&:hover {
+				cursor: pointer;
+				text-decoration: underline;
+			}
+
+			.icon {
+				height: 15px;
+				width: 15px;
+				padding: 1px 5px 0 0;
+			}
+
+			.text {
+				font-weight: 100;
+				letter-spacing: 1.4;
+			}
 		}
 
 		#result-count {
