@@ -211,6 +211,7 @@ header {
     float: right; }
 
 #main #shortcut-list {
+  padding: 10px 0;
   color: #607d8b; }
   #main #shortcut-list h2 {
     display: inline-block;
