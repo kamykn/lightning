@@ -27,7 +27,7 @@ let vm = new Vue({
 		listCache: {},
 		searchCache: {},
 		isShortcutVisible: false,
-		maxSearchWordListLen: 20000,
+		maxSearchWordListLen: 10000,
 	},
 	filters: {
 		toUpperFirst : (text) => {
@@ -331,7 +331,7 @@ let vm = new Vue({
 		return {
 			results: this.$watchAsObservable('inputString').pipe(
 				pluck('newValue'),
-				debounceTime(500),
+				// debounceTime(500),
 				switchMap(text => this.search(text, this.currentSearchType)),
 				map(this.setSearchResultsToData)
 			)
