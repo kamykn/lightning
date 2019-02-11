@@ -88,6 +88,7 @@ let vm = new Vue({
 						console.log('Unknown Search Type.')
 						return;
 				}
+
 				const results = await this.search(this.inputString, nextSearchType)
 				this.results = this.setSearchResultsToData(results)
 				this.setSearchType(nextSearchType)
@@ -331,7 +332,7 @@ let vm = new Vue({
 			results: this.$watchAsObservable('inputString').pipe(
 				pluck('newValue'),
 				debounceTime(500),
-				switchMap(this.search),
+				switchMap(text => this.search(text, this.currentSearchType)),
 				map(this.setSearchResultsToData)
 			)
 		}

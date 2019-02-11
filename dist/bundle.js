@@ -464,7 +464,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
   subscriptions() {
     return {
-      results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(this.search), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(this.setSearchResultsToData))
+      results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(text => this.search(text, this.currentSearchType)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(this.setSearchResultsToData))
     };
   },
 
@@ -35015,7 +35015,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "0.bundle.worker.js"
+module.exports = __webpack_require__.p + "3.bundle.worker.js"
 
 /***/ })
 
