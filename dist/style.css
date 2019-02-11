@@ -213,7 +213,7 @@ header {
     float: right; }
 
 #main #shortcut-list {
-  padding: 10px 0;
+  padding: 5px 0;
   color: #607d8b; }
   #main #shortcut-list h2 {
     display: inline-block;
@@ -229,26 +229,28 @@ header {
     border: 1px solid #cfd8dc;
     border-radius: 10px;
     width: 315px;
-    margin: -7px auto 10px;
-    padding: 12px 10px 10px;
+    margin: -7px auto 8px;
+    padding: 12px 10px 8px;
     box-shadow: 0 0 5px #ddd; }
     #main #shortcut-list .shortcut-group table {
       width: 250px;
       margin: auto; }
       #main #shortcut-list .shortcut-group table td {
-        text-align: center; }
+        text-align: center;
+        color: #607D8B;
+        font-weight: 100;
+        font-size: 14px; }
   #main #shortcut-list .shortcut-key-ctrl,
   #main #shortcut-list .shortcut-key-shift,
   #main #shortcut-list .shortcut-key-tab,
   #main #shortcut-list .shortcut-key-enter,
   #main #shortcut-list .shortcut-key-other {
     height: 16px;
-    width: 32px;
-    padding: 8px;
+    width: 30px;
+    padding: 4px 8px;
     display: inline-block;
     line-height: 16px;
     font-size: 12px;
-    font-weight: bold;
     text-align: center;
     color: #FFF; }
   #main #shortcut-list .shortcut-key-ctrl {
@@ -261,13 +263,17 @@ header {
     background: #e91e63; }
   #main #shortcut-list .shortcut-key-other {
     background: #607D8B; }
-  #main #shortcut-list .shortcut-key-description {
-    width: 85px;
+  #main #shortcut-list .shortcut-key-description,
+  #main #shortcut-list .shortcut-key-description-or {
+    width: 180px;
     text-align: left !important;
     padding-left: 15px;
-    color: #607D8B;
-    font-weight: 100;
     letter-spacing: 1.4; }
+  #main #shortcut-list .shortcut-key-description {
+    font-weight: 200 !important; }
+  #main #shortcut-list .shortcut-key-description-or {
+    font-weight: 100 !important;
+    color: #B0BEC5 !important; }
 
 /*スクロールバー全体*/
 ::-webkit-scrollbar {

@@ -7,6 +7,10 @@
 		<div id="muffin"
 			@keydown.tab.exact.prevent="moveDownSelector"
 			@keydown.shift.tab.prevent="moveUpSelector"
+			@keydown.shift.right.prevent="nextSearchType"
+			@keydown.shift.left.prevent="prevSearchType"
+			@keydown.shift.up.prevent="moveUpSelector"
+			@keydown.shift.down.prevent="moveDownSelector"
 			@keydown.ctrl.78.prevent="moveDownSelector"
 			@keydown.ctrl.80.prevent="moveUpSelector"
 			@keydown.ctrl.74.prevent="setNewSearchType(searchTypes.HISTORY)"
@@ -45,18 +49,30 @@
 					<div class="shortcut-group">
 						<table>
 							<tr>
+								<td><span class="shortcut-key-shift">Shift</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-other">→</span></td>
+								<td class="shortcut-key-description">Select next</td>
+							</tr>
+							<tr>
+								<td><span class="shortcut-key-shift">Shift</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-other">←</span></td>
+								<td class="shortcut-key-description">Select prev</td>
+							</tr>
+							<tr class="tr-half-height">
 								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
 								<td>+</td>
 								<td><span class="shortcut-key-other">j</span></td>
 								<td class="shortcut-key-description">History</td>
 							</tr>
-							<tr>
+							<tr class="tr-half-height">
 								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
 								<td>+</td>
 								<td><span class="shortcut-key-other">k</span></td>
 								<td class="shortcut-key-description">Bookmark</td>
 							</tr>
-							<tr>
+							<tr class="tr-half-height">
 								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
 								<td>+</td>
 								<td><span class="shortcut-key-other">l</span></td>
@@ -69,24 +85,36 @@
 					<div class="shortcut-group">
 						<table>
 							<tr>
-								<td></td>
-								<td></td>
-								<td><span class="shortcut-key-tab">Tab</span></td>
-								<td class="shortcut-key-description">Down</td>
-							</tr>
-							<tr>
 								<td><span class="shortcut-key-shift">Shift</span></td>
 								<td>+</td>
-								<td><span class="shortcut-key-tab">Tab</span></td>
-								<td class="shortcut-key-description">Up</td>
+								<td><span class="shortcut-key-other">↓</span></td>
+								<td class="shortcut-key-description-or">or</td>
 							</tr>
-							<tr>
+							<tr class="tr-half-height">
+								<td></td>
+								<td></td>
+								<td><span class="shortcut-key-tab">Tab</span></td>
+								<td class="shortcut-key-description-or">or</td>
+							</tr>
+							<tr class="tr-half-height">
 								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
 								<td>+</td>
 								<td><span class="shortcut-key-other">n</span></td>
 								<td class="shortcut-key-description">Down</td>
 							</tr>
 							<tr>
+								<td><span class="shortcut-key-shift">Shift</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-other">↑</span></td>
+								<td class="shortcut-key-description-or">or</td>
+							</tr>
+							<tr class="tr-half-height">
+								<td><span class="shortcut-key-shift">Shift</span></td>
+								<td>+</td>
+								<td><span class="shortcut-key-tab">Tab</span></td>
+								<td class="shortcut-key-description-or">or</td>
+							</tr>
+							<tr class="tr-half-height">
 								<td><span class="shortcut-key-ctrl">Ctrl</span></td>
 								<td>+</td>
 								<td><span class="shortcut-key-other">p</span></td>

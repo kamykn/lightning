@@ -281,7 +281,7 @@ header {
 	}
 
 	#shortcut-list {
-		padding: 10px 0;
+		padding: 5px 0;
 		color: #607d8b;
 
 		h2 {
@@ -300,8 +300,8 @@ header {
 			border: 1px solid #cfd8dc;
 			border-radius: 10px;
 			width: 315px;
-			margin: -7px auto 10px;
-			padding: 12px 10px 10px;
+			margin: -7px auto 8px;
+			padding: 12px 10px 8px;
 			box-shadow: 0 0 5px #ddd;
 
 			table {
@@ -310,6 +310,9 @@ header {
 
 				td {
 					text-align: center;
+					color: #607D8B;
+					font-weight: 100;
+					font-size: 14px;
 				}
 			}
 		}
@@ -320,12 +323,11 @@ header {
 		.shortcut-key-enter,
 		.shortcut-key-other {
 			height: 16px;
-			width: 32px;
-			padding: 8px;
+			width: 30px;
+			padding: 4px 8px;
 			display: inline-block;
 			line-height: 16px;
 			font-size: 12px;
-			font-weight: bold;
 			text-align: center;
 			color: #FFF;
 		}
@@ -350,13 +352,21 @@ header {
 			background: #607D8B;
 		}
 
-		.shortcut-key-description {
-			width: 85px;
+		.shortcut-key-description,
+		.shortcut-key-description-or {
+			width: 180px;
 			text-align: left !important;
 			padding-left: 15px;
-			color: #607D8B;
-			font-weight: 100;
 			letter-spacing: 1.4;
+		}
+
+		.shortcut-key-description {
+			font-weight: 200!important;
+		}
+
+		.shortcut-key-description-or {
+			font-weight: 100!important;
+			color: #B0BEC5 !important;
 		}
 	}
 }
