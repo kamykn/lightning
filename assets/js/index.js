@@ -25,6 +25,7 @@ let vm = new Vue({
 			TABS:      3
 		},
 		listCache: {},
+		hitLengthCache: {},
 		searchCache: {},
 		isShortcutVisible: false,
 		maxSearchWordListLen: 10000,
@@ -92,7 +93,7 @@ let vm = new Vue({
 				const results = await this.search(this.inputString, nextSearchType)
 				this.results = this.setSearchResultsToData(results)
 				this.setSearchType(nextSearchType)
-				this.hitLength = this.listCache[this.currentSearchType].length
+				this.hitLength = this.getHitLength(this.inputString, nextSearchType)
 				this.scrollIntoView()
 			})()
 		},
@@ -105,17 +106,20 @@ let vm = new Vue({
 			}
 
 			// 検索
-			let results = await Muff.search(inputString)
-			this.hitLength = await Muff.getHitLength()
+			const results = await Muff.search(inputString)
+			const hitLength = await Muff.getHitLength()
 
 			if (typeof this.searchCache[inputString] == 'undefined') {
 				// キャッシュはsearchTypeにつき1つのみ生成される
 				this.searchCache[inputString] = {}
+				this.hitLengthCache[inputString] = {};
+
 				// 新たに入力した場合は結果表示優先する
 				this.isShortcutVisible = false
 			}
 
 			this.searchCache[inputString][nextSearchType] = results
+			this.hitLengthCache[inputString][nextSearchType] = hitLength
 			return Promise.resolve(results)
 		},
 		setSearchResultsToData(results) {
@@ -125,6 +129,20 @@ let vm = new Vue({
 			}
 
 			return results
+		},
+		getHitLength(inputString, nextSearchType) {
+			if (inputString === '') {
+				// 入力がない場合、全体の長さを返却
+				return this.listCache[this.currentSearchType].length
+			}
+
+			if (typeof this.hitLengthCache[inputString] != undefined &&
+				typeof this.hitLengthCache[inputString][nextSearchType] != undefined
+			) {
+				return this.hitLengthCache[inputString][nextSearchType]
+			}
+
+			return 0
 		},
 		changeToHistorySearch() {
 			return new Promise(async (resolve) => {
@@ -332,7 +350,11 @@ let vm = new Vue({
 			results: this.$watchAsObservable('inputString').pipe(
 				pluck('newValue'),
 				// debounceTime(500),
-				switchMap(text => this.search(text, this.currentSearchType)),
+				switchMap(async (text) => {
+					let result = await this.search(text, this.currentSearchType)
+					this.hitLength = this.getHitLength(text, this.currentSearchType)
+					return result
+				}),
 				map(this.setSearchResultsToData)
 			)
 		}

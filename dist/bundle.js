@@ -130,6 +130,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       TABS: 3
     },
     listCache: {},
+    hitLengthCache: {},
     searchCache: {},
     isShortcutVisible: false,
     maxSearchWordListLen: 10000
@@ -206,7 +207,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
         const results = await this.search(this.inputString, nextSearchType);
         this.results = this.setSearchResultsToData(results);
         this.setSearchType(nextSearchType);
-        this.hitLength = this.listCache[this.currentSearchType].length;
+        this.hitLength = this.getHitLength(this.inputString, nextSearchType);
         this.scrollIntoView();
       })();
     },
@@ -218,17 +219,19 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       } // 検索
 
 
-      let results = await Muff.search(inputString);
-      this.hitLength = await Muff.getHitLength();
+      const results = await Muff.search(inputString);
+      const hitLength = await Muff.getHitLength();
 
       if (typeof this.searchCache[inputString] == 'undefined') {
         // キャッシュはsearchTypeにつき1つのみ生成される
-        this.searchCache[inputString] = {}; // 新たに入力した場合は結果表示優先する
+        this.searchCache[inputString] = {};
+        this.hitLengthCache[inputString] = {}; // 新たに入力した場合は結果表示優先する
 
         this.isShortcutVisible = false;
       }
 
       this.searchCache[inputString][nextSearchType] = results;
+      this.hitLengthCache[inputString][nextSearchType] = hitLength;
       return Promise.resolve(results);
     },
 
@@ -239,6 +242,19 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       }
 
       return results;
+    },
+
+    getHitLength(inputString, nextSearchType) {
+      if (inputString === '') {
+        // 入力がない場合、全体の長さを返却
+        return this.listCache[this.currentSearchType].length;
+      }
+
+      if (typeof this.hitLengthCache[inputString] != undefined && typeof this.hitLengthCache[inputString][nextSearchType] != undefined) {
+        return this.hitLengthCache[inputString][nextSearchType];
+      }
+
+      return 0;
     },
 
     changeToHistorySearch() {
@@ -465,7 +481,11 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
   subscriptions() {
     return {
       results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pluck"])('newValue'), // debounceTime(500),
-      Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(text => this.search(text, this.currentSearchType)), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(this.setSearchResultsToData))
+      Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(async text => {
+        let result = await this.search(text, this.currentSearchType);
+        this.hitLength = this.getHitLength(text, this.currentSearchType);
+        return result;
+      }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(this.setSearchResultsToData))
     };
   },
 
@@ -35016,7 +35036,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "0.bundle.worker.js"
+module.exports = __webpack_require__.p + "3.bundle.worker.js"
 
 /***/ })
 
