@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Muffin",
-  "short_name": "Muffin",
+  "name": "Lightning (History Search)",
+  "short_name": "Lightning",
   "version": "0.0.1",
   "description": "タブ、履歴、ブックマークのWebAssemblyによる高速なあいまい検索",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
