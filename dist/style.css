@@ -4,7 +4,8 @@ body, html {
   margin: 0;
   padding: 0;
   width: 360px;
-  background: #F7F7F7; }
+  background: #F7F7F7;
+  font-family: 'Helvetica','Arial','Hiragino Sans','\30D2\30E9\30AE\30CE\89D2\30B4\30B7\30C3\30AF',YuGothic,'Yu Gothic','\30E1\30A4\30EA\30AA', Meiryo,'\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF','MS PGothic'; }
 
 #muffin {
   outline: none;
@@ -204,7 +205,7 @@ header {
     #main #info-bar #shortcuts .icon {
       height: 15px;
       width: 15px;
-      padding: 1px 5px 0 0; }
+      padding: 0 5px 0 0; }
     #main #info-bar #shortcuts .text {
       font-weight: 100;
       letter-spacing: 1.4; }
