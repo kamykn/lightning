@@ -349,7 +349,7 @@ let vm = new Vue({
 		return {
 			results: this.$watchAsObservable('inputString').pipe(
 				pluck('newValue'),
-				// debounceTime(500),
+				debounceTime(500),
 				switchMap(async (text) => {
 					let result = await this.search(text, this.currentSearchType)
 					this.hitLength = this.getHitLength(text, this.currentSearchType)

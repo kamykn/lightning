@@ -480,8 +480,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
   subscriptions() {
     return {
-      results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pluck"])('newValue'), // debounceTime(500),
-      Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(async text => {
+      results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(async text => {
         let result = await this.search(text, this.currentSearchType);
         this.hitLength = this.getHitLength(text, this.currentSearchType);
         return result;
