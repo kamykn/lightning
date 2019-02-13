@@ -494,7 +494,6 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       return new Promise(resolve => {
         this.doLazyTimeoutId = setTimeout(async () => {
           result = await this.doLazy(callbackFn);
-          console.log(result);
           resolve(result);
         }, 100);
       });
@@ -507,7 +506,6 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pluck"])('newValue'), // debounceTime(500),
       Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(text => {
         let result = this.doLazy(async () => {
-          console.log(text);
           let result = await this.search(text, this.currentSearchType);
           this.hitLength = this.getHitLength(text, this.currentSearchType);
           return Promise.resolve(result);
@@ -35064,7 +35062,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "3.bundle.worker.js"
+module.exports = __webpack_require__.p + "0.bundle.worker.js"
 
 /***/ })
 

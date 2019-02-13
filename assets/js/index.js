@@ -363,7 +363,6 @@ let vm = new Vue({
 			return new Promise((resolve) => {
 				this.doLazyTimeoutId = setTimeout(async () => {
 					result = await this.doLazy(callbackFn)
-					console.log(result)
 					resolve(result)
 				}, 100)
 			})
@@ -376,7 +375,6 @@ let vm = new Vue({
 				// debounceTime(500),
 				switchMap((text) => {
 					let result = this.doLazy(async () => {
-						console.log(text)
 						let result = await this.search(text, this.currentSearchType)
 						this.hitLength = this.getHitLength(text, this.currentSearchType)
 						return Promise.resolve(result)
