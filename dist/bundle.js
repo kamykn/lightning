@@ -483,9 +483,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
         // 実行
         this.isProcessing = true;
         const result = callbackFn();
-        setTimeout(async () => {
-          this.isProcessing = false;
-        }, 500);
+        this.isProcessing = false;
         return Promise.resolve(result);
       } // 前にdoLazyの処理待ちがあったら切る
 
@@ -35066,7 +35064,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "3.bundle.worker.js"
+module.exports = __webpack_require__.p + "0.bundle.worker.js"
 
 /***/ })
 

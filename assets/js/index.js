@@ -351,9 +351,7 @@ let vm = new Vue({
 				// 実行
 				this.isProcessing = true
 				const result = callbackFn()
-setTimeout(async () => {
 				this.isProcessing = false
-			}, 500)
 				return Promise.resolve(result)
 			}
 
