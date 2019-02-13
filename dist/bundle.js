@@ -482,7 +482,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
       if (!this.isProcessing) {
         // 実行
         this.isProcessing = true;
-        const result = callbackFn();
+        const result = await callbackFn();
         this.isProcessing = false;
         return Promise.resolve(result);
       } // 前にdoLazyの処理待ちがあったら切る
@@ -510,7 +510,7 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
           console.log(text);
           let result = await this.search(text, this.currentSearchType);
           this.hitLength = this.getHitLength(text, this.currentSearchType);
-          return result;
+          return Promise.resolve(result);
         });
         return result;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(this.setSearchResultsToData))
@@ -35064,7 +35064,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "0.bundle.worker.js"
+module.exports = __webpack_require__.p + "3.bundle.worker.js"
 
 /***/ })
 

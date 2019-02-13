@@ -350,7 +350,7 @@ let vm = new Vue({
 			if (!this.isProcessing) {
 				// 実行
 				this.isProcessing = true
-				const result = callbackFn()
+				const result = await callbackFn()
 				this.isProcessing = false
 				return Promise.resolve(result)
 			}
@@ -379,7 +379,7 @@ let vm = new Vue({
 						console.log(text)
 						let result = await this.search(text, this.currentSearchType)
 						this.hitLength = this.getHitLength(text, this.currentSearchType)
-						return result
+						return Promise.resolve(result)
 					})
 
 					return result
