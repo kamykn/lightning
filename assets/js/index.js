@@ -28,6 +28,8 @@ let vm = new Vue({
 		hitLengthCache: {},
 		searchCache: {},
 		isShortcutVisible: false,
+		isProcessing: false,
+		doLazyTimeoutId: null,
 		maxSearchWordListLen: 10000,
 	},
 	filters: {
@@ -343,16 +345,45 @@ let vm = new Vue({
 		},
 		toggleShortcutVisible() {
 			this.isShortcutVisible = !this.isShortcutVisible
+		},
+		async doLazy(callbackFn) {
+			if (!this.isProcessing) {
+				// 実行
+				this.isProcessing = true
+				const result = callbackFn()
+setTimeout(async () => {
+				this.isProcessing = false
+			}, 500)
+				return Promise.resolve(result)
+			}
+
+			// 前にdoLazyの処理待ちがあったら切る
+			clearTimeout(this.doLazyTimeoutId)
+
+			// 前のwasmの処理を待つ
+			let result = null
+			return new Promise((resolve) => {
+				this.doLazyTimeoutId = setTimeout(async () => {
+					result = await this.doLazy(callbackFn)
+					console.log(result)
+					resolve(result)
+				}, 100)
+			})
 		}
 	},
 	subscriptions() {
 		return {
 			results: this.$watchAsObservable('inputString').pipe(
 				pluck('newValue'),
-				debounceTime(500),
-				switchMap(async (text) => {
-					let result = await this.search(text, this.currentSearchType)
-					this.hitLength = this.getHitLength(text, this.currentSearchType)
+				// debounceTime(500),
+				switchMap((text) => {
+					let result = this.doLazy(async () => {
+						console.log(text)
+						let result = await this.search(text, this.currentSearchType)
+						this.hitLength = this.getHitLength(text, this.currentSearchType)
+						return result
+					})
+
 					return result
 				}),
 				map(this.setSearchResultsToData)

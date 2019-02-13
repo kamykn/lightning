@@ -133,6 +133,8 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
     hitLengthCache: {},
     searchCache: {},
     isShortcutVisible: false,
+    isProcessing: false,
+    doLazyTimeoutId: null,
     maxSearchWordListLen: 10000
   },
   filters: {
@@ -474,15 +476,44 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
     toggleShortcutVisible() {
       this.isShortcutVisible = !this.isShortcutVisible;
+    },
+
+    async doLazy(callbackFn) {
+      if (!this.isProcessing) {
+        // 実行
+        this.isProcessing = true;
+        const result = callbackFn();
+        setTimeout(async () => {
+          this.isProcessing = false;
+        }, 500);
+        return Promise.resolve(result);
+      } // 前にdoLazyの処理待ちがあったら切る
+
+
+      clearTimeout(this.doLazyTimeoutId); // 前のwasmの処理を待つ
+
+      let result = null;
+      return new Promise(resolve => {
+        this.doLazyTimeoutId = setTimeout(async () => {
+          result = await this.doLazy(callbackFn);
+          console.log(result);
+          resolve(result);
+        }, 100);
+      });
     }
 
   },
 
   subscriptions() {
     return {
-      results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pluck"])('newValue'), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["debounceTime"])(500), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(async text => {
-        let result = await this.search(text, this.currentSearchType);
-        this.hitLength = this.getHitLength(text, this.currentSearchType);
+      results: this.$watchAsObservable('inputString').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pluck"])('newValue'), // debounceTime(500),
+      Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(text => {
+        let result = this.doLazy(async () => {
+          console.log(text);
+          let result = await this.search(text, this.currentSearchType);
+          this.hitLength = this.getHitLength(text, this.currentSearchType);
+          return result;
+        });
         return result;
       }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(this.setSearchResultsToData))
     };
@@ -35035,7 +35066,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "0.bundle.worker.js"
+module.exports = __webpack_require__.p + "3.bundle.worker.js"
 
 /***/ })
 
