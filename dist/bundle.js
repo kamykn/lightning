@@ -207,8 +207,8 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
         }
 
         const results = await this.search(this.inputString, nextSearchType);
-        this.results = this.setSearchResultsToData(results);
         this.setSearchType(nextSearchType);
+        this.results = this.setSearchResultsToData(results);
         this.hitLength = this.getHitLength(this.inputString, nextSearchType);
         this.scrollIntoView();
       })();
@@ -240,10 +240,34 @@ let vm = new vue_dist_vue_esm_js__WEBPACK_IMPORTED_MODULE_0__["default"]({
     setSearchResultsToData(results) {
       // リストの選択中の位置を調整
       if (Array.isArray(results)) {
+        if (results.length == 0 && this.inputString == '') {
+          results = this.getCurrentSearchResultList();
+        }
+
         this.currentSelected = Math.min(this.currentSelected, results.length - 1);
       }
 
       return results;
+    },
+
+    getCurrentSearchResultList() {
+      const searchList = this.listCache[this.currentSearchType].slice(0, 30);
+      let resultList = [];
+
+      if (Array.isArray(searchList)) {
+        searchList.forEach((value, index) => {
+          let result = {};
+          let wordMap = {};
+          wordMap['title'] = value.title;
+          wordMap['url'] = value.url;
+          wordMap['_index'] = value._index;
+          result['matches'] = wordMap;
+          result['highlighteds'] = wordMap;
+          resultList.push(result);
+        });
+      }
+
+      return resultList;
     },
 
     getHitLength(inputString, nextSearchType) {
@@ -35062,7 +35086,7 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "0.bundle.worker.js"
+module.exports = __webpack_require__.p + "3.bundle.worker.js"
 
 /***/ })
 
