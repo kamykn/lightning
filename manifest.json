@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Lightning (History, tabs and bookmarks quick search)",
+  "name": "Lightning (Quick search for history and more)",
   "short_name": "Lightning",
   "version": "1.0.0",
-  "description": "Quick search for history, tabs and bookmarks (powered by WebAssembly).",
+  "description": "Quick and fuzzy search for history, bookmarks and tabs (powered by WebAssembly).",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "icons": {
     "16": "images/icon16.png",
