@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Lightning (History Search)",
+  "name": "Lightning (History, tabs and bookmarks quick search)",
   "short_name": "Lightning",
-  "version": "0.0.1",
-  "description": "タブ、履歴、ブックマークのWebAssemblyによる高速なあいまい検索",
+  "version": "1.0.0",
+  "description": "Quick search for history, tabs and bookmarks (powered by WebAssembly).",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "icons": {
     "16": "images/icon16.png",
@@ -14,7 +14,7 @@
     "default_icon": {
 	  "19": "images/icon19.png"
 	},
-	"default_title": "Muffin",
+	"default_title": "Lightning",
 	"default_popup": "popup.html"
   },
   "permissions": [
@@ -23,5 +23,5 @@
 	"history",
 	"chrome://favicon/"
   ],
-  "homepage_url": "http://github.com/kamykn/muffin"
+  "homepage_url": "http://github.com/kamykn/lightning"
 }
