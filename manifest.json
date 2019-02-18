@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Lightning (Quick search for history and more)",
+  "name": "Lightning (History, tab and bookmark search)",
   "short_name": "Lightning",
   "version": "1.0.0",
   "description": "Quick and fuzzy search for history, bookmarks and tabs (powered by WebAssembly).",
