@@ -18,6 +18,7 @@ let vm = new Vue({
 		currentSelected: -1, // 結果配列のindexなので選択されていない状態は-1とする
 		currentSearchType: -1,
 		returnListLength: 30,
+		maxHistorySearchDay: 365,
 		hitLength: 0,
 		searchTypes: {
 			HISTORY:   1,
@@ -149,7 +150,7 @@ let vm = new Vue({
 		changeToHistorySearch() {
 			return new Promise(async (resolve) => {
 				// 1年分
-				const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * 365)
+				const startTime = new Date().getTime() - (1000 * 60 * 60 * 24 * this.maxHistorySearchDay)
 				const query = {
 					text: '',
 					startTime: startTime,
@@ -269,7 +270,7 @@ let vm = new Vue({
 			this.currentSelected = -1
 		},
 		moveUpSelector(event) {
-			if (this.currentSelected == 0) {
+			if (this.currentSelected <= 0) {
 				// 一番下へ
 				this.currentSelected = this.results.length - 1
 			} else {
@@ -290,7 +291,17 @@ let vm = new Vue({
 		},
 		scrollIntoView() {
 			this.$nextTick(() => {
-				const selectedLi = document.getElementsByClassName('current-selected')[0]
+				let selectedLi = null
+
+				if (this.currentSelected == this.results.length - 1 &&
+					this.currentSelected == this.returnListLength - 1
+				) {
+					// 一番下の場合、リミット文言までスクロールする
+					selectedLi = document.getElementById('info-display-limit')
+				} else {
+					selectedLi = document.getElementsByClassName('current-selected')[0]
+				}
+
 				if (typeof selectedLi != 'undefined') {
 					selectedLi.scrollIntoView({behavior: "instant", block: "nearest"})
 				}

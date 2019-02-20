@@ -217,6 +217,12 @@
 							</li>
 						</template>
 					</template>
+					<li v-if="hitLength > returnListLength" id="info-display-limit">
+						<div class="current-select-marker"></div>
+						<span class="text">
+							<span class="icon">⚠ </span>Up to <b>{{returnListLength}}</b> lists will be displayed
+						</span>
+					</li>
 				</ul>
 
 				<div v-else id="logo">
@@ -225,11 +231,18 @@
 
 				<div id="info-bar">
 					<div id="shortcuts" @click="toggleShortcutVisible">
-						<img class="icon" src="./images/shortcut_icon.png">
-						<span class="text">Shortcuts</span>
+						<span class="text">
+							<template v-if="isShortcutVisible">
+								◀ Back
+							</template>
+							<template v-else>
+								<img class="icon" src="./images/shortcut_icon.png">Shortcut
+							</template>
+						</span>
 					</div>
+
 					<div v-cloak v-if="results" id="result-count">
-						{{ results.length }} / {{ hitLength }}
+						{{ hitLength }} / {{ listCache[this.currentSearchType].length }}
 					</div>
 				</div>
 			</div>

@@ -33,6 +33,7 @@ header {
 		background: -moz-linear-gradient(-45deg, #2192f3 0%, #29a4de 100%); /* FF3.6-15 */
 		background: -webkit-linear-gradient(-45deg, #2192f3 0%,#29a4de 100%); /* Chrome10-25,Safari5.1-6 */
 		background: linear-gradient(135deg, #2192f3 0%,#29a4de 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		box-shadow: 0 0 3px #90A4AE;
 
 		#menu-clickable-wrap {
 			margin:  0 10px;
@@ -79,6 +80,7 @@ header {
 				-o-transition:      0.3s cubic-bezier(0.18, 0.89, 0.27, 1.13);
 				-ms-transition:     0.3s cubic-bezier(0.18, 0.89, 0.27, 1.13);
 				background: #f7f7f7;
+				box-shadow: 0 0 3px #888;
 				border-radius: 50%;
 				border: 3px solid #b0bec5;
 			}
@@ -117,6 +119,7 @@ header {
 		overflow-x: hidden;
 		border-bottom: 1px solid #D9E2E6;
 		border-top: 1px solid #D9E2E6;
+		box-shadow: 0 0 3px #DDD inset;
 
 		li {
 			list-style: none;
@@ -167,7 +170,26 @@ header {
 						top: 50%;
 						-webkit-transform: translateY(-50%) translateX(0%);
 						transform: translateY(-50%) translateX(0%);
+						box-shadow: 0px 0px 3px #BDBDBD;;
 					}
+				}
+			}
+
+			&#info-display-limit {
+				text-align: center;
+				color: #607d8b;
+
+				.text {
+					margin: 4px;
+					display: inline-block;
+				}
+
+				.icon {
+					margin-right: 3px;
+				}
+
+				b {
+					color: #2196F3;
 				}
 			}
 
@@ -245,10 +267,13 @@ header {
 
 	#info-bar {
 		position: absolute;
-		bottom: 5px;
+		bottom: 2px;
 		color: #90A4AE;
+		line-height: 12px;
+		font-weight: 100;
+		font-size: 10px;
+		letter-spacing: 1.4;
 		padding: 0 5px;
-		float: left;
 		width: 100%;
 		box-sizing: border-box;
 
@@ -258,27 +283,33 @@ header {
 			float: left;
 			display: inline-flex;
 
-			&:hover {
-				cursor: pointer;
-				text-decoration: underline;
-			}
-
-			.icon {
-				height: 15px;
-				width: 15px;
-				padding: 0 5px 0 0;
-				opacity: 0.7;
-			}
-
 			.text {
-				font-weight: 100;
-				letter-spacing: 1.4;
+				height: 12px;
+				padding: 2px;
+				border-radius: 4px;
+				display: inline-flex;
+				background: #FFF;
+				border: 1px solid #eee;
+
+				.icon {
+					height: 13px;
+					width: 14px;
+					padding: 0 5px 0 1px;
+					opacity: 0.7;
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
 			}
 		}
 
 		#result-count {
 			display: inline-block;
 			float: right;
+			height: 12px;
+			padding: 2px;
+			border-radius: 4px;
 		}
 	}
 
