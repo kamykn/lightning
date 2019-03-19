@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.esm.js'
 import VueRx from 'vue-rx'
+import striptags from 'striptags'
 import { from } from 'rxjs';
 import { pluck, debounceTime, switchMap, map } from 'rxjs/operators'
 import '@babel/polyfill'
@@ -102,7 +103,7 @@ let vm = new Vue({
 		},
 		async search(inputString, nextSearchType) {
 			// キャッシュが残っていれば返却
-			if (typeof this.searchCache[inputString] != 'undefined' && 
+			if (typeof this.searchCache[inputString] != 'undefined' &&
 				typeof this.searchCache[inputString][nextSearchType] != 'undefined'
 			) {
 				return Promise.resolve(this.searchCache[inputString][nextSearchType])
@@ -340,19 +341,10 @@ let vm = new Vue({
 		},
 		escapeHtml(string) {
 			if(typeof string !== 'string') {
-				return string;
+				return '';
 			}
 
-			return string.replace(/[&'`"<>]/g, (match) => {
-				return {
-					'&': '&amp;',
-					"'": '&#x27;',
-					'`': '&#x60;',
-					'"': '&quot;',
-					'<': '&lt;',
-					'>': '&gt;',
-				}[match]
-			});
+			return striptags(string);
 		},
 		toggleShortcutVisible() {
 			this.isShortcutVisible = !this.isShortcutVisible
